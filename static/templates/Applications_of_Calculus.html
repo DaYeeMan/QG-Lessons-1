@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ topic }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson_page.css') }}">
+  <script>
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+    });
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+  <div class="blockcontent">
+    <h1>{{ topic }}</h1>
+    <div class="panel">
+      <h2>A Survey in Applied Calculus</h2>
+      <br>
+    
+      <p>
+        Calculus is a powerful mathematical tool that plays a central role in solving real-world problems across a wide range of disciplines. From optimizing systems to modeling physical phenomena, calculus enables us to understand and predict the behavior of complex systems. In fields such as optimization, probability, physics, and finance, calculus is essential for formulating and solving problems that involve rates of change, accumulation, and variation.
+      </p>
+      <br>
+    
+      <h3>1. Optimization: Maximizing and Minimizing Functions</h3>
+      <br>
+    
+      <p>
+        Optimization is one of the most significant applications of calculus. In various fields, we need to find the maximum or minimum values of functions, which often represent cost, profit, distance, or other quantities. These optimization problems are typically solved by finding the critical points of a function, where its derivative is zero (or undefined), and then determining whether those points correspond to maxima, minima, or saddle points.
+      </p>
+      <br>
+    
+      <p>
+        For example, in economics, a firm may seek to maximize profit or minimize costs. The first step is to formulate the problem as a function of the relevant variables, then use the first and second derivative tests to find the optimal values of those variables.
+      </p>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Maximizing profit:</strong> A company can use calculus to determine the optimal production level that maximizes profit by differentiating the profit function with respect to quantity and finding the critical points.</li>
+        <br>
+        <li><strong>Minimizing cost:</strong> Similarly, calculus helps determine the most cost-effective way to manufacture products by finding the point where the cost function is minimized.</li>
+      </ul>
+      <br>
+    
+      <h3>2. Probability and Statistics: Probability Distributions and Expected Value</h3>
+      <br>
+    
+      <p>
+        In probability theory, calculus is used to define and calculate probability distributions, expected values, and variances. For continuous random variables, probability density functions (PDFs) and cumulative distribution functions (CDFs) are typically defined using integrals. Calculus helps compute the expected value (mean) and variance of random variables, which are key in analyzing data and making predictions.
+      </p>
+      <br>
+    
+      <p>
+        For example, the expected value \( E(X) \) of a continuous random variable \( X \) with probability density function \( f(x) \) is given by the integral:
+      </p>
+      <br>
+    
+      \[
+      E(X) = \int_{-\infty}^{\infty} x \cdot f(x) \, dx
+      \]
+      <br>
+    
+      <p>
+        Similarly, variance is calculated using the integral of the squared difference between the random variable and its mean:
+      </p>
+      <br>
+    
+      \[
+      \text{Var}(X) = E[(X - E(X))^2] = \int_{-\infty}^{\infty} (x - E(X))^2 \cdot f(x) \, dx
+      \]
+      </p>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Continuous probability distributions:</strong> Calculus is used to define continuous probability distributions such as the normal, exponential, and beta distributions, and to calculate probabilities associated with these distributions.</li>
+        <br>
+        <li><strong>Expected value and variance:</strong> Calculus is used to compute expected values and variances of continuous random variables, which are fundamental for understanding statistical data and making decisions based on probabilities.</li>
+      </ul>
+      <br>
+    
+      <h3>3. Physics: Motion, Energy, and Field Theory</h3>
+      <br>
+    
+      <p>
+        Calculus is indispensable in physics for understanding and modeling motion, forces, energy, and the behavior of physical systems. The concepts of velocity, acceleration, work, and energy are all grounded in calculus. For instance, velocity is the derivative of position with respect to time, and acceleration is the derivative of velocity.
+      </p>
+      <br>
+    
+      <p>
+        Some key applications of calculus in physics include:
+      </p>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Newton's laws of motion:</strong> These fundamental laws of classical mechanics involve derivatives. For example, acceleration is the second derivative of position with respect to time, and force is the derivative of momentum with respect to time.</li>
+        <br>
+        <li><strong>Energy and work:</strong> The work done by a force is given by the integral of the force over the distance traveled, \( W = \int F(x) \, dx \), where \( F(x) \) is the force applied and \( x \) is the distance.</li>
+        <br>
+        <li><strong>Electromagnetic fields:</strong> In electromagnetism, Maxwell's equations involve calculus, with partial derivatives used to describe how electric and magnetic fields change in space and time.</li>
+      </ul>
+      <br>
+    
+      <h3>4. Quantitative Finance: Option Pricing and Risk Management</h3>
+      <br>
+    
+      <p>
+        In quantitative finance, calculus is used extensively in modeling and pricing financial derivatives, optimizing portfolios, and managing risks. One of the most famous applications of calculus in finance is the Black-Scholes model, which is used to calculate the price of options.
+      </p>
+      <br>
+    
+      <p>
+        The Black-Scholes formula involves partial differential equations (PDEs), which are solved using advanced techniques in calculus. The formula for a European call option price is:
+      </p>
+      <br>
+    
+      \[
+      C = S_0 N(d_1) - X e^{-rT} N(d_2)
+      \]
+      <br>
+    
+      Where:
+      - \( C \) is the call option price,
+      - \( S_0 \) is the current stock price,
+      - \( X \) is the strike price,
+      - \( r \) is the risk-free rate,
+      - \( T \) is the time to maturity,
+      - \( N(d_1) \) and \( N(d_2) \) are values from the standard normal distribution.
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Option pricing:</strong> Calculus is used to derive formulas like the Black-Scholes model for pricing options, which involves solving PDEs to determine the optimal price of financial derivatives.</li>
+        <br>
+        <li><strong>Portfolio optimization:</strong> Calculus helps optimize investment portfolios by maximizing returns and minimizing risk, often using techniques such as the efficient frontier and the capital asset pricing model (CAPM).</li>
+        <br>
+        <li><strong>Risk management:</strong> Calculus is used to model and manage financial risk, particularly in the calculation of value-at-risk (VaR) and the pricing of derivatives like futures and options.</li>
+      </ul>
+      <br>
+    
+      <h3>Key Takeaways</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Optimization:</strong> Calculus is crucial for solving optimization problems across various fields, from economics and engineering to logistics and operations research.</li>
+        <br>
+        <li><strong>Probability and Statistics:</strong> Integral and differential calculus are fundamental in calculating expected values, variances, and other statistical measures for continuous random variables.</li>
+        <br>
+        <li><strong>Physics:</strong> Calculus provides the framework for modeling the behavior of physical systems, including motion, forces, and energy.</li>
+        <br>
+        <li><strong>Finance:</strong> In quantitative finance, calculus is essential for modeling the pricing of options, portfolio optimization, and risk management.</li>
+      </ul>
+      <br>
+    
+      <p style="text-align: center;">
+        Mastery of calculus provides the tools to model and solve problems in a wide range of disciplines, enabling precise analysis and decision-making in optimization, probability, physics, finance, and many other fields.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Optimization: Finding Local and Global Extrema</h2>
+      <br>
+    
+      <p>
+        Optimization is the process of finding the maximum or minimum values of a function. These extreme values are important in many fields, such as economics, engineering, and science, where we need to maximize efficiency, profit, or minimize cost, energy, or distance. In calculus, optimization involves finding the critical points of a function, checking for local extrema, and determining whether those points are local or global extrema.
+      </p>
+      <br>
+    
+      <h3>1. Finding Critical Points</h3>
+      <br>
+    
+      <p>
+        To find the extrema of a function \( f(x) \), we follow a systematic approach:
+      </p>
+      <br>
+    
+      <ol style="padding-left: 20px;">
+        <li><strong>First Derivative Test:</strong> Compute the derivative \( f'(x) \) and set it equal to zero to find the critical points. These are the points where the slope of the function is zero (horizontal tangent lines).</li>
+        <br>
+        <li><strong>Critical Points:</strong> Solve the equation \( f'(x) = 0 \) to find the values of \( x \) where the function may have local maxima, minima, or saddle points.</li>
+        <br>
+        <li><strong>Endpoints:</strong> If the domain is restricted, also check the function’s behavior at the endpoints of the interval, as they could potentially be global extrema.</li>
+      </ol>
+      <br>
+    
+      <p>
+        After finding the critical points, we need to classify them and determine whether they correspond to local maxima, local minima, or neither.
+      </p>
+      <br>
+    
+      <h3>2. Checking Concavity: Second Derivative Test</h3>
+      <br>
+    
+      <p>
+        To classify the critical points, we use the second derivative test:
+      </p>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Concave Up:</strong> If \( f''(x) > 0 \) at a critical point, the function is concave up at that point, and it corresponds to a local minimum.</li>
+        <br>
+        <li><strong>Concave Down:</strong> If \( f''(x) < 0 \) at a critical point, the function is concave down, and the point corresponds to a local maximum.</li>
+        <br>
+        <li><strong>Inconclusive:</strong> If \( f''(x) = 0 \), the second derivative test is inconclusive, and further investigation is needed (e.g., using the first derivative test or analyzing the function’s graph).</li>
+      </ul>
+      <br>
+    
+      <h3>3. Local vs. Global Extrema</h3>
+      <br>
+    
+      <p>
+        A local extremum is a point where the function reaches a maximum or minimum within a small neighborhood, but not necessarily over the entire domain. A global extremum is the overall highest or lowest point of the function over its entire domain.
+      </p>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Local Maximum:</strong> A point \( x = c \) is a local maximum if there exists some interval around \( c \) where \( f(c) \geq f(x) \) for all \( x \) in that interval.</li>
+        <br>
+        <li><strong>Local Minimum:</strong> A point \( x = c \) is a local minimum if there exists some interval around \( c \) where \( f(c) \leq f(x) \) for all \( x \) in that interval.</li>
+        <br>
+        <li><strong>Global Extrema:</strong> A point is a global maximum or minimum if it is the highest or lowest point on the entire function’s graph.</li>
+      </ul>
+      <br>
+    
+      <h3>4. Example: Maximizing Profit</h3>
+      <br>
+    
+      <p>
+        Let’s consider an example where we want to maximize the profit of a company based on the number of units produced. Suppose the profit function is given by:
+      </p>
+      <br>
+    
+      \[
+      P(x) = -2x^2 + 8x + 20
+      \]
+      where \( P(x) \) represents the profit in thousands of dollars, and \( x \) is the number of units produced.
+      <br>
+    
+      <p>
+        Step 1: Find the first derivative to locate the critical points:
+      </p>
+      <br>
+    
+      \[
+      P'(x) = -4x + 8
+      \]
+      Set \( P'(x) = 0 \) to find the critical point:
+      \[
+      -4x + 8 = 0 \quad \Rightarrow \quad x = 2
+      \]
+      <br>
+    
+      <p>
+        Step 2: Use the second derivative test to classify the critical point:
+      </p>
+      <br>
+    
+      \[
+      P''(x) = -4
+      \]
+      Since \( P''(x) = -4 < 0 \), the function is concave down at \( x = 2 \), which means \( x = 2 \) is a local maximum.
+      <br>
+    
+      <p>
+        Step 3: Check the value of the function at \( x = 2 \):
+      </p>
+      <br>
+    
+      \[
+      P(2) = -2(2)^2 + 8(2) + 20 = -8 + 16 + 20 = 28
+      \]
+      <br>
+    
+      <p>
+        Therefore, the maximum profit is \$28,000, which occurs when the company produces 2 units.
+      </p>
+      <br>
+    
+      <h3>Key Takeaways</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Critical points:</strong> These are found by setting the first derivative equal to zero and solving for \( x \). Critical points may correspond to local maxima, minima, or saddle points.</li>
+        <br>
+        <li><strong>Second derivative test:</strong> Use the second derivative to classify critical points as local maxima, minima, or saddle points based on whether the function is concave up or down.</li>
+        <br>
+        <li><strong>Local vs. global extrema:</strong> Local extrema refer to maximum or minimum points within a specific interval, while global extrema represent the highest or lowest values over the entire domain.</li>
+        <br>
+        <li><strong>Optimization problems:</strong> Calculus is key to solving optimization problems in economics, engineering, and other fields by helping find maximum or minimum values of functions.</li>
+      </ul>
+      <br>
+    
+      <p>
+        Optimization allows us to make informed decisions by finding the best possible solution, whether it's maximizing profits, minimizing costs, or optimizing efficiency. Calculus provides the tools to analyze and solve these problems effectively.
+      </p>
+    </div>
+    
+    <div class="panel">
+      <h2>Applications of Calculus in Probability</h2>
+      <br>
+    
+      <p>
+        Calculus is a vital tool in probability theory, particularly when dealing with continuous random variables. Many probability concepts, such as expected value, variance, and distribution functions, require the use of integration. Calculus allows us to work with probability density functions (PDFs) and cumulative distribution functions (CDFs) to compute probabilities, expected values, and other important statistics in continuous distributions.
+      </p>
+      <br>
+    
+      <h3>1. Probability Density Functions (PDF) and Cumulative Distribution Functions (CDF)</h3>
+      <br>
+    
+      <p>
+        A probability density function (PDF) describes the likelihood of a random variable taking on a particular value in a continuous distribution. The integral of the PDF over an interval gives the probability of the random variable falling within that interval.
+      </p>
+      <br>
+    
+      <p>
+        The cumulative distribution function (CDF) is the integral of the PDF from negative infinity to a specific value \( x \), representing the probability that a random variable \( X \) takes on a value less than or equal to \( x \). In mathematical terms:
+      </p>
+      <br>
+    
+      \[
+      F(x) = P(X \leq x) = \int_{-\infty}^{x} f(t) \, dt
+      \]
+      where \( f(x) \) is the PDF and \( F(x) \) is the CDF.
+      <br>
+    
+      <p>
+        Given the CDF, we can obtain the PDF by differentiating the CDF:
+      </p>
+      <br>
+    
+      \[
+      f(x) = \frac{d}{dx} F(x)
+      \]
+      <br>
+    
+      <p>
+        Once we have the PDF, we can use it to calculate expectations, variances, and other statistical measures.
+      </p>
+      <br>
+    
+      <h3>2. Finding the Expectation from the CDF</h3>
+      <br>
+    
+      <p>
+        The expectation (or expected value) of a continuous random variable \( X \) is given by the integral of \( x \) times the PDF:
+      </p>
+      <br>
+    
+      \[
+      E(X) = \int_{-\infty}^{\infty} x \cdot f(x) \, dx
+      \]
+      <br>
+    
+      However, if we are given the Cumulative Distribution Function (CDF), we can first differentiate it to find the PDF, and then integrate to find the expectation. Below is an example of this process.
+      <br>
+      <br>
+      <h3>3. Example: Finding the Expectation from the CDF</h3>
+      <br>
+    
+      <p>
+        Suppose the cumulative distribution function (CDF) of a continuous random variable \( X \) is given by:
+      </p>
+      <br>
+    
+      \[
+      F(x) =
+      \begin{cases}
+        0 & x < 0 \\
+        x^2 & 0 \leq x \leq 1 \\
+        1 & x > 1
+      \end{cases}
+      \]
+      <br>
+    
+      <p>
+        Step 1: Find the PDF by differentiating the CDF \( F(x) \) with respect to \( x \):
+      </p>
+      <br>
+    
+      \[
+      f(x) = \frac{d}{dx} F(x) = \frac{d}{dx} \left( x^2 \right) = 2x \quad \text{for} \quad 0 \leq x \leq 1
+      \]
+      <br>
+    
+      <p>
+        Thus, the PDF is \( f(x) = 2x \) for \( 0 \leq x \leq 1 \), and 0 otherwise.
+      </p>
+      <br>
+    
+      <p>
+        Step 2: To find the expectation \( E(X) \), we integrate \( x \) times the PDF over the range of \( x \) (from 0 to 1):
+      </p>
+      <br>
+    
+      \[
+      E(X) = \int_0^1 x \cdot 2x \, dx = 2 \int_0^1 x^2 \, dx
+      \]
+      <br>
+    
+      Step 3: Solve the integral:
+      <br>
+    
+      \[
+      E(X) = 2 \left[ \frac{x^3}{3} \right]_0^1 = 2 \times \frac{1}{3} = \frac{2}{3}
+      \]
+      <br>
+    
+      <p>
+        Therefore, the expected value of \( X \) is \( \frac{2}{3} \).
+      </p>
+      <br>
+    
+      <h3>Key Takeaways</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>PDF and CDF:</strong> The probability density function (PDF) describes the probability of a random variable taking a specific value, while the cumulative distribution function (CDF) gives the probability that the random variable is less than or equal to a given value.</li>
+        <br>
+        <li><strong>Expectation:</strong> The expectation or expected value is the mean of the distribution and can be calculated by integrating \( x \) times the PDF. If the CDF is given, we can differentiate it to find the PDF and then calculate the expectation.</li>
+        <br>
+        <li><strong>Integration in Probability:</strong> Calculus is crucial for calculating probabilities, expected values, and other statistical measures in continuous random variables. Integrals allow us to compute quantities like mean, variance, and more.</li>
+      </ul>
+      <br>
+    
+      <p>
+        Calculus is essential for understanding the behavior of random variables, calculating key statistics, and solving real-world problems in fields such as finance, engineering, and data science.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Acceleration, Velocity, Position, and Accumulated Distance</h2>
+      <br>
+    
+      <p>
+        In calculus, the concepts of acceleration, velocity, and position are deeply interconnected. These concepts are fundamental in describing motion, and calculus provides the tools to relate them to each other. By differentiating position with respect to time, we obtain velocity, and by differentiating velocity, we obtain acceleration. Conversely, integrating acceleration gives us velocity, and integrating velocity gives us position. These relationships are essential in physics, engineering, and various applied sciences.
+      </p>
+      <br>
+    
+      <h3>1. Position, Velocity, and Acceleration</h3>
+      <br>
+    
+      <p>
+        The position of an object at a given time \( t \) is a function \( s(t) \), where \( s(t) \) represents the object's location on a coordinate axis. The velocity \( v(t) \) is the rate of change of position with respect to time:
+      </p>
+      <br>
+    
+      \[
+      v(t) = \frac{ds(t)}{dt}
+      \]
+      <br>
+    
+      <p>
+        The acceleration \( a(t) \) is the rate of change of velocity with respect to time:
+      </p>
+      <br>
+    
+      \[
+      a(t) = \frac{dv(t)}{dt} = \frac{d^2s(t)}{dt^2}
+      \]
+      <br>
+    
+      <p>
+        Therefore, acceleration is the second derivative of the position function, and velocity is the first derivative of the position function.
+      </p>
+      <br>
+    
+      <h3>2. Accumulated Distance</h3>
+      <br>
+    
+      <p>
+        To calculate the accumulated distance traveled by an object, we integrate the velocity function over a time interval. If the velocity is always positive (or negative), the distance is simply the integral of the velocity:
+      </p>
+      <br>
+    
+      \[
+      \text{Distance} = \int_{t_1}^{t_2} v(t) \, dt
+      \]
+      <br>
+    
+      However, if the velocity changes direction (i.e., becomes negative), we need to take the absolute value of the velocity to ensure that we measure the total distance traveled rather than the displacement:
+      <br>
+    
+      \[
+      \text{Distance} = \int_{t_1}^{t_2} |v(t)| \, dt
+      \]
+      <br>
+    
+      <h3>3. Example: Motion of a Particle</h3>
+      <br>
+    
+      <p>
+        Let’s consider the motion of a particle whose acceleration is given by the function:
+      </p>
+      <br>
+    
+      \[
+      a(t) = 6t - 4
+      \]
+      <br>
+    
+      We want to find the position, velocity, and accumulated distance traveled by the particle if the initial conditions are \( s(0) = 0 \) and \( v(0) = 0 \).
+      <br>
+    
+      Step 1: Find the Velocity
+      <br>
+    
+      Since acceleration is the derivative of velocity, we can integrate the acceleration function to find the velocity:
+      <br>
+    
+      \[
+      v(t) = \int (6t - 4) \, dt = 3t^2 - 4t + C
+      \]
+      <br>
+    
+      Using the initial condition \( v(0) = 0 \), we solve for \( C \):
+      \[
+      v(0) = 3(0)^2 - 4(0) + C = 0 \quad \Rightarrow \quad C = 0
+      \]
+      So, the velocity function is:
+      \[
+      v(t) = 3t^2 - 4t
+      \]
+      <br>
+    
+      Step 2: Find the Position
+      <br>
+    
+      Velocity is the derivative of position, so we integrate the velocity function to find the position:
+      <br>
+    
+      \[
+      s(t) = \int (3t^2 - 4t) \, dt = t^3 - 2t^2 + C
+      \]
+      <br>
+    
+      Using the initial condition \( s(0) = 0 \), we solve for \( C \):
+      \[
+      s(0) = (0)^3 - 2(0)^2 + C = 0 \quad \Rightarrow \quad C = 0
+      \]
+      So, the position function is:
+      \[
+      s(t) = t^3 - 2t^2
+      \]
+      <br>
+    
+      Step 3: Find the Accumulated Distance
+      <br>
+    
+      To find the accumulated distance, we first need to determine if the velocity changes sign during the motion. We set the velocity equal to zero to find the time when the particle changes direction:
+      <br>
+    
+      \[
+      v(t) = 3t^2 - 4t = 0
+      \]
+      Factor the equation:
+      \[
+      t(3t - 4) = 0
+      \]
+      So, \( t = 0 \) and \( t = \frac{4}{3} \) are the times when the velocity is zero.
+      <br>
+    
+      Now, we calculate the distance traveled by integrating the absolute value of the velocity function over the intervals \( [0, \frac{4}{3}] \) and \( [\frac{4}{3}, t] \), where the velocity might change sign.
+      <br>
+    
+      For this case, we integrate the absolute value of \( v(t) = 3t^2 - 4t \) to get the total distance.
+      <br>
+    
+      \[
+      \text{Distance} = \int_{0}^{4/3} |3t^2 - 4t| dt
+      \]
+    
+      <br>
+    
+      The total distance will be the result of this calculation, which can be computed by solving the integral directly.
+      <br>
+    
+      <h3>Key Takeaways</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Position, velocity, and acceleration:</strong> Position is the integral of velocity, velocity is the integral of acceleration, and acceleration is the derivative of velocity. These concepts are fundamental in describing the motion of particles.</li>
+        <br>
+        <li><strong>Accumulated distance:</strong> The total distance traveled by a particle is found by integrating the absolute value of velocity. If the velocity changes sign, we must split the integral accordingly.</li>
+        <br>
+        <li><strong>Applications in physics and engineering:</strong> These calculations are essential in analyzing motion, designing systems like vehicles and machinery, and in fields like robotics, mechanics, and aerospace engineering.</li>
+      </ul>
+      <br>
+    
+      <p>
+        The relationship between position, velocity, and acceleration allows us to accurately model and analyze motion in various physical systems, paving the way for optimization and control in engineering and applied sciences.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Quantitative Finance: Option Pricing and Risk-Neutral Valuation</h2>
+      <br>
+    
+      <p>
+        Quantitative finance uses advanced mathematical and statistical models to price financial derivatives, manage risks, and optimize investment portfolios. One of the most important tasks in quantitative finance is determining the value of options, financial contracts that give the holder the right (but not the obligation) to buy or sell an underlying asset at a predetermined price, known as the strike price, by a specified expiration date.
+      </p>
+      <br>
+    
+      <h3>1. Option Pricing and Risk-Neutral Valuation</h3>
+      <br>
+    
+      <p>
+        The value of an option can be determined using the concept of expectation in probability theory. In particular, we compute the expected payoff of the option under the risk-neutral measure. The risk-neutral measure is a probability measure in which all risky assets are assumed to grow at the risk-free rate. This simplifies the valuation of options, as it eliminates the need to model individual risk preferences.
+      </p>
+      <br>
+    
+      <p>
+        In the Black-Scholes framework, the price of a European call option can be found using the formula for the risk-neutral expectation of the payoff at time \( T \), discounted to the present. The formula for the payoff of a call option is:
+      </p>
+      <br>
+    
+      \[
+      \text{Payoff} = \max(S_T - K, 0)
+      \]
+    
+      Where:<br><br>
+      - \( S_T \) is the underlying asset price at time \( T \),<br>
+      - \( K \) is the strike price,<br>
+      - \( S_T - K \) is the intrinsic value of the option at maturity.<br>
+      <br>
+    
+      The expectation of the payoff under the risk-neutral measure \( Q \) is:
+      \[
+      \mathbb{E}^Q[\text{Payoff}] = \mathbb{E}^Q[\max(S_T - K, 0)]
+      \]
+    
+      And the value of the option \( C_0 \) at time \( t = 0 \) is the discounted expected payoff under the risk-neutral measure:
+      \[
+      C_0 = e^{-rT} \mathbb{E}^Q[\max(S_T - K, 0)]
+      \]
+    
+      Where:
+      - \( r \) is the risk-free rate,
+      - \( T \) is the time to maturity.
+    
+      This expectation is typically computed using the Black-Scholes model or Monte Carlo simulations. Let’s see a simple example.
+      <br>
+      <br>
+      <h3>2. Example: Simple Option Pricing with Expectation</h3>
+      <br>
+    
+      <p>
+        Consider a European call option on a stock with the following parameters:
+      </p>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Current stock price</strong> \( S_0 = 100 \),</li>
+        <li><strong>Strike price</strong> \( K = 95 \),</li>
+        <li><strong>Risk-free interest rate</strong> \( r = 5\% \),</li>
+        <li><strong>Time to maturity</strong> \( T = 1 \) year,</li>
+        <li><strong>Volatility</strong> \( \sigma = 20\% \).</li>
+      </ul>
+      <br>
+    
+      Let’s assume that the stock follows a lognormal distribution under the risk-neutral measure, with the asset price \( S_T \) at time \( T \) given by the formula:
+      \[
+      S_T = S_0 e^{(r - \frac{1}{2}\sigma^2)T + \sigma W_T}
+      \]
+      where \( W_T \) is a Wiener process (a standard Brownian motion), and \( S_0 \) is the initial stock price.
+      <br>
+      <br>
+      We can now compute the expectation of the payoff of the call option. The expected payoff is:
+      \[
+      \mathbb{E}^Q[\max(S_T - K, 0)] = \int_{-\infty}^{\infty} \max(S_T - K, 0) f(S_T) \, dS_T
+      \]
+      where \( f(S_T) \) is the probability density function of \( S_T \). Since \( S_T \) follows a lognormal distribution, the PDF is:
+      \[
+      f(S_T) = \frac{1}{S_T \sigma \sqrt{2\pi T}} \exp \left( - \frac{1}{2\sigma^2 T} \left( \ln(S_T/S_0) - (r - \frac{1}{2} \sigma^2)T \right)^2 \right)
+      \]
+      <br>
+    
+      For simplicity, we will use an approximation of the Black-Scholes formula for a call option, which gives the value directly as:
+      \[
+      C_0 = S_0 N(d_1) - K e^{-rT} N(d_2)
+      \]
+      where:
+      \[
+      d_1 = \frac{\ln(S_0 / K) + (r + \frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}
+      \]
+      and
+      \[
+      d_2 = d_1 - \sigma \sqrt{T}
+      \]
+      and \( N(\cdot) \) is the cumulative distribution function (CDF) of the standard normal distribution.
+    
+      Substituting the values into the formula:
+      \[
+      d_1 = \frac{\ln(100 / 95) + (0.05 + \frac{1}{2} 0.2^2) \times 1}{0.2 \sqrt{1}} = 0.495
+      \]
+      \[
+      d_2 = 0.495 - 0.2 = 0.295
+      \]
+      Using the CDF of the standard normal distribution:
+      \[
+      N(d_1) \approx 0.689, \quad N(d_2) \approx 0.616
+      \]
+      So, the option price is:
+      \[
+      C_0 = 100 \times 0.689 - 95 \times e^{-0.05} \times 0.616 = 68.9 - 54.68 = 14.22
+      \]
+      <br>
+    
+      Therefore, the value of the call option is approximately \$14.22.
+    
+      <br>
+      <br>
+      <h3>3. Key Takeaways</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Risk-Neutral Valuation:</strong> In quantitative finance, we often use the risk-neutral measure to simplify the pricing of options. Under the risk-neutral measure, all assets grow at the risk-free rate.</li>
+        <br>
+        <li><strong>Expected Payoff:</strong> The expected payoff of an option is calculated by integrating the payoff function over the probability distribution of the underlying asset’s price at maturity. The Feynman-Kac formula connects this expectation to partial differential equations.</li>
+        <br>
+        <li><strong>Option Pricing Models:</strong> The Black-Scholes formula provides an analytical solution for pricing European call and put options. It uses the expected payoff under the risk-neutral measure, discounted to the present using the risk-free rate.</li>
+        <br>
+        <li><strong>Monte Carlo Simulation:</strong> In more complex scenarios, Monte Carlo simulations may be used to approximate the expected payoff, especially when the model cannot be solved analytically.</li>
+      </ul>
+      <br>
+    
+      <p>
+        Understanding how to compute the expected payoff and apply risk-neutral valuation is fundamental to pricing financial derivatives and managing risk in the financial markets.
+      </p>
+    </div>
+    
+    <div class="panel">
+      <h2>Practice Problems: Optimization and Physics</h2>
+      <br>
+    
+      <h3>Problem 1</h3>
+      <p>
+        A company manufactures and sells a product. The profit function, \( P(x) \), in thousands of dollars, is given by:
+      </p>
+      <br>
+    
+      \[
+      P(x) = -2x^2 + 16x - 30
+      \]
+    
+      where \( x \) is the number of units produced. The company wants to determine the number of units that should be produced to maximize profit.
+    
+      <p>
+        <strong>Steps:</strong>
+        <ul>
+          <li>Find the critical points by setting the first derivative of the profit function to zero.</li>
+          <li>Use the second derivative to confirm if the critical point is a maximum or minimum.</li>
+          <li>Calculate the maximum profit and the number of units produced that will achieve it.</li>
+        </ul>
+      </p>
+    
+      <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+      <div class="solution" id="ex1">
+        <p>
+          Step 1: Find the first derivative of the profit function:
+          \[
+          P'(x) = -4x + 16
+          \]
+          Set \( P'(x) = 0 \) to find the critical point:
+          \[
+          -4x + 16 = 0 \quad \Rightarrow \quad x = 4
+          \]
+          Step 2: Use the second derivative to check concavity:
+          \[
+          P''(x) = -4
+          \]
+          Since \( P''(x) = -4 < 0 \), the critical point \( x = 4 \) is a maximum.
+          Step 3: Calculate the maximum profit:
+          \[
+          P(4) = -2(4)^2 + 16(4) - 30 = -32 + 64 - 30 = 2
+          \]
+          Therefore, the maximum profit is \$2,000, and it occurs when 4 units are produced.
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 2</h3>
+      <p>
+        In machine learning, the goal is often to minimize the error of a model. The error function \( E(w) \), which measures the error of a model as a function of a parameter \( w \) (e.g., weights in a linear regression model), is given by:
+      </p>
+      <br>
+    
+      \[
+      E(w) = w^2 - 6w + 9
+      \]
+    
+      where \( w \) is the parameter we want to optimize. Find the value of \( w \) that minimizes the error.
+    
+      <p>
+        <strong>Steps:</strong>
+        <ul>
+          <li>Find the critical point by setting the first derivative of the error function to zero.</li>
+          <li>Use the second derivative to confirm that the critical point corresponds to a minimum.</li>
+          <li>Calculate the minimum error and the value of \( w \) that achieves it.</li>
+        </ul>
+      </p>
+    
+      <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+      <div class="solution" id="ex2">
+        <p>
+          Step 1: Find the first derivative of the error function:
+          \[
+          E'(w) = 2w - 6
+          \]
+          Set \( E'(w) = 0 \) to find the critical point:
+          \[
+          2w - 6 = 0 \quad \Rightarrow \quad w = 3
+          \]
+          Step 2: Use the second derivative to check concavity:
+          \[
+          E''(w) = 2
+          \]
+          Since \( E''(w) = 2 > 0 \), the critical point \( w = 3 \) is a minimum.
+          Step 3: Calculate the minimum error:
+          \[
+          E(3) = (3)^2 - 6(3) + 9 = 9 - 18 + 9 = 0
+          \]
+          Therefore, the minimum error is 0, and it occurs when \( w = 3 \).
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 3</h3>
+      <p>
+        A car accelerates from rest, and its position as a function of time \( t \) is given by:
+      </p>
+      <br>
+    
+      \[
+      s(t) = 4t^3
+      \]
+    
+      where \( s(t) \) is the position in meters and \( t \) is the time in seconds. Find the velocity and acceleration of the car at time \( t = 2 \) seconds.
+    
+      <p>
+        <strong>Steps:</strong>
+        <ul>
+          <li>Find the velocity by differentiating the position function \( s(t) \).</li>
+          <li>Find the acceleration by differentiating the velocity function \( v(t) \).</li>
+          <li>Evaluate both the velocity and acceleration at \( t = 2 \) seconds.</li>
+        </ul>
+      </p>
+    
+      <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+      <div class="solution" id="ex3">
+        <p>
+          Step 1: Find the velocity by differentiating the position function:
+          \[
+          v(t) = \frac{ds(t)}{dt} = 12t^2
+          \]
+          Step 2: Find the acceleration by differentiating the velocity function:
+          \[
+          a(t) = \frac{dv(t)}{dt} = 24t
+          \]
+          Step 3: Evaluate both at \( t = 2 \):
+          \[
+          v(2) = 12(2)^2 = 12 \times 4 = 48 \, \text{m/s}
+          \]
+          \[
+          a(2) = 24(2) = 48 \, \text{m/s}^2
+          \]
+          Therefore, at \( t = 2 \) seconds, the velocity is 48 m/s and the acceleration is 48 m/s².
+        </p>
+      </div>
+      <br><br>
+    
+    </div>
+    
+    
+    <div class="panel">
+      <h2>Key Takeaways: Applied Calculus</h2>
+      <br>
+    
+      <ul style="line-height: 1.8; padding-left: 20px;">
+        <li><strong>Optimization:</strong> Calculus is essential for solving optimization problems, such as maximizing profit, minimizing costs, and finding the best parameters in a system. This involves finding critical points by setting the first derivative to zero and analyzing concavity using the second derivative test.</li>
+       
+        <li><strong>Position, Velocity, and Acceleration:</strong> The relationship between position, velocity, and acceleration is fundamental in understanding motion. The derivative of position gives velocity, and the derivative of velocity gives acceleration. Conversely, integrating acceleration gives velocity, and integrating velocity gives position.</li>
+        
+        <li><strong>Accumulated Distance:</strong> The total distance traveled by an object can be found by integrating the absolute value of the velocity function. If the velocity changes direction, the absolute value must be used to avoid negative values in the total distance.</li>
+        
+        <li><strong>Probability and Statistics:</strong> Calculus plays a critical role in probability theory, especially when dealing with continuous distributions. By integrating the probability density function (PDF), we can compute expected values, variances, and other important statistics. The relationship between CDFs and PDFs is crucial in finding the expected payoff in financial models.</li>
+      
+        <li><strong>Option Pricing and Quantitative Finance:</strong> Calculus, particularly the Feynman-Kac formula, is widely used in option pricing models. The formula connects stochastic processes to partial differential equations (PDEs), allowing us to compute the expected payoff of options and derivatives in financial markets.</li>
+      </ul>
+      <br>
+    
+      <p>
+        Calculus enables us to solve real-world problems in optimization, motion analysis, probability, and finance. These techniques are invaluable in fields such as engineering, economics, physics, and quantitative finance.
+      </p>
+    </div>
+    
+  </div>
+</body>
+</html>

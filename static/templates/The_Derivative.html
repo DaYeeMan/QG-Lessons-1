@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ topic }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson_page.css') }}">
+  <script>
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+    });
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+    <div class="blockcontent">
+      <h1>{{ topic }}</h1>
+      <div class="panel">
+        <h2>What Is a Derivative?</h2>
+      
+        <p>
+          In calculus, the <strong>derivative</strong> of a function describes how the function changes as its input changes. It provides a precise way to quantify the notion of instantaneous rate of change — a core idea in mathematical modeling, physics, and engineering.
+        </p>
+        <br>
+        <h3>Conceptual Definition</h3><br>
+        <p>
+          If we think of a function \( f(x) \) as describing a curve on a graph, the derivative at a point tells us the slope of the curve at that specific point. In this sense, the derivative gives the slope of the <em>tangent line</em> to the curve.
+        </p>
+        <br>
+        <h3>Formal Definition</h3><br>
+        <p>
+          The derivative of a function \( f(x) \) at a point \( x = a \) is defined using the limit of the difference quotient:
+        </p>
+        <br>
+        <p style="text-align: center; font-size: 1.2em;">
+          \( f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \)
+        </p>
+        <br>
+        <p>
+          This formula captures the idea of the average rate of change over an interval of width \( h \), as that interval shrinks to zero. If this limit exists, it gives the instantaneous rate of change of the function at \( x = a \).
+        </p>
+        <br>
+        <h3>Interpretation</h3><br>
+        <p>
+          - If \( f'(a) > 0 \), the function is increasing at \( x = a \). <br>
+          - If \( f'(a) < 0 \), the function is decreasing at \( x = a \). <br>
+          - If \( f'(a) = 0 \), the point may be a local maximum, local minimum, or a point of inflection, depending on the behavior of the function nearby.
+        </p>
+        <br>
+        <h3>Graphical Representation</h3><br>
+        <p>
+          The derivative corresponds to the slope of the tangent line to the graph of \( f(x) \) at the point \( x = a \). In the figure below, the curve represents \( f(x) \), and the red line is the tangent at the point of interest.
+        </p>
+        <br>
+        <div style="text-align: center;">
+          <img src="{{ url_for('static', filename='images/math/der_f.png') }}" alt="Limit Example Chart" style="max-width: 100%; height: auto;">
+        </div>
+        <br>
+        <p>
+          The <strong>derivative</strong> of a function at a given point represents the slope of the tangent line to its graph at that point. In the plot above, the function \( f(x) = x^2 \) is shown along with its tangent line at \( x = 1 \). The slope of this tangent line is given by the derivative \( f'(x) = 2x \), which evaluates to \( f'(1) = 2 \). This means that at the point \( (1, 1) \), the graph of \( f(x) \) is increasing at a rate of 2 units vertically for every 1 unit horizontally — and the tangent line visually captures this rate of change. The closer we zoom into the curve around \( x = 1 \), the more it resembles this straight line, which is the core idea behind the concept of a derivative.
+        </p>
+        
+        <br>
+        <h3>Applications</h3><br>
+        <p>
+          Derivatives appear in many fields:
+          <ul>
+            <li><strong>Physics:</strong> Velocity is the derivative of position; acceleration is the derivative of velocity.</li>
+            <li><strong>Economics:</strong> Marginal cost and marginal revenue are derivatives of cost and revenue functions.</li>
+            <li><strong>Machine Learning:</strong> Derivatives are used to optimize models using algorithms like gradient descent.</li>
+            <li><strong>Engineering:</strong> Derivatives model dynamic systems and describe how quantities evolve over time.</li>
+          </ul>
+        </p>
+        <br>
+        <h3>Notation</h3><br>
+        <p>
+          Several notations are commonly used for the derivative:
+          <ul>
+            <li>Leibniz notation: \( \frac{dy}{dx} \)</li>
+            <li>Lagrange notation: \( f'(x) \)</li>
+            <li>Newton notation (for time derivatives): \( \dot{y} \)</li>
+          </ul>
+        </p>
+        <br>
+        <p>
+          Each of these notations emphasizes different aspects of the derivative — as a ratio, as a function, or as a dynamic quantity.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Basic Derivatives</h2>
+        <br>
+      
+        <p>
+          The <strong>derivative</strong> of a function represents how the function’s output changes with respect to small changes in its input. Differentiation is one of the core operations in calculus, and it provides critical insights into the behavior of functions.
+        </p>
+        <br>
+      
+        <h3>1. Derivative of a Constant</h3>
+        <br>
+        
+        <p>
+          The derivative of any constant function is always zero. This makes sense because a constant function does not change — there is no rate of change.
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( f(x) = c \quad \Rightarrow \quad \frac{d}{dx}[c] = 0 \)
+        </p>
+        <br>
+      
+        <p><strong>Example:</strong> If \( f(x) = 5 \), then \( \frac{d}{dx}[5] = 0 \).</p>
+        <br>
+      
+        <h3>2. Derivative of a Basic Function Using the Limit Definition</h3>
+        <br>
+      
+        <p>
+          The formal definition of a derivative is based on the concept of a limit. To find the derivative of a function \( f(x) \) at a specific point \( x = a \), we use the following limit definition:
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \)
+        </p>
+        <br>
+      
+        <p>
+          This definition captures the rate of change of \( f(x) \) as \( x \) approaches \( a \), and it is the basis for calculating derivatives.
+        </p>
+        <br>
+      
+        <h3>Example: Derivative of \( f(x) = x^2 \) Using the Limit Definition</h3>
+        <br>
+      
+        <p>
+          To find the derivative of \( f(x) = x^2 \) at \( x = a \), we apply the limit definition:
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( f'(a) = \lim_{h \to 0} \frac{(a + h)^2 - a^2}{h} \)
+        </p>
+        <br>
+      
+        <p>
+          Simplifying the expression in the numerator:
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( f'(a) = \lim_{h \to 0} \frac{a^2 + 2ah + h^2 - a^2}{h} = \lim_{h \to 0} \frac{2ah + h^2}{h} \)
+        </p>
+        <br>
+      
+        <p>
+          Factoring out \( h \):
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( f'(a) = \lim_{h \to 0} (2a + h) = 2a \)
+        </p>
+        <br>
+      
+        <p>
+          Therefore, the derivative of \( f(x) = x^2 \) is \( f'(x) = 2x \).
+        </p>
+        <br>
+      </div>
+      
+        
+      
+      <div class="panel">
+        <h2>Approximating Derivatives</h2>
+      
+        <p>
+          While the formal definition of a derivative relies on a mathematical limit, this definition is not just a theoretical construct — it is a powerful tool that guides how we approximate change in the real world. Even when we don’t apply the limit definition directly, its structure allows us to make accurate estimates of a function’s rate of change using simple arithmetic.
+        </p>
+        <br>
+        <h3>Approximate Derivative Formula</h3><br><br>
+        <p>
+          In practice, especially when working with numerical data or simulations, we approximate the derivative using a small but finite change in the input:
+        </p>
+        <br>
+        <p style="text-align: center; font-size: 1.2em;">
+          \( f'(a) \approx \frac{f(a + \Delta x) - f(a)}{\Delta x} \)
+        </p>
+        <br>
+        <p>
+          This formula mirrors the definition of the derivative, but replaces the infinitesimal limit process with a small, measurable increment \( \Delta x \). The smaller the \( \Delta x \), the closer the approximation is to the true derivative — provided the function behaves smoothly near \( a \).
+        </p>
+
+        <br>
+        <div style="text-align: center;">
+          <img src="{{ url_for('static', filename='images/math/der_af.png') }}" alt="Limit Example Chart" style="max-width: 100%; height: auto;">
+        </div>
+        <br>
+        <p>
+          This chart illustrates the difference between the exact derivative of a function and an approximation using a secant line. At \( x = \frac{\pi}{4} \), we compute the derivative of \( f(x) = \sin(x) \) in two ways: analytically (via \( f'(x) = \cos(x) \)) and numerically using the approximation formula:
+        </p>
+        <br>
+        <p style="text-align: center;">
+          \( f'(a) \approx \frac{f(a + \Delta x) - f(a)}{\Delta x} \)
+        </p>
+        <br>
+        <p>
+          Even though the approximation is not perfect, it provides a very close estimate of the slope, especially when \( \Delta x \) is <strong>small</strong>. This approach is useful in situations where the function is too complex to differentiate analytically, or when we only have data points rather than a formula. By leveraging the limit definition conceptually, we can perform meaningful analysis and modeling even without exact calculus — a key strength of the derivative's definition.
+        </p>
+        
+
+        <br>
+        <h3>When Are Approximations Useful?</h3><br>
+        <p>
+          Approximate derivatives are extremely useful in many real-world scenarios:
+          <ul>
+            <li><strong>Numerical analysis:</strong> When functions are defined by data points or simulations, not formulas.</li>
+            <li><strong>Physics & engineering:</strong> To model dynamic systems with discrete measurements in time or space.</li>
+            <li><strong>Finance:</strong> To estimate sensitivity of prices (e.g., delta in options pricing) without analytic models.</li>
+            <li><strong>Machine learning:</strong> To compute gradients for optimization in training algorithms.</li>
+          </ul>
+        </p>
+        <br>
+        <h3>The Power of the Definition</h3><br>
+        <p>
+          The formal definition of the derivative may seem abstract at first:
+        </p>
+        <br>
+        <p style="text-align: center; font-size: 1.1em;">
+          \( f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \)
+        </p>
+        <br>
+        <p>
+          But this expression is not something to fear — it's a mathematical lens that zooms in on a curve until it becomes nearly straight. That’s what makes it so powerful: even when we don’t use the limit directly, the concept enables precise and meaningful approximations with just a small \( \Delta x \). This makes the derivative one of the most widely applied tools in science, technology, and data-driven disciplines.
+        </p>
+      
+      </div>
+      
+      <div class="panel">
+        <h2>Algebra of the Derivative</h2>
+      
+        <p>
+          One of the most useful aspects of derivatives is that they follow a set of linear algebraic rules. These rules allow us to simplify the differentiation of complex functions by breaking them into manageable parts. Specifically, derivatives are linear operators — meaning they distribute over addition and respect scalar multiplication.
+        </p>
+        <br>
+        <h3>1. Constant Multiple Rule</h3><br>
+        <p style="text-align: center;">
+          \( \frac{d}{dx}[a \cdot f(x)] = a \cdot f'(x) \)
+        </p><br>
+        <p>
+          If a function is multiplied by a constant, its derivative is simply that constant times the derivative of the original function.
+        </p><br>
+        <p><strong>Example:</strong> If \( f(x) = x^2 \), then \( \frac{d}{dx}[5x^2] = 5 \cdot \frac{d}{dx}[x^2] = 5 \cdot 2x = 10x \). <br><br>This is useful in physics when scaling functions like displacement or velocity by constants (e.g., converting units or scaling forces).</p>
+        <br>
+        <h3>2. Sum Rule</h3><br>
+        <p style="text-align: center;">
+          \( \frac{d}{dx}[f(x) + g(x)] = f'(x) + g'(x) \)
+        </p><br>
+        <p>
+          The derivative of a sum is the sum of the derivatives. This allows us to differentiate term-by-term when dealing with combined functions.
+        </p><br>
+        <p><strong>Example:</strong> If \( f(x) = x^2 \) and \( g(x) = \sin(x) \), then:
+          <br><br>
+          \( \frac{d}{dx}[x^2 + \sin(x)] = 2x + \cos(x) \).
+          <br><br>
+          This is common in engineering or economics where models combine polynomial growth with cyclical behavior.
+        </p>
+        <br>
+        <h3>3. Difference Rule</h3><br>
+        <p style="text-align: center;">
+          \( \frac{d}{dx}[f(x) - g(x)] = f'(x) - g'(x) \)
+        </p><br>
+        <p>
+          Just like the sum rule, the derivative of a difference is the difference of the derivatives.
+        </p>
+        <p><strong>Example:</strong> If \( f(x) = e^x \) and \( g(x) = x^3 \), then:
+          <br><br>
+          \( \frac{d}{dx}[e^x - x^3] = e^x - 3x^2 \).
+          <br><br>
+          This applies in profit models where total value (revenue) is reduced by cost functions.
+        </p>
+        <br>
+        <h3>Why It Matters</h3><br>
+        <p>
+          These algebraic properties make differentiation scalable and flexible. Instead of memorizing new rules for every combination of functions, we apply these simple linear rules to differentiate complex expressions piece by piece. This approach is the foundation for analyzing and modeling real-world systems efficiently.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Basic Differentiation Rules</h2>
+      
+        <p>
+          These core rules allow us to differentiate most standard functions quickly and systematically, without returning to the formal limit definition. They form the building blocks of differential calculus and are indispensable for both theoretical work and real-world modeling.
+        </p>
+        <br>
+        <h3>1. Power Rule</h3><br>
+        <p style="text-align: center;">
+          \( \frac{d}{dx}[x^n] = n x^{n-1} \)
+        </p><br>
+        <p>
+          The power rule is one of the most frequently used rules in calculus. It applies to any real number exponent \( n \), including fractions and negatives.
+        </p><br>
+        <p><strong>Example:</strong> For \( f(x) = x^5 \), we have \( f'(x) = 5x^4 \).<br><br> This is especially useful in physics when differentiating polynomial expressions for velocity or acceleration.</p>
+        <br>
+        <h3>2. Product Rule</h3><br>
+        <p style="text-align: center;">
+          \( \frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x) \)
+        </p><br>
+        <p>
+          The product rule is necessary when differentiating the product of two functions. Unlike simple multiplication, the derivative does not distribute over products.
+        </p><br>
+        <p><strong>Example:</strong> If \( f(x) = x^2 \) and \( g(x) = \ln(x) \), then:
+          <br><br>
+          \( \frac{d}{dx}[x^2 \ln(x)] = 2x \ln(x) + x^2 \cdot \frac{1}{x} = 2x \ln(x) + x \).
+          <br><br>
+          This arises frequently in economics and engineering when growth is modulated by a logarithmic or exponential factor.
+        </p>
+        <br>
+        <h3>3. Quotient Rule</h3><br>
+        <p style="text-align: center;">
+          \( \frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2} \)
+        </p><br>
+        <p>
+          The quotient rule applies when differentiating a ratio of two functions. It corrects for how both numerator and denominator may vary.
+        </p><br>
+        <p><strong>Example:</strong> Let \( f(x) = x^2 \), \( g(x) = x + 1 \). Then:
+          <br><br>
+          \( \frac{d}{dx}\left[\frac{x^2}{x + 1}\right] = \frac{2x(x + 1) - x^2(1)}{(x + 1)^2} = \frac{x(x + 2)}{(x + 1)^2} \).
+          <br><br>
+          This is useful when analyzing average rates or efficiencies, such as cost per unit or output per input.
+        </p>
+        <br>
+        <h3>4. Chain Rule</h3><br>
+        <p style="text-align: center;">
+          \( \frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x) \)
+        </p><br>
+        <p>
+          The chain rule is essential when dealing with composite functions. It tells us how to differentiate a function that’s "nested" inside another.
+        </p>
+        <p><strong>Example:</strong> If \( f(x) = \cos(3x^2) \), we treat this as \( f(g(x)) \) where \( g(x) = 3x^2 \). Then:
+          <br><br>
+          \( \frac{d}{dx}[\cos(3x^2)] = -\sin(3x^2) \cdot 6x \).
+          <br><br>
+          The chain rule is widely used in biology, chemistry, and machine learning when modeling processes with internal transformations.
+        </p>
+        <br>
+        <h3>Why These Rules Matter</h3><br>
+        <p>
+          Mastering these rules makes calculus fast and flexible. Instead of relying on repeated use of the limit definition, we apply these rules to build and analyze models quickly. Whether you're solving equations, optimizing a system, or interpreting a graph, these rules are the gateway to applying derivatives in real time.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>L’Hôpital’s Rule</h2>
+      
+        <p>
+          When evaluating limits, we sometimes encounter expressions that are <strong>indeterminate</strong> — forms like \( \frac{0}{0} \) or \( \frac{\infty}{\infty} \), where standard algebraic methods fail to produce a result. In these cases, <strong>L’Hôpital’s Rule</strong> offers a powerful method for resolving the limit by differentiating the numerator and denominator separately.
+        </p>
+        <br>
+        <h3>Formal Statement</h3><br>
+        <p>
+          Suppose \( \lim_{x \to a} \frac{f(x)}{g(x)} \) results in an indeterminate form such as \( \frac{0}{0} \) or \( \frac{\infty}{\infty} \), and both \( f \) and \( g \) are differentiable near \( x = a \). Then:
+        </p>
+        <br>
+        <p style="text-align: center; font-size: 1.2em;">
+          \( \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)} \)
+        </p>
+        <br>
+        <p>
+          If the limit on the right-hand side exists (or equals \( \pm \infty \)), then it gives the value of the original limit. This rule often simplifies otherwise difficult problems by replacing the original limit with a simpler one involving derivatives.
+        </p>
+        <br>
+        <h3>Example: Limits Involving Trigonometric Functions</h3><br>
+        <p>
+          Consider the limit:
+        </p>
+        <br>
+        <p style="text-align: center;">
+          \( \lim_{x \to 0} \frac{\sin(x)}{x} \)
+        </p>
+        <br>
+        <p>
+          This is a classic example of the indeterminate form \( \frac{0}{0} \). Applying L’Hôpital’s Rule:
+        </p>
+        <br>
+        <p style="text-align: center;">
+          \( \lim_{x \to 0} \frac{\sin(x)}{x} = \lim_{x \to 0} \frac{\cos(x)}{1} = 1 \)
+        </p>
+        <br>
+        <p>
+          Without L’Hôpital’s Rule, this limit would require deeper trigonometric identities or geometric arguments. Here, we resolve it quickly by differentiating the top and bottom functions.
+        </p>
+        <br>
+        <h3>When to Use It</h3><br>
+        <p>
+          L’Hôpital’s Rule is especially helpful when limits involve:
+          <ul>
+            <li>Rational functions approaching zero or infinity</li>
+            <li>Exponential, logarithmic, or trigonometric functions with competing growth</li>
+            <li>Nested or complex expressions where factoring is difficult</li>
+          </ul>
+        </p>
+        <br>
+        <p>
+          Always confirm that the limit is in an indeterminate form and that the functions involved are differentiable before applying the rule.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Higher-Order Derivatives</h2>
+      
+        <p>
+          Taking the derivative of a function gives us its <strong>rate of change</strong> — how the output changes with respect to the input. But we can go further: by taking the derivative <strong>again</strong>, we uncover how that rate of change itself is changing.
+        </p>
+        <br>
+      
+        <p>
+          The result is called the <strong>second derivative</strong>. This tells us whether the function is curving upward or downward — its <em>concavity</em>. We can continue this process to obtain the third derivative, fourth derivative, and so on. These are collectively known as <strong>higher-order derivatives</strong>.
+        </p>
+        <br>
+      
+        <ul>
+          <li><strong>First derivative:</strong> \( f'(x) \) — measures slope or instantaneous rate of change</li>
+          <li><strong>Second derivative:</strong> \( f''(x) \) — measures how the rate is changing (concavity or acceleration)</li>
+          <li><strong>Third derivative:</strong> \( f^{(3)}(x) \) — measures change in concavity, and so on</li>
+        </ul>
+        <br>
+      
+        <p>
+          These higher-order derivatives appear in many fields:
+        </p>
+        <br>
+      
+        <ul>
+          <li><strong>Physics:</strong> Acceleration is the second derivative of position with respect to time. The third derivative (sometimes called "jerk") describes how acceleration changes.</li>
+          <li><strong>Economics:</strong> The second derivative of a profit or growth curve can indicate whether growth is accelerating or decelerating — a key insight for forecasting.</li>
+          <li><strong>Curve Sketching:</strong> The second derivative tells us about concavity. If \( f''(x) > 0 \), the curve is concave up; if \( f''(x) < 0 \), it is concave down. Points where \( f''(x) = 0 \) may be <em>inflection points</em>, where the concavity changes.</li>
+        </ul>
+        <br>
+      
+        <p><strong>Example:</strong> Let \( f(x) = x^3 - 3x^2 + 2x \)</p>
+        <br>
+      
+        <p>
+          First derivative: \( f'(x) = 3x^2 - 6x + 2 \)
+        </p>
+        <br>
+      
+        <p>
+          Second derivative: \( f''(x) = 6x - 6 \)
+        </p>
+        <br>
+      
+        <p>
+          At \( x = 1 \):
+          <br>
+          \( f'(1) = 3(1)^2 - 6(1) + 2 = -1 \), which means the function is decreasing at that point.
+          <br>
+          \( f''(1) = 6(1) - 6 = 0 \), indicating a possible <strong>point of inflection</strong>, where the graph changes concavity.
+        </p>
+        <br>
+        <p>
+          <strong>Remark:</strong> Concavity is a key concept allowing us to determine whether solutions to optimization problems are local maxima or minima, enabling us to find inputs that yield these extrema.
+        </p>
+        <br>
+      
+        <p>
+          Higher-order derivatives provide deeper insight into the shape, motion, and behavior of functions. They are essential in advanced calculus, physics, data modeling, and optimization.
+        </p>
+      </div>
+      
+      <div class="panel">
+        <h2>Implicit Differentiation</h2>
+      
+        <p>
+          Not all relationships between variables are written in the form \( y = f(x) \). Sometimes, equations define \( x \) and \( y \) together in a way where solving explicitly for \( y \) is difficult or impossible. In these cases, we use a powerful technique called <strong>implicit differentiation</strong>.
+        </p>
+        <br>
+      
+        <p>
+          This method allows us to find \( \frac{dy}{dx} \) — the derivative of \( y \) with respect to \( x \) — even when \( y \) is not isolated. The key idea is to differentiate both sides of the equation with respect to \( x \), treating \( y \) as a function of \( x \) (even if we don’t know its formula).
+        </p>
+        <br>
+      
+        <h3>Example: Circle Equation</h3><br>
+      
+        <p>
+          Consider the equation of a circle:
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( x^2 + y^2 = 25 \)
+        </p>
+        <br>
+      
+        <p>
+          This is an implicit equation — \( y \) is not solved for explicitly. To find \( \frac{dy}{dx} \), we differentiate both sides with respect to \( x \). Remember: when differentiating terms involving \( y \), we must use the chain rule:
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( \frac{d}{dx}(x^2) + \frac{d}{dx}(y^2) = \frac{d}{dx}(25) \)
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( 2x + 2y \cdot \frac{dy}{dx} = 0 \)
+        </p>
+        <br>
+      
+        <p>
+          Now, solve for \( \frac{dy}{dx} \):
+        </p>
+        <br>
+      
+        <p style="text-align: center;">
+          \( \frac{dy}{dx} = -\frac{x}{y} \)
+        </p>
+        <br>
+      
+        <p>
+          This tells us the slope of the curve at any point \( (x, y) \) on the circle. It’s important to notice that the result still depends on both \( x \) and \( y \).
+        </p>
+        <br>
+      
+        <h3>When to Use Implicit Differentiation</h3><br>
+      
+        <p>
+          Implicit differentiation is especially useful when:
+          <ul>
+            <li>The equation is difficult or impossible to rearrange for \( y \)</li>
+            <li>You are working with curves like circles, ellipses, or more complex implicit surfaces</li>
+            <li>Solving related rates problems, where multiple variables change with respect to time</li>
+            <li>Analyzing constraints in multivariable systems</li>
+          </ul>
+        </p>
+        <br>
+      
+        <h3>Key Idea</h3><br>
+      
+        <p>
+          Treat \( y \) as a function of \( x \), even if it’s not explicitly solved. Apply derivative rules normally, but multiply every derivative of \( y \) by \( \frac{dy}{dx} \), using the chain rule.
+        </p>
+        <br>
+      
+        <p>
+          Implicit differentiation unlocks a wide class of problems that can't be handled with ordinary derivative rules alone.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Practice Problems: Differentiation</h2>
+      
+        <h3>Problem 1</h3>
+        <p>
+          Let \( f(x) = 3x^2 + 2x - 5 \). What is the derivative of \( f(x) \)?
+        </p>
+        <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+        <div class="solution" id="ex1">
+          <p>
+            The derivative of a polynomial is found by applying the power rule. For each term, multiply the coefficient by the exponent and subtract 1 from the exponent.
+            <br>
+            So, for \( f(x) = 3x^2 + 2x - 5 \):
+            <br>
+            The derivative of \( 3x^2 \) is \( 6x \), the derivative of \( 2x \) is \( 2 \), and the derivative of \( -5 \) is 0 (since the derivative of a constant is 0).
+            <br>
+            Therefore, \( f'(x) = 6x + 2 \).
+          </p>
+        </div>
+        <br><br><br>
+      
+        <h3>Problem 2</h3>
+        <p>
+          Let \( f(x) = \sin(x) \). What is the derivative of \( f(x) \)?
+        </p>
+        <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+        <div class="solution" id="ex2">
+          <p>
+            The derivative of the sine function is a well-known standard result:
+            <br>
+            \( f'(x) = \cos(x) \)
+            <br>
+            This comes from the basic differentiation rule for trigonometric functions. We will discuss these results in more detail in later lessons.
+          </p>
+        </div>
+        <br><br><br>
+      
+        <h3>Problem 3</h3>
+        <p>
+          Find the derivative of \( f(x) = 4x^3 - 3x + 2 \) using the power rule.
+        </p>
+        <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+        <div class="solution" id="ex3">
+          <p>
+            Apply the power rule to each term:
+            <br>
+            The derivative of \( 4x^3 \) is \( 12x^2 \), the derivative of \( -3x \) is \( -3 \), and the derivative of \( 2 \) is 0 (since the derivative of a constant is 0).
+            <br>
+            Therefore, \( f'(x) = 12x^2 - 3 \).
+          </p>
+        </div>
+        <br><br><br>
+      
+        <h3>Problem 4</h3>
+        <p>
+          Differentiate \( f(x) = (3x^2 + 2x)(x - 1) \) using the product rule.
+        </p>
+        <button class="show-btn" onclick="toggleSolution('ex4')">Show Solution</button>
+        <div class="solution" id="ex4">
+          <p>
+            The product rule states that for two functions \( u(x) \) and \( v(x) \), the derivative is:
+            <br>
+            \( (u \cdot v)' = u'v + uv' \)
+            <br>
+            Let \( u(x) = 3x^2 + 2x \) and \( v(x) = x - 1 \). Then:
+            <br>
+            \( u'(x) = 6x + 2 \) and \( v'(x) = 1 \).
+            <br>
+            Applying the product rule:
+            <br>
+            \( f'(x) = (6x + 2)(x - 1) + (3x^2 + 2x)(1) \)
+            <br>
+            Expanding:
+            <br>
+            \( f'(x) = (6x^2 - 6x + 2x - 2) + (3x^2 + 2x) = 9x^2 - 4x - 2 \).
+          </p>
+        </div>
+        <br><br><br>
+      
+        <h3>Problem 5</h3>
+        <p>
+          Let \( f(x) = \frac{2x^2 + 3}{x^3} \). What is the derivative of \( f(x) \)?
+        </p>
+        <button class="show-btn" onclick="toggleSolution('ex5')">Show Solution</button>
+        <div class="solution" id="ex5">
+          <p>
+            First, rewrite the function using negative exponents:
+            <br>
+            \( f(x) = 2x^{-1} + 3x^{-3} \)
+            <br>
+            Now, apply the power rule to each term:
+            <br>
+            The derivative of \( 2x^{-1} \) is \( -2x^{-2} \), and the derivative of \( 3x^{-3} \) is \( -9x^{-4} \).
+            <br>
+            Therefore, the derivative is:
+            <br>
+            \( f'(x) = -2x^{-2} - 9x^{-4} \)
+            <br>
+            Or, equivalently:
+            <br>
+            \( f'(x) = -\frac{2}{x^2} - \frac{9}{x^4} \).
+          </p>
+        </div>
+        <br><br>
+      </div>
+      
+      
+      
+      <div class="panel">
+        <h2>Key Takeaways</h2>
+      
+        <ul style="line-height: 1.9; font-size: 1.05em;">
+          <li>
+            The <strong>derivative</strong> captures both the <em>rate of change</em> and the <em>slope</em> of a function — it tells us how one quantity responds to changes in another.
+          </li>
+          <li>
+            Derivatives are defined formally using <strong>limits</strong>, but they can also be approximated numerically when working with data or complex systems.
+          </li>
+      
+          <li>
+            Differentiation is made efficient by powerful tools like the <strong>power rule</strong>, <strong>product rule</strong>, <strong>quotient rule</strong>, and <strong>chain rule</strong>, which simplify the process of finding derivatives.
+          </li>
+          <li>
+            <strong>L’Hôpital’s Rule</strong> provides a method for evaluating indeterminate limits, especially when functions yield forms like \( \frac{0}{0} \) or \( \frac{\infty}{\infty} \).
+          </li>
+          <br>
+      
+          <li>
+            <strong>Implicit differentiation</strong> allows us to find derivatives when variables are entangled and not explicitly solved for — a critical technique in curve analysis and related rates.
+          </li>
+        </ul>
+      
+        <p>
+          Differentiation is the language of change — it gives us the tools to analyze, predict, and model dynamic systems.
+        </p>
+      </div>
+      
+      
+      
+</body>
+</html>

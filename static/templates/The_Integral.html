@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ topic }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson_page.css') }}">
+
+  <script>
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+    });
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+  <div class="blockcontent">
+    <h1>{{ topic }}</h1>
+    
+    <div class="panel">
+      <h2>What Is an Integral?</h2>
+    
+      <p>
+        An <strong>integral</strong> represents the accumulation of quantities — whether it's the area under a curve, the total distance traveled, or the overall probability across a distribution. It tells us how small contributions add up across an interval.
+      </p>
+      <br>
+    
+      <p>
+        In calculus, we distinguish between two major types of integrals:
+      </p>
+      <br>
+    
+      <ul>
+        <li><strong>Definite integral:</strong> Computes the total accumulation over a specific interval, producing a numerical value</li>
+        <li><strong>Indefinite integral:</strong> Represents a general antiderivative — a family of functions whose derivative is the original function</li>
+      </ul>
+      <br>
+    
+      <p>
+        The notation for the <strong>definite integral</strong> from \( a \) to \( b \) of a function \( f(x) \) is:
+      </p>
+      <br>
+    
+      <p style="text-align: center; font-size: 1.2em;">
+        \( \int_a^b f(x)\,dx \)
+      </p>
+      <br>
+    
+      <p>
+        This integral gives the <strong>signed area</strong> under the curve of \( f(x) \) from \( x = a \) to \( x = b \), where area above the axis is positive and below is negative.
+      </p>
+      <br>
+    
+      <h3>Understanding the Idea: Riemann Sums</h3><br>
+    
+      <p>
+        To build intuition for what an integral means, we often start with a <strong>Riemann sum</strong> — a method of approximating the area under a curve by breaking the interval into small rectangles.
+      </p>
+      <br>
+    
+      <p>
+        In a left Riemann sum, we divide the interval \([a, b]\) into \( n \) equal parts, and the height of each rectangle is determined by the value of the function at the left endpoint of the subinterval. The sum of the areas of these rectangles approximates the integral:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_a^b f(x)\,dx \approx \sum_{i=0}^{n-1} f(x_i) \cdot \Delta x \)
+      </p>
+      <br>
+    
+      <p>
+        As we increase the number of rectangles \( n \), the approximation becomes more accurate — and in the limit as \( n \to \infty \), the Riemann sum becomes the exact value of the integral.
+      </p>
+      <br>
+        <div style="text-align: center;">
+          <img src="{{ url_for('static', filename='images/math/i_r.png') }}" alt="Limit Example Chart" style="max-width: 100%; height: auto;">
+        </div>
+        <br>
+    
+      <p>
+        This fundamental idea of summing up tiny contributions is what makes integrals so powerful. From calculating the work done by a force to determining the area under a probability curve, integration lies at the heart of modeling continuous change.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Integration</h2>
+      <br>
+    
+      <p>
+        Integration is the inverse operation of differentiation, and it allows us to find the accumulated area under a curve or the total change of a quantity over an interval. In this panel, we’ll cover the basics of integration, including the integral of constants and functions, and introduce fundamental integration rules.
+      </p>
+      <br>
+    
+      <h3>1. Integral of a Constant</h3>
+      <br>
+      
+      <p>
+        The integral of a constant \( c \) with respect to \( x \) is simply \( cx \), plus the constant of integration \( C \). This makes sense because integrating a constant represents the area of a rectangle with width \( dx \) and height \( c \).
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int c\,dx = c \cdot x + C \)
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \int 5\,dx = 5x + C \)</p>
+      <br>
+    
+      <h3>2. Integral of a Power Function (Power Rule)</h3>
+      <br>
+      
+      <p>
+        The power rule for integration is one of the most commonly used rules. It tells us how to integrate a function of the form \( x^n \), where \( n \neq -1 \).
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int x^n\,dx = \frac{x^{n+1}}{n+1} + C \)
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \int x^3\,dx = \frac{x^4}{4} + C \)</p>
+      <br>
+    
+      <h3>3. Integral of Trigonometric Functions</h3>
+      <br>
+    
+      <p>
+        Some common trigonometric functions have known antiderivatives. These are important to recognize, as they appear frequently in integration problems.
+      </p>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li>\( \int \sin(x)\,dx = -\cos(x) + C \)</li>
+        <br>
+        <li>\( \int \cos(x)\,dx = \sin(x) + C \)</li>
+      </ul>
+      <br>
+    
+      <h3>4. The Integral of Exponential Functions</h3>
+      <br>
+    
+      <p>
+        Exponential functions, particularly those involving the natural base \( e \), have a very simple integral. This property makes them useful in many fields like physics, finance, and biology.
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int e^x\,dx = e^x + C \)
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \int e^x\,dx = e^x + C \)</p>
+      <br>
+      <p>
+        These integrals provides the foundation for tackling more advanced integration techniques and applications in calculus.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Solving Definite Integrals and Improper Integrals</h2>
+      <br>
+    
+      <p>
+        A <strong>definite integral</strong> calculates the total accumulation or area under a curve between two specified limits of integration. This process gives us a specific numerical value, which is particularly useful in applications like finding areas, total distance, or probability.
+      </p>
+      <br>
+    
+      <h3>1. Definite Integrals</h3>
+      <br>
+    
+      <p>
+        To solve a definite integral, we follow these steps:
+      </p>
+      <br>
+    
+      <ol style="padding-left: 20px;">
+        <li>Find the antiderivative (indefinite integral) of the function.</li>
+        <li>Apply the limits of integration to the antiderivative.</li>
+        <li>Subtract the values of the antiderivative at the upper and lower limits to find the total area or change.</li>
+      </ol>
+      <br>
+    
+      <p>
+        The notation for a definite integral is:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_a^b f(x)\,dx = F(b) - F(a) \)
+      </p>
+      <br>
+    
+      <p>
+        Where:
+        <br>
+        - \( f(x) \) is the function to integrate.
+        <br>
+        - \( F(x) \) is the antiderivative of \( f(x) \).
+        <br>
+        - \( a \) and \( b \) are the limits of integration.
+      </p>
+      <br>
+    
+      <h3>Example: Solving a Definite Integral</h3>
+      <br>
+    
+      <p>
+        Consider the definite integral:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_0^2 x^2\,dx \)
+      </p>
+      <br>
+    
+      <p>
+        Step 1: Find the antiderivative of \( x^2 \):
+        <br>
+        \( \int x^2\,dx = \frac{x^3}{3} + C \)
+      </p>
+      <br>
+    
+      <p>
+        Step 2: Apply the limits of integration \( a = 0 \) and \( b = 2 \):
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \left[\frac{x^3}{3}\right]_0^2 = \frac{2^3}{3} - \frac{0^3}{3} = \frac{8}{3} \)
+      </p>
+      <br>
+    
+      <p>
+        So, the value of the integral is \( \frac{8}{3} \), representing the area under the curve from \( x = 0 \) to \( x = 2 \).
+      </p>
+      <br>
+    
+      <h3>2. Improper Integrals</h3>
+      <br>
+    
+      <p>
+        An <strong>improper integral</strong> occurs when the limits of integration are infinite or when the integrand has an infinite discontinuity within the limits of integration. Despite these challenges, improper integrals can still be evaluated by using limits.
+      </p>
+      <br>
+    
+      <p>
+        For integrals with infinite limits of integration, we define the integral as a limit:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_a^\infty f(x)\,dx = \lim_{b \to \infty} \int_a^b f(x)\,dx \)
+      </p>
+      <br>
+    
+      <p>
+        For integrals with infinite discontinuities (like \( \frac{1}{x} \) near 0), we can use a limit as we approach the point of discontinuity:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_a^c f(x)\,dx = \lim_{b \to c^-} \int_a^b f(x)\,dx \)
+      </p>
+      <br>
+    
+      <h3>Example: Improper Integral with Infinite Limits</h3>
+      <br>
+    
+      <p>
+        Consider the improper integral:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_1^\infty \frac{1}{x^2}\,dx \)
+      </p>
+      <br>
+    
+      <p>
+        Step 1: Find the antiderivative of \( \frac{1}{x^2} \):
+        <br>
+        \( \int \frac{1}{x^2}\,dx = -\frac{1}{x} + C \)
+      </p>
+      <br>
+    
+      <p>
+        Step 2: Apply the limit as \( b \to \infty \):
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{b \to \infty} \left[ -\frac{1}{x} \right]_1^b = \lim_{b \to \infty} \left(-\frac{1}{b} + \frac{1}{1}\right) = 0 + 1 = 1 \)
+      </p>
+      <br>
+    
+      <p>
+        So, the value of the improper integral is 1, representing the total accumulated area under the curve from \( x = 1 \) to \( x = \infty \).
+      </p>
+      <br>
+    
+      <h3>Key Points to Remember</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Definite integrals:</strong> Calculate the exact area or total change between two limits of integration.</li>
+        <br>
+        <li><strong>Improper integrals:</strong> Handle infinite limits or functions with discontinuities using limits.</li>
+        <br>
+        <li><strong>Limits of integration:</strong> The bounds can be finite or infinite, and the integration process changes depending on the limits.</li>
+      </ul>
+      <br>
+    </div>
+    
+    
+    
+    <div class="panel">
+      <h2>Indefinite Integrals (Antiderivatives)</h2>
+    
+      <p>
+        An <strong>indefinite integral</strong> represents the reverse process of differentiation. It finds the most general form of a function whose derivative is known. In other words, it answers the question:
+      </p>
+      <br>
+    
+      <p style="text-align: center; font-style: italic;">
+        “What function has this rate of change?”
+      </p>
+      <br>
+    
+      <p>
+        The notation for the indefinite integral of a function \( f(x) \) is:
+      </p>
+      <br>
+    
+      <p style="text-align: center; font-size: 1.2em;">
+        \( \int f(x)\,dx = F(x) + C \)
+      </p>
+      <br>
+    
+      <p>
+        Here:
+        <ul>
+          <li>\( F(x) \) is an <strong>antiderivative</strong> of \( f(x) \), meaning \( F'(x) = f(x) \)</li>
+          <li>\( C \) is the <strong>constant of integration</strong>, accounting for all possible vertical shifts of the antiderivative</li>
+        </ul>
+      </p>
+      <br>
+    
+      <h3>Why the Constant of Integration Matters</h3><br>
+    
+    
+      <p>
+        Since the derivative of a constant is zero, we can’t determine the original constant value from a derivative alone. This means that every antiderivative actually represents a <em>family of functions</em> — all differing by a constant.
+      </p>
+      <br>
+    
+      <h3>Example</h3><br>
+    
+    
+      <p>
+        Consider the function \( f(x) = 3x^2 \). To find its indefinite integral:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int 3x^2\,dx = x^3 + C \)
+      </p>
+      <br>
+    
+      <p>
+        We know this is correct because:
+        <br>
+        \( \frac{d}{dx}[x^3 + C] = 3x^2 \)
+      </p>
+      <br>
+    
+      <h3>Common Indefinite Integrals</h3><br>
+    
+    
+      <ul>
+        <li>\( \int x^n\,dx = \frac{x^{n+1}}{n+1} + C \quad (n \ne -1) \)</li>
+        <li>\( \int e^x\,dx = e^x + C \)</li>
+        <li>\( \int \frac{1}{x}\,dx = \ln|x| + C \)</li>
+        <li>\( \int \cos(x)\,dx = \sin(x) + C \)</li>
+        <li>\( \int \sin(x)\,dx = -\cos(x) + C \)</li>
+      </ul>
+      <br>
+    
+      <h3>Applications of Indefinite Integrals</h3><br>
+    
+    
+      <p>
+        Indefinite integrals are foundational for solving:
+        <ul>
+          <li>Differential equations</li>
+          <li>Initial value problems</li>
+          <li>Reversing velocity to find position, or acceleration to find velocity</li>
+        </ul>
+      </p>
+      <br>
+    
+      <p>
+        In essence, integration “undoes” differentiation — allowing us to recover original quantities from known rates of change.
+      </p>
+    </div>
+    
+    <div class="panel">
+      <h2>Integration Rules</h2>
+      <br>
+    
+      <p>
+        Integration has several standard rules that simplify the process of finding integrals. By mastering these rules, you can efficiently compute many integrals symbolically without the need for complex calculations.
+      </p>
+      <br>
+    
+      <h3>1. Constant Rule</h3>
+      <br>
+      <p>
+        The constant rule tells us that the integral of a constant \( a \) with respect to \( x \) is simply \( ax \), plus the constant of integration \( C \). This is useful when integrating constant functions or coefficients.
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int a\,dx = ax + C \)
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \int 5\,dx = 5x + C \)</p>
+      <br>
+    
+      <h3>2. Power Rule</h3>
+      <br>
+      <p>
+        The power rule is one of the most widely used integration rules. It states that for any real number \( n \neq -1 \), the integral of \( x^n \) is:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int x^n\,dx = \frac{x^{n+1}}{n+1} + C \)
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \int x^3\,dx = \frac{x^4}{4} + C \)</p>
+      <br>
+    
+      <h3>3. Sum Rule</h3>
+      <br>
+      <p>
+        The sum rule allows us to integrate a sum of functions by simply integrating each term separately. This rule simplifies integrals of functions that can be expressed as a sum of simpler functions.
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int [f(x) + g(x)]\,dx = \int f(x)\,dx + \int g(x)\,dx \)
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \int (x^2 + \sin(x))\,dx = \int x^2\,dx + \int \sin(x)\,dx = \frac{x^3}{3} - \cos(x) + C \)</p>
+      <br>
+    
+      <h3>4. Constant Multiple Rule</h3>
+      <br>
+      <p>
+        The constant multiple rule allows us to factor out a constant from the integral. This rule makes it easy to compute integrals of functions where a constant multiplies the integrand.
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int a f(x)\,dx = a \int f(x)\,dx \)
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \int 3x^2\,dx = 3 \int x^2\,dx = 3 \cdot \frac{x^3}{3} + C = x^3 + C \)</p>
+      <br>
+    
+      <h3>Why These Rules Matter</h3>
+      <br>
+      <p>
+        integration rules are essential for efficiently solving integrals in both calculus and real-world applications. These rules form the foundation for more advanced integration techniques, including substitution and integration by parts. With these tools, you can handle a wide variety of functions symbolically and gain deeper insights into the behavior of complex systems.
+      </p>
+      <br>
+    </div>
+    
+    <div class="panel">
+      <h2>Substitution and Integration Techniques</h2>
+      <br>
+    
+      <p>
+        When faced with more complex integrals, algebraic techniques can simplify the problem. One of the most powerful early tools in integration is <strong>\( u \)-substitution</strong>, which helps transform a complicated integral into a simpler one.
+      </p>
+      <br>
+    
+      <p>
+        The core idea of \( u \)-substitution is to rewrite the integral in terms of a new variable, \( u \), which simplifies the expression. Often, this involves identifying an inner function and its derivative, reversing the chain rule from differentiation.
+      </p>
+      <br>
+    
+      <h3>How to Apply \( u \)-Substitution</h3>
+      <br>
+      
+      <p>
+        The general steps are:
+      </p>
+      <br>
+      
+      <ul style="padding-left: 20px;">
+        <li>Identify the inner function that will be substituted (typically \( u = g(x) \))</li>
+        <li>Differentiate \( u \) to find \( du \), and adjust the integral accordingly</li>
+        <li>Perform the integration in terms of \( u \)</li>
+        <li>Substitute back the original expression for \( u \) to return to the original variable, if needed</li>
+      </ul>
+      <br>
+    
+      <h3>Example: Applying \( u \)-Substitution</h3>
+      <br>
+    
+      <p>
+        Consider the integral:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int 2x \cdot \cos(x^2) \, dx \)
+      </p>
+      <br>
+    
+      <p>
+        To simplify, we recognize that the derivative of \( x^2 \) is \( 2x \), so we set:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( u = x^2 \quad \text{and} \quad du = 2x \, dx \)
+      </p>
+      <br>
+    
+      <p>
+        Substituting these into the integral, we get:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int \cos(u) \, du \)
+      </p>
+      <br>
+    
+      <p>
+        This is a straightforward integral:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int \cos(u) \, du = \sin(u) + C \)
+      </p>
+      <br>
+    
+      <p>
+        Finally, we substitute back \( u = x^2 \) to obtain the solution:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \sin(x^2) + C \)
+      </p>
+      <br>
+    
+      <p>
+        This shows how \( u \)-substitution can simplify an integral by transforming it into a more manageable form.
+      </p>
+      <br>
+    
+      <h3>Other Useful Integration Techniques</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Splitting Functions:</strong> Break apart sums and differences inside an integral:
+          <br>
+          \( \int (x^2 + 3x)\,dx = \int x^2\,dx + \int 3x\,dx \)
+        </li>
+        <br>
+    
+        <li><strong>Factoring Constants:</strong> Pull out constants for simpler expressions:
+          <br>
+          \( \int 5x^3\,dx = 5 \int x^3\,dx \)
+        </li>
+        <br>
+    
+        <li><strong>Recognizing Patterns:</strong> Use known antiderivatives, such as:
+          <br>
+          \( \int \frac{1}{x}\,dx = \ln|x| + C \),
+          <br>
+          \( \int e^x\,dx = e^x + C \),
+          <br>
+          \( \int \sin(x)\,dx = -\cos(x) + C \)
+        </li>
+      </ul>
+      <br>
+    
+      <p>
+        These techniques, along with \( u \)-substitution, allows you to tackle a wide variety of integrals. With experience, recognizing which method to apply becomes more intuitive, and you'll be able to simplify even the most complex integrals.
+      </p>
+      <br>
+    </div>
+    
+    <div class="panel">
+      <h2>The Fundamental Theorem of Calculus (FTC)</h2>
+      <br>
+    
+      <p>
+        The <strong>Fundamental Theorem of Calculus</strong> is one of the cornerstones of calculus, establishing the deep connection between differentiation and integration. It is composed of two key parts:
+      </p>
+      <br>
+    
+      <h3>Part 1: The Relationship Between Derivatives and Integrals</h3>
+      <br>
+    
+      <p>
+        Part 1 of the theorem states that if \( F(x) \) is an antiderivative of \( f(x) \), meaning \( F'(x) = f(x) \), then the integral of \( f(x) \) from \( a \) to \( b \) can be computed as:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_a^b f(x)\,dx = F(b) - F(a) \)
+      </p>
+      <br>
+    
+      <p>
+        This is a remarkable result because it allows us to evaluate definite integrals without directly using Riemann sums. Instead, we only need to find an antiderivative \( F(x) \) of the integrand \( f(x) \) and evaluate it at the boundaries.
+      </p>
+      <br>
+    
+      <h3>Part 2: Differentiation and Integration Are Inverses</h3>
+      <br>
+    
+      <p>
+        Part 2 of the theorem states that if \( F(x) \) is defined as the integral of \( f(t) \) from a constant \( a \) to \( x \), i.e.:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( F(x) = \int_a^x f(t)\,dt \)
+      </p>
+      <br>
+    
+      <p>
+        Then, the derivative of \( F(x) \) is simply the original function \( f(x) \):
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( F'(x) = f(x) \)
+      </p>
+      <br>
+    
+      <p>
+        This part of the theorem explains why integration and differentiation are inverse operations: differentiating an integral "undoes" the integration, and integrating a derivative "undoes" the differentiation.
+      </p>
+      <br>
+    
+      <h3>Why This Theorem Is Important</h3>
+      <br>
+    
+      <p>
+        The Fundamental Theorem of Calculus allows us to calculate definite integrals efficiently, turning the complex problem of summing infinitesimally small areas (via Riemann sums) into a simple evaluation of an antiderivative. It not only gives us a method to compute integrals but also deepens our understanding of the relationship between the two fundamental operations of calculus.
+      </p>
+      <br>
+    
+      <p>
+        In addition, the second part of the theorem provides an easy way to find the derivative of an integral, making it easier to work with functions defined as integrals and further strengthening the connection between differentiation and integration.
+      </p>
+      <br>
+    </div>
+    
+    <div class="panel">
+      <h2>Approximating Integrals</h2>
+      <br>
+    
+      <p>
+        In many high-dimensional or analytically intractable problems, traditional methods of integration may not be feasible. In these cases, we can estimate integrals using a powerful numerical technique called <strong>Monte Carlo simulation</strong>.
+      </p>
+      <br>
+    
+      <p>
+        Monte Carlo integration relies on randomness to approximate the value of an integral. The key idea is that by randomly sampling points within the domain of integration, we can approximate the area under the curve of a function.
+      </p>
+      <br>
+    
+      <h3>How It Works</h3>
+      <br>
+    
+      <p>
+        Consider a definite integral over the interval \( [a, b] \). To estimate the integral, we generate \( n \) random sample points \( x_i \) within this interval, and compute the average of the function values at these points. The integral is then approximated by:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \int_a^b f(x)\,dx \approx (b - a) \cdot \frac{1}{n} \sum_{i=1}^n f(x_i) \)
+      </p>
+      <br>
+    
+      <p>
+        The more sample points \( n \) we use, the more accurate the approximation becomes. This method essentially turns the integration process into a statistical problem, where the mean value of the function at randomly chosen points gives us an estimate of the area under the curve.
+      </p>
+      <br>
+    
+      <h3>Applications of Monte Carlo Integration</h3>
+      <br>
+    
+      <ul style="padding-left: 20px;">
+        <li><strong>Computational Finance:</strong> Estimating values for options pricing models and risk analysis, where traditional methods are computationally expensive.</li>
+        <br>
+        <li><strong>Physics:</strong> Monte Carlo methods are used to model complex systems in statistical mechanics, quantum mechanics, and fluid dynamics, where exact solutions are impractical.</li>
+        <br>
+        <li><strong>Machine Learning:</strong> In the context of high-dimensional probability distributions, Monte Carlo methods help with estimating integrals related to Bayesian inference and other probabilistic models.</li>
+      </ul>
+      <br>
+    
+      <h3>Why Monte Carlo Works Well</h3>
+      <br>
+    
+      <p>
+        Monte Carlo integration is particularly valuable in scenarios where the integrand is difficult to evaluate analytically or the dimensionality of the problem makes traditional numerical integration methods infeasible. It scales well with high dimensions, where other methods like quadrature become computationally expensive. Its robustness and versatility make it an essential tool in modern computational mathematics and science.
+      </p>
+      <br>
+    
+      <p>
+        While Monte Carlo integration is a powerful method, it is important to note that its accuracy depends on the number of samples used. The error decreases at a rate of \( \frac{1}{\sqrt{n}} \), meaning that more samples lead to better estimates, but also more computation.
+      </p>
+      <br>
+    
+    </div>
+
+    <div class="panel">
+      <h2>Practice Problems: Integration</h2>
+    
+      <h3>Problem 1</h3>
+      <p>
+        Let \( f(x) = 3x^2 + 2x - 5 \). What is the integral of \( f(x) \)?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+      <div class="solution" id="ex1">
+        <p>
+          To integrate \( f(x) = 3x^2 + 2x - 5 \), we apply the power rule for each term:
+          <br>
+          The integral of \( 3x^2 \) is \( x^3 \), the integral of \( 2x \) is \( x^2 \), and the integral of \( -5 \) is \( -5x \).
+          <br>
+          Therefore, the integral is:
+          <br>
+          \( \int (3x^2 + 2x - 5)\,dx = x^3 + x^2 - 5x + C \)
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 2</h3>
+      <p>
+        Let \( f(x) = \sin(x) \). What is the integral of \( f(x) \)?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+      <div class="solution" id="ex2">
+        <p>
+          The integral of \( \sin(x) \) is a well-known result:
+          <br>
+          \( \int \sin(x)\,dx = -\cos(x) + C \)
+          <br>
+          This is a standard integral for trigonometric functions. We will discuss results like this in more detail in a later lesson.
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 3</h3>
+      <p>
+        Find the integral of \( f(x) = 4x^3 - 3x + 2 \) using the power rule.
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+      <div class="solution" id="ex3">
+        <p>
+          Apply the power rule to each term:
+          <br>
+          The integral of \( 4x^3 \) is \( x^4 \), the integral of \( -3x \) is \( -\frac{3x^2}{2} \), and the integral of \( 2 \) is \( 2x \).
+          <br>
+          Therefore, the integral is:
+          <br>
+          \( \int (4x^3 - 3x + 2)\,dx = x^4 - \frac{3x^2}{2} + 2x + C \)
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 4</h3>
+      <p>
+        Solve \( \int \frac{1}{x}\,dx \).
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex4')">Show Solution</button>
+      <div class="solution" id="ex4">
+        <p>
+          The integral of \( \frac{1}{x} \) is a standard result:
+          <br>
+          \( \int \frac{1}{x}\,dx = \ln|x| + C \)
+          <br>
+          This is a key result for logarithmic integrals.
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 5</h3>
+      <p>
+        Let \( f(x) = 5e^x \). What is the integral of \( f(x) \)?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex5')">Show Solution</button>
+      <div class="solution" id="ex5">
+        <p>
+          The integral of \( e^x \) is simply \( e^x \), and since we have a constant multiplier 5, we apply the constant multiple rule:
+          <br>
+          \( \int 5e^x\,dx = 5e^x + C \)
+          <br>
+          This follows from the standard integral for exponential functions.
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 6</h3>
+      <p>
+        Let \( f(x) = \cos(x) \). What is the integral of \( f(x) \)?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex6')">Show Solution</button>
+      <div class="solution" id="ex6">
+        <p>
+          The integral of \( \cos(x) \) is a standard result:
+          <br>
+          \( \int \cos(x)\,dx = \sin(x) + C \)
+          <br>
+          This is a well-known trigonometric integral.
+        </p>
+      </div>
+      <br><br>
+    </div>
+    
+    
+    <div class="panel">
+      <h2>Key Takeaways</h2>
+      <br>
+    
+      <ul style="line-height: 1.8; padding-left: 20px;">
+        <li><strong>Integral:</strong> An integral represents accumulation — it can measure areas, totals, or probabilities across a range of applications.</li>
+       
+    
+        <li><strong>Definite integrals:</strong> These integrals compute the total change or accumulated area between two bounds \(a\) and \(b\). They give a specific numerical result.</li>
+        
+    
+        <li><strong>Indefinite integrals:</strong> The indefinite integral is the antiderivative of a function — essentially the reverse of differentiation, giving us a family of functions rather than a single value.</li>
+        
+    
+        <li><strong>Fundamental Theorem of Calculus:</strong> This key theorem links differentiation and integration, showing that they are inverse operations and explaining how to compute definite integrals.</li>
+        
+    
+        <li><strong>Numerical and Monte Carlo methods:</strong> When exact analytical methods of integration are difficult or impossible, numerical techniques such as Monte Carlo simulations provide approximate solutions.</li>
+      </ul>
+      <br>
+    
+      <p>
+        Integration is an indispensable tool in fields ranging from physics and engineering to economics and data science. It helps us understand total change — whether it's energy, volume, risk, or return.
+      </p>
+      <br>
+    </div>
+    
+  
+  </div>
+  
+      
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ topic }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson_page.css') }}">
+  <script>
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+    });
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+  
+  <div class="blockcontent">
+    <h1>{{ topic }}</h1>
+  
+    <div class="panel">
+      <h2>What Is a Function?</h2>
+    
+      <p><strong>Q: How do we formalize relationships between inputs and outputs in a predictable way?</strong></p>
+      <br>
+    
+      <p>
+        A <strong>function</strong> is a mathematical rule that assigns exactly one output to each input. It maps elements from one set (the <em>domain</em>) to another set (the <em>codomain</em>), preserving a well-defined, deterministic relationship:
+      </p>
+    
+      <div style="text-align: center;">
+        \[
+        f : X \rightarrow Y
+        \]
+      </div>
+      <br>
+    
+      <p>
+        That means for every \( x \in X \), there exists a unique value \( f(x) \in Y \). Functions are the backbone of all mathematical modeling — from algebra to algorithms, statistics to machine learning.
+      </p>
+      <br>
+    
+      <p>
+        In finance, data science, and decision-making, functions help us translate uncertain inputs into measurable outputs. A function of more than one input is called a <em>multivariable</em> function.
+      </p>
+      <br>
+    
+      <h3>Example: Option Pricing as a Function</h3><br>
+      <p>
+        In quantitative finance, the Black-Scholes formula is a function:
+      </p>
+    
+      <div style="text-align: center;">
+        \[
+        C = f(S, K, T, \sigma, r)
+        \]
+      </div>
+    
+      <p>
+        where:
+        <ul>
+          <li>\( S \): current stock price</li>
+          <li>\( K \): strike price</li>
+          <li>\( T \): time to maturity</li>
+          <li>\( \sigma \): volatility</li>
+          <li>\( r \): risk-free rate</li>
+        </ul>
+        The output \( C \) is the theoretical value of a call option. This function gives us a rule to compute fair prices given a variety of assumptions and parameters.
+      </p>
+      <br>
+    
+      <div style="text-align: center;">
+        <img src="{{ url_for('static', filename='images/math/bs_f.png') }}" style="max-width: 100%; height: auto;">
+      </div>
+      <br>
+    
+      <p>
+        The chart above shows the output of the Black-Scholes formula as a function of the underlying stock price \( S \), with all other parameters held constant. This is a slice of the full multi-variable function.
+      </p>
+      <br>
+    
+      <p>
+        In higher dimensions (3+ inputs), we cannot visualize the full shape of a function. But we can still understand it by:
+        <ul>
+          <li>Fixing all but one variable and analyzing how the output changes</li>
+          <li>Taking <strong>partial derivatives</strong> to study sensitivity</li>
+          <li>Plotting <strong>cross-sections</strong> or slices for intuition</li>
+        </ul>
+        This approach is central to both <strong>machine learning</strong> (model interpretation and learning) and <strong>quant finance</strong> (sensitivity analysis, aka "the Greeks").
+      </p>
+      <br>
+    
+      <p>
+        Functions also appear in data science workflows:
+      </p>
+      <ul>
+        <li>Model predictions: where input features map to a predicted label or value</li>
+        <li>Loss functions: measure how wrong a prediction is</li>
+        <li>Transformations: mapping raw data into normalized or structured form</li>
+      </ul>
+      <br>
+    
+      <p>
+        Whether defined by a formula, plotted on a graph, or encoded in software — a function always means: one input, one output.
+      </p>
+      <br>
+    
+      <p>
+        Functions are the language of relationships. They allow us to model systems, define processes, and build intuition from structure — no matter how complex the domain.
+      </p>
+    </div>
+    
+    <div class="panel">
+      <h2>What Is a Limit?</h2>
+    
+      <p><strong>Q: How can we understand how a function behaves near a point — even if it's undefined there?</strong></p>
+      <br>
+    
+      <p>
+        A <strong>limit</strong> describes the value a function approaches as its input gets arbitrarily close to a specific point. Limits let us reason about functions at their boundaries, around holes, or near discontinuities — all without needing to plug in the exact value.
+      </p>
+      <br>
+    
+      <p>
+        Formally, we write:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \lim_{x \to a} f(x) = L
+        \]
+      </div>
+      <br>
+    
+      <p>
+        This means that as \( x \) gets closer and closer to \( a \), the function's output \( f(x) \) gets closer and closer to the number \( L \) — regardless of what happens at exactly \( x = a \). The function may be undefined at \( a \), or even have a different value.
+      </p>
+      <br>
+    
+      <h3>Intuition from Both Sides</h3><br>
+      <p>
+        A limit exists only if the function approaches the same value from the left and from the right:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L
+        \]
+      </div>
+      <br>
+    
+      <p>
+        This is especially useful when analyzing functions with jumps, holes, or asymptotic behavior — common in piecewise models, pricing functions with thresholds, and in signal analysis.
+      </p>
+      <br>
+    
+      <h3>Epsilon-Delta Definition</h3><br>
+      <p>
+        The formal definition of a limit is precise — and powerful:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \lim_{x \to a} f(x) = L
+        \quad \text{means} \quad
+        \forall \epsilon > 0, \exists \delta > 0 \text{ such that if } 0 < |x - a| < \delta, \text{ then } |f(x) - L| < \epsilon
+        \]
+      </div>
+      <br>
+    
+      <p>
+        In simple terms: we can make \( f(x) \) as close as we want to \( L \), just by taking \( x \) close enough to \( a \). This is how we define “approaching” in a mathematically rigorous way. The formal definition, though precise, is not necessary for most practical applications.
+      </p>
+      <br>
+    
+      <h3>Example: Limit of a Function at a Removable Discontinuity</h3><br>
+    
+      <p>
+        Consider the function:
+      </p>
+      <div style="text-align: center;">
+        \[
+        f(x) = \frac{x^2 - 1}{x - 1}
+        \]
+      </div>
+      <p>
+        This function is undefined at \( x = 1 \), but we can simplify it:
+      </p>
+      <div style="text-align: center;">
+        \[
+        f(x) = \frac{(x - 1)(x + 1)}{x - 1} = x + 1 \quad \text{for } x \neq 1
+        \]
+      </div>
+      <p>
+        Now we can evaluate the limit:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \lim_{x \to 1} f(x) = \lim_{x \to 1} (x + 1) = 2
+        \]
+      </div>
+      <br>
+      <div style="text-align: center;">
+        <img src="{{ url_for('static', filename='images/math/l_f.png') }}" alt="Limit Example Chart" style="max-width: 100%; height: auto;">
+      </div>
+      <br>
+      <p>
+        Even though \( f(1) \) is undefined, the limit exists and is equal to 2. This is a <strong>removable discontinuity</strong>.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>One-Sided Limits</h2>
+    
+      <p>
+        In some cases, it’s important to consider what happens to a function as \( x \) approaches a point from only one direction — either from the left or from the right. These are known as <strong>one-sided limits</strong>, and they give us more precise information about a function’s behavior near discontinuities or sharp turns.
+      </p>
+      <br>
+    
+      <p>
+        The <strong>left-hand limit</strong> is written as:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{x \to a^-} f(x) \)
+      </p>
+      <br>
+    
+      <p>
+        It tells us what value \( f(x) \) approaches as \( x \) comes closer to \( a \) from values less than \( a \) (from the left).
+      </p>
+      <br>
+    
+      <p>
+        The <strong>right-hand limit</strong> is written as:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{x \to a^+} f(x) \)
+      </p>
+      <br>
+    
+      <p>
+        It describes the value \( f(x) \) approaches as \( x \) comes from values greater than \( a \) (from the right).
+      </p>
+      <br>
+    
+      <h3>Why One-Sided Limits Matter</h3><br>
+      <p>
+        One-sided limits are essential for:
+        <ul>
+          <li>Defining piecewise or discontinuous functions</li>
+          <li>Identifying jump discontinuities</li>
+          <li>Determining whether a full (two-sided) limit exists</li>
+        </ul>
+      </p>
+      <br>
+    
+      <p>
+        If the left- and right-hand limits agree, then the full limit exists:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        If \( \lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L \), then \( \lim_{x \to a} f(x) = L \)
+      </p>
+      <br>
+    
+      <h3>Limits That Diverge</h3><br>
+      <p>
+        Sometimes, one-sided limits do not approach a finite value, but instead grow without bound. In such cases, the function is said to diverge to positive or negative infinity.
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> Consider the function \( f(x) = \frac{1}{x} \).</p>
+      <br>
+    
+      <p>
+        As \( x \to 0^- \), \( f(x) \to -\infty \) — the values decrease without bound.
+        <br>
+        As \( x \to 0^+ \), \( f(x) \to \infty \) — the values increase without bound.
+      </p>
+      <br>
+    
+      <p>
+        Since the left- and right-hand limits do not agree (and in fact go in opposite infinite directions), the full limit \( \lim_{x \to 0} \frac{1}{x} \) does not exist.
+      </p>
+      <br>
+    
+      <h3>Visual Interpretation</h3><br>
+      <p>
+        One-sided limits are especially helpful when analyzing vertical asymptotes or discontinuities. They tell us not just that the function "blows up," but also in <em>which direction</em> — a distinction that is essential in calculus and mathematical modeling.
+      </p>
+      <br>
+    
+      <p>
+        Understanding one-sided limits is a key step in mastering limits, continuity, and the foundational ideas behind derivatives and integrals.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Basics of Evaluating Limits</h2>
+    
+      <p>
+        A <strong>limit</strong> describes the value that a function approaches as the input (usually \( x \)) gets arbitrarily close to a certain point. It allows us to analyze functions at points where they may not be explicitly defined, and it forms the backbone of calculus concepts like continuity, derivatives, and integrals.
+      </p>
+      <br>
+    
+      <p>
+        The basic notation is:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{x \to a} f(x) \)
+      </p>
+      <br>
+    
+      <p>
+        This means “the value that \( f(x) \) approaches as \( x \) approaches \( a \),” not necessarily what \( f(x) \) equals at \( x = a \).
+      </p>
+      <br>
+    
+      <h3>1. Direct Substitution</h3><br>
+      <p>
+        If the function is continuous at \( x = a \), we can evaluate the limit by simply plugging in the value:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{x \to 2} (x^2 + 3) = 2^2 + 3 = 7 \)
+      </p>
+      <br>
+    
+      <p>
+        This method works when no undefined or indeterminate form (like \( \frac{0}{0} \)) arises.
+      </p>
+      <br>
+    
+      <h3>2. Factoring</h3><br>
+      <p>
+        If direct substitution gives an indeterminate form like \( \frac{0}{0} \), try factoring and simplifying:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{x \to 1} \frac{x^2 - 1}{x - 1} \)
+      </p>
+      <br>
+    
+      <p>
+        Factor numerator: \( \frac{(x - 1)(x + 1)}{x - 1} \) <br>
+        Cancel terms: \( \lim_{x \to 1} (x + 1) = 2 \)
+      </p>
+      <br>
+    
+      <h3>3. Rationalizing</h3><br>
+      <p>
+        For limits involving square roots or irrational expressions, multiplying by the conjugate can simplify the expression:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{x \to 0} \frac{\sqrt{x + 1} - 1}{x} \)
+      </p>
+      <br>
+    
+      <p>
+        Multiply numerator and denominator by \( \sqrt{x + 1} + 1 \) to eliminate the root.
+      </p>
+      <br>
+    
+      <h3>4. Recognizing Special Limits</h3><br>
+      <p>
+        Some limits are so common that they’re useful to memorize:
+      </p>
+      <br>
+    
+      <ul>
+        <li>\( \lim_{x \to 0} \frac{\sin(x)}{x} = 1 \)</li>
+        <li>\( \lim_{x \to \infty} \frac{1}{x^n} = 0 \) for \( n > 0 \)</li>
+        <li>\( \lim_{x \to 0} \frac{1 - \cos(x)}{x^2} = \frac{1}{2} \)</li>
+      </ul>
+      <br>
+    
+      <p>
+        With practice, evaluating limits becomes a flexible toolkit — using substitution when possible, algebra when needed, and logic when nothing else works.
+      </p>
+    </div>
+    
+    
+
+    <div class="panel">
+      <h2>Limits at Infinity</h2>
+    
+      <p>
+        In calculus, we often encounter limits where the input variable grows without bound — that is, where \( x \to \infty \) or \( x \to -\infty \). These are known as <strong>limits at infinity</strong>, and they help us understand the long-term behavior of functions.
+      </p>
+      <br>
+    
+      <p>
+        Sometimes we also deal with expressions like \( \frac{1}{\infty} \), which are not numbers in themselves, but symbolic representations of vanishing quantities. For example:
+      </p>
+      <br>
+    
+      <p style="text-align: center;">
+        \( \lim_{x \to \infty} \frac{1}{x} = 0 \)
+      </p>
+      <br>
+    
+      <p>
+        As \( x \) becomes extremely large, the value of \( \frac{1}{x} \) becomes extremely small — approaching zero, but never quite reaching it. This is a fundamental idea in analysis, and helps model decay, saturation, and stabilization in many applied settings.
+      </p>
+      <br>
+    
+      <h3>Common Behaviors as \( x \to \infty \)</h3>
+      <ul>
+        <li><strong>Rational decay:</strong> \( \frac{1}{x^n} \to 0 \) as \( x \to \infty \) for any \( n > 0 \)</li>
+        <li><strong>Polynomial growth:</strong> \( x^n \to \infty \) as \( x \to \infty \) for \( n > 0 \)</li>
+        <li><strong>Exponential growth:</strong> \( e^x \to \infty \), grows faster than any polynomial</li>
+        <li><strong>Logarithmic growth:</strong> \( \ln(x) \to \infty \) but very slowly compared to \( x \) or \( x^2 \)</li>
+        <li><strong>Oscillating functions:</strong> Functions like \( \sin(x) \) do not converge, but continue oscillating forever</li>
+      </ul>
+      <br>
+    
+      <h3>Example: Rational Decay</h3>
+      <p>
+        Consider:
+      </p>
+      <br>
+      <p style="text-align: center;">
+        \( \lim_{x \to \infty} \frac{3x^2 + 5}{7x^2 + 1} \)
+      </p>
+      <br>
+      <p>
+        Divide both numerator and denominator by \( x^2 \) (the highest power in the expression):
+      </p>
+      <br>
+      <p style="text-align: center;">
+        \( = \lim_{x \to \infty} \frac{3 + \frac{5}{x^2}}{7 + \frac{1}{x^2}} \)
+      </p>
+      <br>
+      <p>
+        As \( x \to \infty \), the terms \( \frac{5}{x^2} \) and \( \frac{1}{x^2} \) approach 0. So the limit becomes:
+      </p>
+      <br>
+      <p style="text-align: center;">
+        \( = \frac{3}{7} \)
+      </p>
+      <br>
+    
+      <h3>When Limits Diverge</h3>
+      <p>
+        Not all limits at infinity converge to a finite number. If a function grows without bound, the limit is said to <strong>diverge to infinity</strong>.
+      </p>
+      <br>
+    
+      <p><strong>Example:</strong> \( \lim_{x \to \infty} x^2 = \infty \)</p>
+      <br>
+    
+      <p>
+        This doesn't mean the function "equals infinity," but rather that it grows beyond any finite bound as \( x \) increases.
+      </p>
+      <br>
+    
+      <h3>Why It Matters</h3>
+      <p>
+        Understanding limits at infinity is key for:
+        <ul>
+          <li>Analyzing long-term behavior of models</li>
+          <li>Determining horizontal asymptotes of graphs</li>
+          <li>Simplifying rational and exponential expressions</li>
+          <li>Evaluating improper integrals and infinite series</li>
+        </ul>
+      </p>
+      <br>
+    
+      <p>
+        Mastery of these concepts allows you to quickly spot whether a quantity is vanishing, stabilizing, or diverging — a skill that’s critical in calculus, physics, and applied mathematics.
+      </p>
+    </div>
+    
+    
+    <div class="panel">
+      <h2>What Is Continuity?</h2>
+    
+      <p><strong>Q: When is a function smooth and uninterrupted?</strong></p>
+      <br>
+      <p>
+        In everyday language, a continuous function is one you can draw without lifting your pencil from the paper. Mathematically, continuity ensures that the behavior of a function around a point is predictable and unbroken.
+      </p>
+      <br>
+      <p>
+        A function \( f(x) \) is said to be <strong>continuous at a point</strong> \( x = a \) if the following three conditions are all satisfied:
+      </p> <br>
+      <ul>
+        <li>The function is defined at \( a \): \( f(a) \) exists</li>
+        <li>The limit exists at that point: \( \lim_{x \to a} f(x) \) exists</li>
+        <li>The value of the function equals the limit: \( \lim_{x \to a} f(x) = f(a) \)</li>
+      </ul>
+      <br>
+      <p>
+        If any of these conditions is not met, the function has a <strong>discontinuity</strong> at that point.
+      </p>
+      <br>
+      <p><strong>Definition (Continuous on an Interval):</strong></p> <br>
+      <p>
+        A function \( f(x) \) is said to be continuous on an interval \( I \) if it is continuous at every point within \( I \). This means there are no sudden jumps, holes, or asymptotes throughout the interval.
+      </p>
+      <br>
+      <p>
+        Continuity is a key concept in calculus and analysis. It guarantees that small changes in input produce small, controlled changes in output, which is crucial in real-world models like physics, economics, and engineering.
+      </p>
+      <br>
+      <p><strong>Types of Discontinuities:</strong></p>
+      <br>
+      <p>
+        Understanding the types of discontinuities helps us classify and analyze where and how a function fails to be continuous.
+      </p>
+      <br>
+      <ul>
+        <li><strong>Removable Discontinuity:</strong> The limit exists, but the function is either undefined or defined differently at that point.<br>
+          <em>Example:</em> \( f(x) = \frac{x^2 - 1}{x - 1} \) has a removable discontinuity at \( x = 1 \).<br>
+        </li>
+        <li><strong>Jump Discontinuity:</strong> The left-hand and right-hand limits exist but are not equal.<br>
+          <em>Example:</em> A piecewise function like \( f(x) = \begin{cases} 1 & x < 0 \\ 2 & x \geq 0 \end{cases} \).<br>
+        </li>
+        <li><strong>Infinite Discontinuity:</strong> The function approaches infinity near the point.<br>
+          <em>Example:</em> \( f(x) = \frac{1}{x} \) has an infinite discontinuity at \( x = 0 \).<br>
+        </li>
+      </ul>
+      <br>
+      <p>
+        Recognizing these types of discontinuities can help in graph analysis, integration, and limit evaluations.
+      </p>
+      <br>
+      <div style="text-align: center;">
+        <img src="{{ url_for('static', filename='images/math/d_f.png') }}" style="max-width: 100%; height: auto;">
+      </div>
+      <br>
+      <p>
+        In summary, continuity at a point means no surprises — the function behaves nicely and predictably. It’s a fundamental building block of calculus, enabling more complex operations like differentiation and integration.
+      </p>
+    </div>
+    
+  
+    <div class="panel">
+      <h2>Practice Problems: Limits and Continuity</h2>
+    
+      <h3>Problem 1</h3>
+      <p>
+        Let \( f(x) = \frac{x^2 - 1}{x - 1} \). What is \( \lim_{x \to 1} f(x) \)?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+      <div class="solution" id="ex1">
+        <p>
+          First, factor the numerator:  
+          \[
+          f(x) = \frac{(x - 1)(x + 1)}{x - 1}
+          \]
+          For \( x \neq 1 \), we can cancel the \( x - 1 \) terms:  
+          \[
+          f(x) = x + 1
+          \]
+          Therefore:
+          \[
+          \lim_{x \to 1} f(x) = 1 + 1 = 2
+          \]
+          Even though \( f(1) \) is undefined, the limit exists.
+        </p>
+      </div>
+      <br><br>
+      <br>
+      <h3>Problem 2</h3>
+      <p>
+        Let  
+        \[
+        f(x) = \begin{cases} 
+          x^2 & x \neq 2 \\
+          5 & x = 2 
+        \end{cases}
+        \]
+        Is the function continuous at \( x = 2 \)?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+      <div class="solution" id="ex2">
+        <p>
+          Step 1: Compute the limit from both sides:  
+          \[
+          \lim_{x \to 2} f(x) = 4
+          \]
+          Step 2: Evaluate the function:  
+          \[
+          f(2) = 5
+          \]
+          Step 3: Since the limit and function value are not equal, \( f \) is not continuous at \( x = 2 \).
+        </p>
+      </div>
+      <br><br>
+      <br>
+      <h3>Problem 3</h3>
+      <p>
+        Let  
+        \[
+        f(x) = \begin{cases} 
+          1 - x & x < 1 \\
+          x^2 & x \geq 1 
+        \end{cases}
+        \]
+        Does \( \lim_{x \to 1} f(x) \) exist?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+      <div class="solution" id="ex3">
+        <p>
+          Left-hand limit:  
+          \[
+          \lim_{x \to 1^-} f(x) = 1 - 1 = 0
+          \]
+          Right-hand limit:  
+          \[
+          \lim_{x \to 1^+} f(x) = 1^2 = 1
+          \]
+          Since the left and right limits are not equal, the two-sided limit does not exist. This is a <strong>jump discontinuity</strong>.
+        </p>
+      </div>
+      <br><br><br>
+    
+      <h3>Problem 4</h3>
+      <p>
+        Let \( f(x) = \frac{1}{x - 3} \). What happens as \( x \to 3 \)?
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex4')">Show Solution</button>
+      <div class="solution" id="ex4">
+        <p>
+          As \( x \to 3^- \), \( f(x) \to -\infty \)  
+          <br>
+          As \( x \to 3^+ \), \( f(x) \to +\infty \)  
+          <br>
+          Since the function diverges in both directions, it has an <strong>infinite discontinuity</strong> at \( x = 3 \).
+        </p>
+      </div>
+      <br>
+    </div>
+    
+    <div class="panel">
+      <h2>Key Takeaways</h2>
+    
+      <ul style="line-height: 1.9; font-size: 1.05em;">
+        <li>
+          A <strong>function</strong> maps each input in its domain to exactly one output — it's the backbone of mathematical modeling.
+        </li>
+        <li>
+          A <strong>limit</strong> describes the value a function approaches as the input gets close to a specific point, even if the function isn’t defined there.
+        </li>
+        <li>
+          A function is <strong>continuous</strong> at a point if there’s no gap or jump: the value matches the limit at that point.
+        </li>
+        <li>
+          <strong>Discontinuities</strong> — whether removable, jump, or infinite — represent breakdowns in smooth behavior and can disrupt analysis or prediction.
+        </li>
+        <li>
+          These concepts form the core of calculus, enabling powerful tools like derivatives, integrals, and continuous probability models.
+        </li>
+      </ul>
+    
+      <br>
+    
+      <p>
+        Mastering functions, limits, and continuity sets the stage for exploring change, uncertainty, and complex systems — from physics to finance.
+      </p>
+    </div>
+    
+
+  </div>
+  
+  
+      
+</body>
+</html>

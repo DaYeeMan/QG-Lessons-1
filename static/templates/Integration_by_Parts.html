@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Integration by Parts</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson_page.css') }}">
+  <script>
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+    });
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <div class="blockcontent">
+    <h1>Integration by Parts</h1>
+  
+    <div class="panel">
+      <h2>What Is Integration by Parts?</h2>
+      <p><strong>Q: How do we integrate the product of two functions?</strong></p>
+      <br>
+      <p>
+        <strong>Integration by parts</strong> is a technique for evaluating integrals where the integrand is a product of two functions. It is based on the product rule for differentiation:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \frac{d}{dx}[u(x)v(x)] = u'(x)v(x) + u(x)v'(x)
+        \]
+      </div>
+      <br>
+      <p>
+        Rearranging and integrating both sides gives the <strong>integration by parts formula</strong>:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \int u(x) v'(x)\,dx = u(x)v(x) - \int u'(x)v(x)\,dx
+        \]
+      </div>
+      <br>
+      <p>
+        Or, more simply:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \int u\,dv = uv - \int v\,du
+        \]
+      </div>
+      <br>
+      <p>
+        This method is especially useful when integrating products where one function becomes simpler when differentiated, and the other is easy to integrate.
+      </p>
+      <br>
+      <h3>Visualizing the Product Rule</h3>
+      <div id="product-rule-plot" style="width:100%;max-width:600px;height:350px;margin:auto;"></div>
+      <script>
+        // Plotly: Visualize u(x), v(x), and their product
+        const x = Array.from({length: 100}, (_, i) => i * 0.1);
+        const u = x.map(xi => Math.sin(xi));
+        const v = x.map(xi => Math.exp(-0.2*xi));
+        const uv = x.map((xi, i) => u[i] * v[i]);
+        Plotly.newPlot('product-rule-plot', [
+          {x, y: u, name: 'u(x) = sin(x)', line: {color: 'blue'}},
+          {x, y: v, name: 'v(x) = exp(-0.2x)', line: {color: 'green'}},
+          {x, y: uv, name: 'u(x)v(x)', line: {color: 'red', dash: 'dot'}},
+        ], {
+          title: 'Functions and Their Product',
+          xaxis: {title: 'x'},
+          yaxis: {title: 'Value'},
+          legend: {x: 0, y: 1.1, orientation: 'h'}
+        });
+      </script>
+      <br>
+      <p>
+        The plot above shows two functions and their product. Integration by parts helps us break down the integral of the red curve into simpler pieces.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>How to Use Integration by Parts</h2>
+      <p>
+        To use integration by parts, identify parts of your integrand as <strong>u</strong> and <strong>dv</strong>:
+      </p>
+      <ul>
+        <li>Let <strong>u</strong> = a function that becomes simpler when differentiated</li>
+        <li>Let <strong>dv</strong> = the remaining part, which is easy to integrate</li>
+      </ul>
+      <p>
+        Then compute:
+      </p>
+      <ul>
+        <li><strong>du</strong> = derivative of u</li>
+        <li><strong>v</strong> = integral of dv</li>
+      </ul>
+      <p>
+        Substitute into the formula:
+      </p>
+      <div style="text-align: center;">
+        \[
+        \int u\,dv = uv - \int v\,du
+        \]
+      </div>
+      <br>
+      <h3>LIATE Rule</h3>
+      <p>
+        A common mnemonic for choosing <strong>u</strong> is <strong>LIATE</strong> (Logarithmic, Inverse trig, Algebraic, Trig, Exponential). Choose <strong>u</strong> from the earliest category present in your integrand.
+      </p>
+    </div>
+    
+    <div class="panel">
+      <h2>Worked Example</h2>
+      <p>
+        <strong>Example:</strong> \( \int x e^x dx \)
+      </p>
+      <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+      <div class="solution" id="ex1">
+        <p>
+          Let \( u = x \) (algebraic), \( dv = e^x dx \) (exponential).<br>
+          Then \( du = dx \), \( v = e^x \).<br><br>
+          Substitute into the formula:
+          \[
+          \int x e^x dx = x e^x - \int e^x dx = x e^x - e^x + C
+          \]
+        </p>
+      </div>
+      <br><br>
+      <h3>Geometric Visualization</h3>
+      <div id="ibp-area-plot" style="width:100%;max-width:600px;height:350px;margin:auto;"></div>
+      <script>
+        // Plot the area under x*e^x from 0 to 1
+        const x2 = Array.from({length: 100}, (_, i) => i/99);
+        const y2 = x2.map(xi => xi * Math.exp(xi));
+        Plotly.newPlot('ibp-area-plot', [
+          {x: x2, y: y2, fill: 'tozeroy', type: 'scatter', name: 'y = x e^x', line: {color: 'purple'}},
+        ], {
+          title: 'Area Under y = x e^x (0 ≤ x ≤ 1)',
+          xaxis: {title: 'x'},
+          yaxis: {title: 'y'},
+        });
+      </script>
+      <br>
+      <p>
+        The shaded area represents \( \int_0^1 x e^x dx \). Integration by parts lets us compute this exactly.
+      </p>
+    </div>
+  
+    <div class="panel">
+      <h2>Practice Problems: Integration by Parts</h2>
+      <h3>Problem 1</h3>
+      <p>
+        Evaluate \( \int x \cos(x) dx \)
+      </p>
+      <button class="show-btn" onclick="toggleSolution('p1')">Show Solution</button>
+      <div class="solution" id="p1">
+        <p>
+          Let \( u = x \), \( dv = \cos(x) dx \).<br>
+          Then \( du = dx \), \( v = \sin(x) \).<br>
+          \[
+          \int x \cos(x) dx = x \sin(x) - \int \sin(x) dx = x \sin(x) + \cos(x) + C
+          \]
+        </p>
+      </div>
+      <br><br>
+      <h3>Problem 2</h3>
+      <p>
+        Evaluate \( \int \ln(x) dx \)
+      </p>
+      <button class="show-btn" onclick="toggleSolution('p2')">Show Solution</button>
+      <div class="solution" id="p2">
+        <p>
+          Let \( u = \ln(x) \), \( dv = dx \).<br>
+          Then \( du = \frac{1}{x} dx \), \( v = x \).<br>
+          \[
+          \int \ln(x) dx = x \ln(x) - \int x \cdot \frac{1}{x} dx = x \ln(x) - \int 1 dx = x \ln(x) - x + C
+          \]
+        </p>
+      </div>
+      <br><br>
+      <h3>Problem 3</h3>
+      <p>
+        Evaluate \( \int x^2 e^x dx \)
+      </p>
+      <button class="show-btn" onclick="toggleSolution('p3')">Show Solution</button>
+      <div class="solution" id="p3">
+        <p>
+          Let \( u = x^2 \), \( dv = e^x dx \).<br>
+          Then \( du = 2x dx \), \( v = e^x \).<br>
+          \[
+          \int x^2 e^x dx = x^2 e^x - \int 2x e^x dx
+          \]
+          Now apply integration by parts again to \( \int 2x e^x dx \):<br>
+          Let \( u = 2x \), \( dv = e^x dx \), so \( du = 2 dx \), \( v = e^x \):<br>
+          \[
+          \int 2x e^x dx = 2x e^x - \int 2 e^x dx = 2x e^x - 2 e^x
+          \]
+          Substitute back:
+          \[
+          \int x^2 e^x dx = x^2 e^x - [2x e^x - 2 e^x] = x^2 e^x - 2x e^x + 2 e^x + C
+          \]
+        </p>
+      </div>
+      <br>
+    </div>
+    
+    <div class="panel">
+      <h2>Key Takeaways</h2>
+      <ul style="line-height: 1.9; font-size: 1.05em;">
+        <li>
+          <strong>Integration by parts</strong> is a powerful tool for integrating products of functions.
+        </li>
+        <li>
+          The formula is \( \int u\,dv = uv - \int v\,du \).
+        </li>
+        <li>
+          Choose <strong>u</strong> and <strong>dv</strong> wisely—use the LIATE rule as a guide.
+        </li>
+        <li>
+          Sometimes, you may need to apply integration by parts more than once.
+        </li>
+        <li>
+          Visualization helps build intuition for why the method works.
+        </li>
+      </ul>
+      <br>
+      <p>
+        Mastering integration by parts opens the door to solving a wide range of integrals in calculus, physics, and engineering.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
