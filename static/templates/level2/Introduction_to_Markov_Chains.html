@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Introduction to Markov Chains | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                A <strong>Markov chain</strong> is a stochastic process that moves between states with probabilities that depend only on the current state (not the past). Markov chains are widely used in finance, physics, and computer science.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Markov Property:</strong> The future is independent of the past given the present:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(X_{n+1} = j | X_n = i, X_{n-1}, ..., X_0) = P(X_{n+1} = j | X_n = i)
+                \]</div>
+                </li>
+                <li><strong>Transition Probability:</strong> The probability of moving from state i to state j in one step is \( P_{ij} \).</li>
+                <li><strong>State Space:</strong> The set of all possible states.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a simple weather model: if today is sunny, tomorrow is sunny with probability 0.8 and rainy with 0.2. If today is rainy, tomorrow is sunny with 0.4 and rainy with 0.6.
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.8 & 0.2 \\ 0.4 & 0.6 \end{pmatrix}
+            \]</div>
+            <p>
+                This is the transition matrix for the Markov chain.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the Markov property?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The future is independent of the past given the present.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Write the transition matrix for a two-state Markov chain where P(0→0)=0.7, P(0→1)=0.3, P(1→0)=0.2, P(1→1)=0.8.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( \begin{pmatrix} 0.7 & 0.3 \\ 0.2 & 0.8 \end{pmatrix} \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Give an example of a real-world process that can be modeled as a Markov chain.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Weather, board games, credit ratings, and stock price regimes are all examples.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

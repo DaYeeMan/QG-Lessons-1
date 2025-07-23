@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tower Property | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Tower Property</strong> (also called the law of iterated expectations) is a fundamental result in probability theory. It allows us to compute expectations in stages and is widely used in statistics, finance, and stochastic processes.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Statement:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[E[Y|X]] = E[Y]
+                \]</div>
+                </li>
+                <li><strong>Generalization:</strong> For random variables X, Y, Z:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[E[E[Y|X, Z]|X]] = E[Y]
+                \]</div>
+                </li>
+                <li><strong>Interpretation:</strong> The expected value of the conditional expectation is the unconditional expectation.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose X is uniform on {1,2}, and Y|X=x is uniform on {x, x+1}. What is E[Y]?
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              E[Y|X=1] = 1.5, \quad E[Y|X=2] = 2.5
+            \]</div>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              E[Y] = E[E[Y|X]] = 0.5 \times 1.5 + 0.5 \times 2.5 = 2
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>State the tower property in your own words.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The expected value of the conditional expectation is the overall expected value.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Suppose X is uniform on {1,2,3}, and Y|X=x is uniform on {x, x+2}. What is E[Y]?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    E[Y|X=x] = x+1, so E[Y] = (1+2+3)/3 + 1 = 3
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why is the tower property useful in finance?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    It allows us to break down complex expectations (e.g., option pricing, risk) into simpler conditional steps.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

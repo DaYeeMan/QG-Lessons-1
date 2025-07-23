@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Central Limit Theorem | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Central Limit Theorem (CLT)</strong> is one of the most important results in probability and statistics. It states that the sum (or average) of a large number of independent, identically distributed random variables tends toward a normal distribution, regardless of the original distribution.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Statement:</strong> If \( X_1, X_2, \ldots, X_n \) are i.i.d. with mean \( \mu \) and variance \( \sigma^2 \), then as \( n \to \infty \):
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \to N(0,1)
+                \]</div>
+                (converges in distribution).</li>
+                <li><strong>Implication:</strong> Sample means are approximately normal for large n, even if the underlying distribution is not normal.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose you repeatedly sample 30 values from a uniform distribution and compute their mean. The distribution of these means will be approximately normal.
+            </p>
+            <div id="clt-plot" style="width:100%;max-width:600px;height:400px;"></div>
+            <script>
+                // Simulate 1000 sample means from uniform[0,1], each of size 30
+                var means = [];
+                for (let i = 0; i < 1000; i++) {
+                    let sum = 0;
+                    for (let j = 0; j < 30; j++) {
+                        sum += Math.random();
+                    }
+                    means.push(sum / 30);
+                }
+                var trace = {
+                    x: means,
+                    type: 'histogram',
+                    marker: {color: 'steelblue'},
+                    nbinsx: 30
+                };
+                var layout = {
+                    title: 'Distribution of Sample Means (n=30, Uniform[0,1])',
+                    xaxis: {title: 'Sample Mean'},
+                    yaxis: {title: 'Frequency'}
+                };
+                Plotly.newPlot('clt-plot', [trace], layout, {displayModeBar: false});
+            </script>
+            <p style="text-align: center; font-size: 1.1em;">
+                The histogram shows the sample means are approximately normal, even though the original data is uniform.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>State the Central Limit Theorem in your own words.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The sum or average of many independent, identically distributed random variables is approximately normal, regardless of the original distribution.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Why is the Central Limit Theorem important in statistics?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    It allows us to use normal-based inference (confidence intervals, hypothesis tests) even when the data is not normal.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Does the Central Limit Theorem apply to dependent variables?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    No, the classical CLT requires independence (or weak dependence under some generalizations).
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

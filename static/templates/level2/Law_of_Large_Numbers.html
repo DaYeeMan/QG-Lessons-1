@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Law of Large Numbers | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Law of Large Numbers (LLN)</strong> is a fundamental theorem in probability. It states that as the number of independent trials increases, the sample average converges to the expected value. This underpins much of statistics and risk management.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Weak Law of Large Numbers:</strong> For i.i.d. random variables \( X_1, X_2, \ldots, X_n \) with mean \( \mu \),
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i \xrightarrow{P} \mu
+                \]</div>
+                (converges in probability).</li>
+                <li><strong>Strong Law of Large Numbers:</strong> \( \bar{X}_n \to \mu \) almost surely as \( n \to \infty \).</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose you flip a fair coin 1000 times. The proportion of heads should get closer to 0.5 as the number of flips increases.
+            </p>
+            <div id="lln-plot" style="width:100%;max-width:600px;height:400px;"></div>
+            <script>
+                // Simulate 1000 coin flips
+                var n = 1000;
+                var heads = 0;
+                var proportions = [];
+                for (let i = 1; i <= n; i++) {
+                    if (Math.random() < 0.5) heads++;
+                    proportions.push(heads / i);
+                }
+                var trace = {
+                    x: Array.from({length: n}, (_, i) => i + 1),
+                    y: proportions,
+                    mode: 'lines',
+                    type: 'scatter',
+                    line: {color: 'green'}
+                };
+                var layout = {
+                    title: 'Proportion of Heads vs. Number of Flips',
+                    xaxis: {title: 'Number of Flips'},
+                    yaxis: {title: 'Proportion of Heads'},
+                    shapes: [{
+                        type: 'line',
+                        x0: 1,
+                        x1: n,
+                        y0: 0.5,
+                        y1: 0.5,
+                        line: {color: 'red', width: 2, dash: 'dash'}
+                    }]
+                };
+                Plotly.newPlot('lln-plot', [trace], layout, {displayModeBar: false});
+            </script>
+            <p style="text-align: center; font-size: 1.1em;">
+                As the number of flips increases, the sample mean approaches the true mean (0.5).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>State the difference between the weak and strong law of large numbers.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The weak law is convergence in probability; the strong law is almost sure convergence.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Why is the law of large numbers important in finance?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    It justifies using sample averages to estimate expected returns and risks in portfolios.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Does the law of large numbers guarantee that the sample mean equals the expected value for a finite sample?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    No, it only guarantees convergence as the sample size goes to infinity.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

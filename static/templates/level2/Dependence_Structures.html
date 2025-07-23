@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dependence Structures | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Dependence structures</strong> describe how random variables are related beyond simple correlation. Understanding dependence is crucial in risk management, portfolio theory, and advanced probability, as it allows us to model joint behavior more accurately.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Independence:</strong> \( P(X, Y) = P(X)P(Y) \) or \( f_{X,Y}(x, y) = f_X(x)f_Y(y) \)</li>
+                <li><strong>Dependence:</strong> Any deviation from independence. Can be linear (correlation) or nonlinear (copulas, tail dependence).</li>
+                <li><strong>Copulas:</strong> Functions that join or "couple" multivariate distribution functions to their one-dimensional margins. Sklar's Theorem: Any joint distribution can be written as
+                <div style="text-align: center; font-size: 1.1em;">\[ F_{X,Y}(x, y) = C(F_X(x), F_Y(y)) \]</div>
+                where \( C \) is a copula.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider two random variables X and Y with a strong nonlinear dependence (e.g., Y = X^2). The correlation may be zero, but the variables are clearly dependent.
+            </p>
+            <div id="dependence-plot" style="width:100%;max-width:600px;height:400px;"></div>
+            <script>
+                var x = [];
+                var y = [];
+                for (let i = -10; i <= 10; i++) {
+                    x.push(i);
+                    y.push(i*i);
+                }
+                var trace = {
+                    x: x,
+                    y: y,
+                    mode: 'markers',
+                    type: 'scatter',
+                    marker: {size: 8, color: 'purple'}
+                };
+                var layout = {
+                    title: 'Nonlinear Dependence: Y = X^2',
+                    xaxis: {title: 'X'},
+                    yaxis: {title: 'Y'}
+                };
+                Plotly.newPlot('dependence-plot', [trace], layout, {displayModeBar: false});
+            </script>
+            <p style="text-align: center; font-size: 1.1em;">
+                Even though \( \operatorname{Corr}(X, Y) = 0 \), X and Y are not independent.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Give an example of two variables that are dependent but have zero correlation.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    X uniform on [-1,1], Y = X^2. Cov(X, Y) = 0, but Y is completely determined by X.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is a copula? Why are copulas important in finance?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    A copula is a function that links univariate marginals to form a multivariate distribution. Copulas allow us to model complex dependencies, especially in risk management and portfolio modeling.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Explain the difference between independence and uncorrelatedness.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Independence means knowing one variable gives no information about the other. Uncorrelatedness means zero linear relationship, but nonlinear dependence may still exist.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Joint Distributions | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                In probability theory, a <strong>joint distribution</strong> describes the probability of two (or more) random variables occurring simultaneously. Understanding joint distributions is fundamental for analyzing relationships between variables, which is crucial in quantitative finance and statistics.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Joint Probability Mass Function (PMF):</strong> For discrete variables X and Y, \( P(X = x, Y = y) \).</li>
+                <li><strong>Joint Probability Density Function (PDF):</strong> For continuous variables X and Y, \( f_{X,Y}(x, y) \).</li>
+                <li><strong>Properties:</strong>
+                    <ul>
+                        <li>\( \sum_x \sum_y P(X = x, Y = y) = 1 \) (discrete)</li>
+                        <li>\( \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f_{X,Y}(x, y) dx dy = 1 \) (continuous)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose X and Y are discrete random variables representing the outcome of rolling two fair dice. The joint PMF is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P(X = x, Y = y) = \frac{1}{36}, \quad x, y \in \{1,2,3,4,5,6\}
+            \]</div>
+            <div id="joint-pmf-plot" style="width:100%;max-width:600px;height:400px;"></div>
+            <script>
+                var x = [1,2,3,4,5,6];
+                var y = [1,2,3,4,5,6];
+                var z = [];
+                for (let i = 0; i < x.length; i++) {
+                    let row = [];
+                    for (let j = 0; j < y.length; j++) {
+                        row.push(1/36);
+                    }
+                    z.push(row);
+                }
+                var data = [{
+                    z: z,
+                    x: x,
+                    y: y,
+                    type: 'heatmap',
+                    colorscale: 'Blues',
+                    showscale: true
+                }];
+                var layout = {
+                    title: 'Joint PMF for Two Fair Dice',
+                    xaxis: {title: 'X'},
+                    yaxis: {title: 'Y'}
+                };
+                Plotly.newPlot('joint-pmf-plot', data, layout, {displayModeBar: false});
+            </script>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Define the joint PMF for two independent coin tosses. What is the probability that both are heads?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    For two independent coin tosses, each outcome (H, H), (H, T), (T, H), (T, T) has probability 1/4. The probability both are heads is 1/4.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Given the joint PDF \( f_{X,Y}(x, y) = 6xy \) for \( 0 < x < 1, 0 < y < 1 \), find \( P(X < 0.5, Y < 0.5) \).</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( P(X < 0.5, Y < 0.5) = \int_0^{0.5} \int_0^{0.5} 6xy\,dy\,dx = 0.1875 \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Explain the difference between joint and marginal distributions.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The joint distribution gives probabilities for combinations of values of two (or more) variables, while the marginal distribution gives probabilities for one variable regardless of the other(s).
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

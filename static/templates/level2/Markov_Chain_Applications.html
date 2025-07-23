@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Markov Chain Applications | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Markov chains</strong> have a wide range of applications in finance, science, and engineering. They are used to model systems that evolve randomly over time with the Markov property.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Examples</h2>
+            <ul>
+                <li><strong>Credit Ratings:</strong> Modeling the probability of a company moving between credit ratings over time.</li>
+                <li><strong>Weather Prediction:</strong> Modeling transitions between weather states (e.g., sunny, rainy).</li>
+                <li><strong>Queueing Systems:</strong> Modeling customer arrivals and service in banks, call centers, etc.</li>
+                <li><strong>Stock Price Regimes:</strong> Modeling bull and bear markets as states in a Markov chain.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose a company can be in one of three credit ratings: A, B, or C. The transition matrix is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.9 & 0.08 & 0.02 \\ 0.1 & 0.85 & 0.05 \\ 0.05 & 0.15 & 0.8 \end{pmatrix}
+            \]</div>
+            <p>
+                This matrix can be used to compute the probability of a company moving from A to C in two years, etc.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Give an example of a Markov chain application in finance.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Modeling credit rating transitions, stock price regimes, or option pricing.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>How can Markov chains be used in weather prediction?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    By modeling the probability of moving between weather states (e.g., sunny to rainy) using a transition matrix.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the Markov property and why is it important for these applications?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The future depends only on the present state, not the past. This makes modeling and computation tractable.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

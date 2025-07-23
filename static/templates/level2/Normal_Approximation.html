@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Normal Approximation | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Normal approximation</strong> is the use of the normal distribution to approximate the behavior of other distributions, especially sums of random variables. This is justified by the Central Limit Theorem and is widely used in statistics and finance.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Normal Approximation to the Binomial:</strong> If \( X \sim \text{Bin}(n, p) \) and \( n \) is large, then
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  X \approx N(np, np(1-p))
+                \]</div>
+                (with continuity correction: \( P(X \leq k) \approx P(Y \leq k+0.5) \) for \( Y \sim N(np, np(1-p)) \)).</li>
+                <li><strong>Rule of Thumb:</strong> Normal approximation is reasonable if \( np \geq 10 \) and \( n(1-p) \geq 10 \).</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose \( X \sim \text{Bin}(50, 0.5) \). Approximate \( P(X \leq 30) \) using the normal distribution.
+            </p>
+            <div id="normal-approx-plot" style="width:100%;max-width:600px;height:400px;"></div>
+            <script>
+                // Plot binomial PMF and normal approximation
+                var n = 50, p = 0.5;
+                var x = Array.from({length: n+1}, (_, i) => i);
+                var binom = x.map(k => {
+                    // Binomial PMF
+                    function fact(n) { return n <= 1 ? 1 : n * fact(n-1); }
+                    return fact(n)/(fact(k)*fact(n-k)) * Math.pow(p, k) * Math.pow(1-p, n-k);
+                });
+                var mu = n*p, sigma = Math.sqrt(n*p*(1-p));
+                var norm = x.map(k => (1/(sigma*Math.sqrt(2*Math.PI))) * Math.exp(-0.5*Math.pow((k-mu)/sigma,2)));
+                var trace1 = {x: x, y: binom, type: 'bar', name: 'Binomial', marker: {color: 'teal'}};
+                var trace2 = {x: x, y: norm, type: 'scatter', mode: 'lines', name: 'Normal Approx', line: {color: 'red'}};
+                var layout = {
+                    title: 'Binomial vs. Normal Approximation',
+                    xaxis: {title: 'k'},
+                    yaxis: {title: 'Probability'}
+                };
+                Plotly.newPlot('normal-approx-plot', [trace1, trace2], layout, {displayModeBar: false});
+            </script>
+            <p style="text-align: center; font-size: 1.1em;">
+                The normal curve closely matches the binomial bars for large n.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>When is it appropriate to use the normal approximation to the binomial?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    When \( np \geq 10 \) and \( n(1-p) \geq 10 \).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the continuity correction and why is it used?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    It adjusts for the fact that the binomial is discrete and the normal is continuous, improving the approximation.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Approximate \( P(X \leq 40) \) for \( X \sim \text{Bin}(60, 0.6) \) using the normal distribution.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Use \( \mu = 36, \sigma = 3.79 \). With continuity correction, \( P(Y \leq 40.5) \) where \( Y \sim N(36, 3.79^2) \).
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

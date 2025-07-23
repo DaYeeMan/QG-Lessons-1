@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Moment Generating Functions | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>moment generating function (MGF)</strong> of a random variable provides a way to encode all of its moments (mean, variance, etc.) in a single function. MGFs are useful for characterizing distributions and proving limit theorems.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Definition:</strong> The MGF of X is
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  M_X(t) = E[e^{tX}]
+                \]</div>
+                </li>
+                <li><strong>Moments:</strong> The nth moment is the nth derivative at t=0:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[X^n] = M_X^{(n)}(0)
+                \]</div>
+                </li>
+                <li><strong>Uniqueness:</strong> If two random variables have the same MGF (in a neighborhood of 0), they have the same distribution.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Let X be a standard normal random variable. Its MGF is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              M_X(t) = E[e^{tX}] = e^{t^2/2}
+            \]</div>
+            <p>
+                The first moment (mean) is 0, and the second moment (variance) is 1.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Find the MGF of a Bernoulli(p) random variable.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    \( M_X(t) = E[e^{tX}] = (1-p) + p e^{t} \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>How can you use the MGF to find the mean and variance of a random variable?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The mean is the first derivative at t=0, the variance is the second derivative at t=0 minus the square of the mean.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why are MGFs useful for proving the Central Limit Theorem?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    MGFs make it easy to show that sums of independent random variables converge in distribution to the normal, by showing their MGFs converge to that of the normal.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

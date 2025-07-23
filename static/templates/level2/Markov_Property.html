@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Markov Property | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Markov property</strong> is the defining feature of Markov processes: the future is independent of the past, given the present. This property simplifies analysis and is foundational in stochastic modeling.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Formal Statement:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(X_{n+1} = x_{n+1} | X_n = x_n, ..., X_0 = x_0) = P(X_{n+1} = x_{n+1} | X_n = x_n)
+                \]</div>
+                </li>
+                <li><strong>Implication:</strong> Only the current state matters for predicting the next state.</li>
+                <li><strong>Applications:</strong> Markov chains, Markov decision processes, queueing theory, and more.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose a stock price can go up or down each day, and the probability of going up tomorrow depends only on today's price, not the entire history. This is the Markov property in action.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>State the Markov property in your own words.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The future is independent of the past, given the present.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Why is the Markov property useful in modeling?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    It simplifies analysis and computation, since only the current state matters.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Give an example of a process that does not have the Markov property.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    A process where tomorrow's outcome depends on the last two days, not just today (e.g., a moving average process).
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

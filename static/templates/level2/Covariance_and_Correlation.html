@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Covariance & Correlation | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Covariance</strong> and <strong>correlation</strong> measure the relationship between two random variables. Covariance indicates the direction of the linear relationship, while correlation standardizes this measure, making it easier to interpret.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Covariance:</strong> \( \operatorname{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] \)</li>
+                <li><strong>Correlation:</strong> \( \rho_{X,Y} = \frac{\operatorname{Cov}(X, Y)}{\sigma_X \sigma_Y} \)</li>
+                <li>\( -1 \leq \rho_{X,Y} \leq 1 \)</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose we have two random variables X and Y with the following paired values:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">
+              X: [1, 2, 3, 4, 5] <br>
+              Y: [2, 4, 6, 8, 10]
+            </div>
+            <div id="cov-corr-plot" style="width:100%;max-width:600px;height:400px;"></div>
+            <script>
+                var x = [1,2,3,4,5];
+                var y = [2,4,6,8,10];
+                var trace = {
+                    x: x,
+                    y: y,
+                    mode: 'markers+lines',
+                    type: 'scatter',
+                    marker: {size: 10, color: 'orange'}
+                };
+                var layout = {
+                    title: 'Scatter Plot of X and Y',
+                    xaxis: {title: 'X'},
+                    yaxis: {title: 'Y'}
+                };
+                Plotly.newPlot('cov-corr-plot', [trace], layout, {displayModeBar: false});
+            </script>
+            <p>
+                <strong>Covariance:</strong> The covariance is positive, indicating X and Y increase together.<br>
+                <strong>Correlation:</strong> Since Y is a perfect linear function of X, the correlation is 1.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Given X = [1, 2, 3], Y = [4, 5, 6], calculate the covariance and correlation.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Cov(X, Y) = E[XY] - E[X]E[Y] = 1, Correlation = 1 (since Y is a linear function of X).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Explain why correlation is a better measure than covariance for comparing relationships between different pairs of variables.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    Correlation is dimensionless and always between -1 and 1, making it easier to compare across different variable pairs, while covariance depends on the units of X and Y.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Can two variables have zero covariance but not be independent? Give an example.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Yes. For example, if X is uniformly distributed on [-1, 1] and Y = X^2, then Cov(X, Y) = 0 but X and Y are not independent.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

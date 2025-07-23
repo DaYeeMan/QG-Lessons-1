@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conditional Expectation | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Conditional expectation</strong> is the expected value of a random variable given that another variable is known. It is a key concept in probability, statistics, and finance (e.g., pricing, risk management).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Discrete Case:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[Y|X=x] = \sum_y y \cdot P(Y=y|X=x)
+                \]</div>
+                </li>
+                <li><strong>Continuous Case:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[Y|X=x] = \int_{-\infty}^{\infty} y f_{Y|X}(y|x) dy
+                \]</div>
+                </li>
+                <li><strong>Law of Iterated Expectations:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[Y] = E[E[Y|X]]
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Suppose X is the outcome of a fair die, and Y = 2X. What is E[Y|X]?
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              E[Y|X] = 2X
+            \]</div>
+            <p>
+                The conditional expectation is a function of X.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>If X is uniform on {1,2,3,4}, and Y = 3X + 1, what is E[Y|X=2]?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    E[Y|X=2] = 3*2 + 1 = 7
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>State the law of iterated expectations.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    E[Y] = E[E[Y|X]]
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why is conditional expectation important in finance?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    It is used in pricing (e.g., expected payoff given information), risk management, and forecasting.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Probability Transformations | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Probability transformations</strong> involve finding the distribution of a function of a random variable (or variables). This is essential for modeling derived quantities in finance and statistics.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Transformation of a Single Variable:</strong> If \( Y = g(X) \), the PDF of Y is
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d}{dy}g^{-1}(y) \right|
+                \]</div>
+                (for monotonic g).</li>
+                <li><strong>Linear Transformation:</strong> If \( Y = aX + b \), then \( E[Y] = aE[X] + b \), \( \operatorname{Var}(Y) = a^2 \operatorname{Var}(X) \).</li>
+                <li><strong>Multivariate Transformation (Jacobian):</strong> For \( (U, V) = g(X, Y) \),
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  f_{U,V}(u, v) = f_{X,Y}(x(u,v), y(u,v)) \left| J \right|
+                \]</div>
+                where \( J \) is the Jacobian determinant.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Let X be uniform on [0,1]. Find the PDF of \( Y = 2X \).
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              f_Y(y) = f_X(y/2) \cdot \left| \frac{d}{dy}(y/2) \right| = 1 \cdot 1/2 = 1/2, \quad 0 < y < 2
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>If X is exponential(1), what is the PDF of Y = 3X?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    \( f_Y(y) = (1/3) e^{-y/3} \) for \( y > 0 \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>State the formula for the PDF of a function of two variables using the Jacobian.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( f_{U,V}(u, v) = f_{X,Y}(x(u,v), y(u,v)) |J| \), where J is the Jacobian determinant.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why is the Jacobian needed in multivariate transformations?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The Jacobian accounts for how areas/volumes are stretched or compressed by the transformation, ensuring the total probability remains 1.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transition Probability Matrices | Level 2 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                A <strong>transition probability matrix</strong> describes the probabilities of moving from one state to another in a Markov chain. Each row sums to 1, and the (i, j) entry gives the probability of moving from state i to state j in one step.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Definition:</strong> For a Markov chain with n states, the transition matrix P is an n×n matrix where
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P_{ij} = P(X_{n+1} = j | X_n = i)
+                \]</div>
+                </li>
+                <li><strong>Properties:</strong> All entries are between 0 and 1, and each row sums to 1.</li>
+                <li><strong>n-step Transition:</strong> The probability of moving from i to j in n steps is the (i, j) entry of \( P^n \).</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider the matrix
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.7 & 0.3 \\ 0.2 & 0.8 \end{pmatrix}
+            \]</div>
+            <p>
+                The probability of going from state 0 to state 1 in two steps is the (0,1) entry of \( P^2 \).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What are the properties of a transition probability matrix?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    All entries are between 0 and 1, and each row sums to 1.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Given \( P = \begin{pmatrix} 0.6 & 0.4 \\ 0.5 & 0.5 \end{pmatrix} \), what is the probability of going from state 1 to state 0 in one step?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    0.5
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you compute the probability of moving from state i to state j in n steps?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    It is the (i, j) entry of \( P^n \), the nth power of the transition matrix.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
