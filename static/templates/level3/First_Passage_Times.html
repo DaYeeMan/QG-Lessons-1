@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First Passage Times | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>First passage times</strong> in Markov chains refer to the time it takes for the chain to reach a particular state for the first time, starting from a given initial state. This concept is crucial for understanding hitting probabilities and absorption times.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>First Passage Time:</strong> Let T_{ij} be the first time the chain reaches state j starting from state i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  T_{ij} = \min\{n \geq 1 : X_n = j \text{ given } X_0 = i\}
+                \]</div>
+                </li>
+                <li><strong>Expected First Passage Time:</strong> The expected time to reach state j from state i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \mu_{ij} = E[T_{ij}]
+                \]</div>
+                </li>
+                <li><strong>Hitting Probability:</strong> The probability of ever reaching state j from state i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  f_{ij} = P(T_{ij} < \infty)
+                \]</div>
+                </li>
+                <li><strong>Recurrence Time:</strong> When i = j, T_{ii} is the recurrence time (time to return to state i).</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a 3-state Markov chain with transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.5 & 0.3 & 0.2 \\ 0.2 & 0.6 & 0.2 \\ 0.1 & 0.3 & 0.6 \end{pmatrix}
+            \]</div>
+            <p>
+                To find the expected first passage time from state 1 to state 3:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \mu_{13} = 1 + 0.5\mu_{13} + 0.3\mu_{23}
+            \]</div>
+            <p>
+                This gives a system of equations that can be solved for the expected passage times.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For a simple random walk on {0,1,2} with absorbing boundaries, find the expected time to absorption starting from state 1.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Let μ₁ be the expected time from state 1. Then: μ₁ = 1 + 0.5μ₀ + 0.5μ₂ = 1 + 0.5(0) + 0.5(0) = 1, since μ₀ = μ₂ = 0 (already absorbed).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the relationship between first passage times and the fundamental matrix of a Markov chain?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The fundamental matrix N = (I - Q)⁻¹ gives the expected number of visits to transient states before absorption. The expected first passage times can be computed using N.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you compute hitting probabilities for a finite Markov chain?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Hitting probabilities satisfy the system: f_{ij} = P_{ij} + Σ_{k≠j} P_{ik} f_{kj}, with boundary conditions f_{jj} = 1 and f_{ij} = 0 if j is unreachable from i.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

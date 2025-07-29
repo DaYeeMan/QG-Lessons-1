@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interarrival Times | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Interarrival times</strong> in a Poisson process are the times between consecutive events. These times follow an exponential distribution, which is a key property that characterizes the Poisson process.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Exponential Distribution:</strong> The interarrival times T_i are exponentially distributed with parameter λ:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  f_T(t) = \lambda e^{-\lambda t}, \quad t \geq 0
+                \]</div>
+                </li>
+                <li><strong>Memoryless Property:</strong> For any s, t > 0:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(T > s + t | T > s) = P(T > t)
+                \]</div>
+                </li>
+                <li><strong>Mean and Variance:</strong> The mean interarrival time is 1/λ and the variance is 1/λ².</li>
+                <li><strong>Independence:</strong> Interarrival times are independent and identically distributed (i.i.d.).</li>
+                <li><strong>Sum of Interarrival Times:</strong> The sum of n interarrival times follows a gamma distribution with parameters n and λ.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a Poisson process with rate λ = 0.5 events per minute. The probability that the time between two consecutive events is greater than 3 minutes is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P(T > 3) = e^{-\lambda \cdot 3} = e^{-0.5 \cdot 3} = e^{-1.5} \approx 0.223
+            \]</div>
+            <p>
+                This demonstrates the exponential distribution for interarrival times.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For a Poisson process with rate λ = 2, find the expected time until the third event.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The time until the third event is the sum of three interarrival times, which follows a gamma distribution with mean 3/λ = 1.5.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Explain why the memoryless property is crucial for the Poisson process.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The memoryless property ensures that the time until the next event is independent of how long it has been since the last event, which is a defining characteristic of the Poisson process.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you generate interarrival times for simulation?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Generate exponential random variables with mean 1/λ using the inverse transform method: T = -(1/λ) * ln(U), where U is uniform on [0,1].
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Convergence to Equilibrium | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Convergence to equilibrium</strong> describes how Markov chains approach their stationary distribution over time. This concept is fundamental for understanding the long-term behavior and stability of Markov processes.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Convergence Theorem:</strong> For irreducible, aperiodic, positive recurrent chains:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \lim_{n \to \infty} P_{ij}^{(n)} = \pi_j
+                \]</div>
+                where \( \pi \) is the unique stationary distribution.
+                </li>
+                <li><strong>Rate of Convergence:</strong> The speed of convergence depends on the second-largest eigenvalue of the transition matrix.</li>
+                <li><strong>Mixing Time:</strong> The time required for the chain to be close to its stationary distribution.</li>
+                <li><strong>Total Variation Distance:</strong> A measure of how close two probability distributions are:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \| \mu - \nu \|_{TV} = \frac{1}{2} \sum_i |\mu_i - \nu_i|
+                \]</div>
+                </li>
+                <li><strong>Ergodicity:</strong> A chain is ergodic if it is irreducible, aperiodic, and positive recurrent.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a Markov chain with transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.8 & 0.2 \\ 0.3 & 0.7 \end{pmatrix}
+            \]</div>
+            <p>
+                The stationary distribution is \( \pi = (0.6, 0.4) \). The convergence can be observed by computing powers of P:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P^5 \approx \begin{pmatrix} 0.6 & 0.4 \\ 0.6 & 0.4 \end{pmatrix}
+            \]</div>
+            <p>
+                This shows that after 5 steps, the chain is close to its stationary distribution.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Compute the total variation distance between the initial distribution \( \mu = (1, 0) \) and the stationary distribution \( \pi = (0.6, 0.4) \) for the above chain.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The total variation distance is \( \frac{1}{2}(|1-0.6| + |0-0.4|) = \frac{1}{2}(0.4 + 0.4) = 0.4 \).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>How does the second-largest eigenvalue affect the rate of convergence?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The second-largest eigenvalue \( \lambda_2 \) determines the rate of convergence. The smaller \( |\lambda_2| \), the faster the convergence to the stationary distribution.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the relationship between mixing time and the spectral gap of the transition matrix?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The mixing time is inversely proportional to the spectral gap \( 1 - |\lambda_2| \). A larger spectral gap means faster mixing and shorter mixing time.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

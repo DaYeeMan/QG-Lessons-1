@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>State Classification | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>State classification</strong> is a fundamental concept in Markov chain theory that categorizes states based on their long-term behavior. Understanding state classification is essential for analyzing the structure and limiting behavior of Markov chains.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Accessibility:</strong> State j is accessible from state i if there exists n ≥ 0 such that P_{ij}^{(n)} > 0.</li>
+                <li><strong>Communication:</strong> States i and j communicate if i is accessible from j and j is accessible from i.</li>
+                <li><strong>Irreducible Chain:</strong> A Markov chain is irreducible if all states communicate with each other.</li>
+                <li><strong>Recurrent vs Transient:</strong> A state is recurrent if f_{ii} = 1, transient if f_{ii} < 1.</li>
+                <li><strong>Positive vs Null Recurrent:</strong> A recurrent state is positive recurrent if μ_{ii} < ∞, null recurrent if μ_{ii} = ∞.</li>
+                <li><strong>Period:</strong> The period of state i is the greatest common divisor of {n ≥ 1 : P_{ii}^{(n)} > 0}.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a Markov chain with transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.5 & 0.5 & 0 \\ 0.3 & 0.7 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+            \]</div>
+            <p>
+                States 1 and 2 communicate (form a closed communicating class), while state 3 is absorbing. The chain is reducible with two communicating classes: {1,2} and {3}.
+            </p>
+            <p>
+                States 1 and 2 are transient (will eventually be absorbed in state 3), while state 3 is recurrent (absorbing).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Classify the states of a simple random walk on {0,1,2,3} with reflecting boundaries.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    All states communicate, so the chain is irreducible. All states are recurrent since the chain is finite and irreducible. The states are positive recurrent with period 2 (can only return in even number of steps).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the relationship between state classification and the limiting behavior of P^{(n)}?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    For irreducible, aperiodic, positive recurrent chains, P^{(n)} converges to a matrix with identical rows equal to the stationary distribution. For periodic chains, the limit may not exist, but Cesaro limits do.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you determine if a state is transient or recurrent in an infinite state space?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    For infinite chains, use the recurrence criterion: state i is recurrent if and only if Σ_{n=1}^∞ P_{ii}^{(n)} = ∞. For symmetric random walks, use Polya's theorem: recurrent in d ≤ 2 dimensions, transient in d ≥ 3.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queueing Theory | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Queueing theory</strong> is the mathematical study of waiting lines and systems where customers arrive, wait for service, and depart. It is fundamental in operations research, telecommunications, and service system design.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>M/M/1 Queue:</strong> A queue with Poisson arrivals, exponential service times, and one server. The steady-state probability of n customers in the system is:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P_n = (1 - \rho) \rho^n
+                \]</div>
+                where ρ = λ/μ is the traffic intensity.
+                </li>
+                <li><strong>Little's Law:</strong> L = λW, where L is the average number of customers in the system, λ is the arrival rate, and W is the average waiting time.</li>
+                <li><strong>Utilization Factor:</strong> ρ = λ/μ, which must be less than 1 for stability.</li>
+                <li><strong>Average Queue Length:</strong> L_q = ρ²/(1-ρ) for M/M/1.</li>
+                <li><strong>Average Waiting Time:</strong> W_q = L_q/λ = ρ/(μ(1-ρ)) for M/M/1.</li>
+                <li><strong>Erlang B Formula:</strong> Used for loss systems where customers are blocked if all servers are busy.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider an M/M/1 queue with arrival rate λ = 4 customers per hour and service rate μ = 6 customers per hour. The traffic intensity is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \rho = \frac{\lambda}{\mu} = \frac{4}{6} = \frac{2}{3}
+            \]</div>
+            <p>
+                The average number of customers in the system is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              L = \frac{\rho}{1-\rho} = \frac{2/3}{1-2/3} = 2
+            \]</div>
+            <p>
+                And the average waiting time is W = L/λ = 2/4 = 0.5 hours = 30 minutes.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For an M/M/1 queue with λ = 3 and μ = 5, find the probability that there are exactly 2 customers in the system.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    ρ = 3/5 = 0.6. P₂ = (1-0.6)(0.6)² = 0.4 × 0.36 = 0.144.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Explain the significance of Little's Law in queueing theory.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    Little's Law provides a fundamental relationship between arrival rate, system size, and waiting time that holds for any stable queueing system, regardless of the arrival or service distributions.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you extend the M/M/1 analysis to M/M/c queues with multiple servers?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    For M/M/c, the traffic intensity becomes ρ = λ/(cμ), and the steady-state probabilities and performance measures are computed using more complex formulas involving the Erlang C formula.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

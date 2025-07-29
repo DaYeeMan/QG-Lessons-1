@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Return Probabilities | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Return probabilities</strong> in Markov chains measure the likelihood that the chain will return to a given state after a certain number of steps. These probabilities are fundamental for understanding the long-term behavior and classification of states.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>n-step Return Probability:</strong> The probability of returning to state i in exactly n steps:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  f_{ii}^{(n)} = P(X_n = i, X_k \neq i \text{ for } 1 \leq k < n | X_0 = i)
+                \]</div>
+                </li>
+                <li><strong>Return Probability:</strong> The probability of ever returning to state i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  f_{ii} = \sum_{n=1}^{\infty} f_{ii}^{(n)}
+                \]</div>
+                </li>
+                <li><strong>Expected Return Time:</strong> The expected number of steps to return to state i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \mu_{ii} = \sum_{n=1}^{\infty} n f_{ii}^{(n)}
+                \]</div>
+                </li>
+                <li><strong>Recurrence:</strong> A state is recurrent if f_{ii} = 1, transient if f_{ii} < 1.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a simple random walk on the integers with p = 0.5. For state 0:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              f_{00}^{(2n)} = \binom{2n}{n} \left(\frac{1}{2}\right)^{2n}
+            \]</div>
+            <p>
+                The return probability is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              f_{00} = \sum_{n=1}^{\infty} f_{00}^{(2n)} = 1
+            \]</div>
+            <p>
+                This shows that state 0 is recurrent (the walk will return to 0 with probability 1).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For a biased random walk with p > 0.5, show that the return probability to state 0 is less than 1.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    For p > 0.5, the walk has a drift to the right. The return probability is f_{00} = 2(1-p) < 1, making state 0 transient.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the relationship between return probabilities and the stationary distribution?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    For a positive recurrent state i, the stationary probability π_i = 1/μ_{ii}, where μ_{ii} is the expected return time.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you compute return probabilities for a finite irreducible Markov chain?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    For finite irreducible chains, all states are recurrent. Return probabilities can be computed using the fundamental matrix or by solving the system of equations for hitting probabilities.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

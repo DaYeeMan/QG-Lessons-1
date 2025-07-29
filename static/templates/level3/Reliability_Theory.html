@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reliability Theory | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Reliability theory</strong> deals with the probability that a system or component will perform its intended function for a specified period under given conditions. It is essential in engineering, quality control, and risk assessment.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Reliability Function:</strong> R(t) = P(T > t), where T is the time to failure. For exponential distribution:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  R(t) = e^{-\lambda t}
+                \]</div>
+                </li>
+                <li><strong>Hazard Rate:</strong> h(t) = f(t)/R(t), the instantaneous failure rate at time t.</li>
+                <li><strong>Mean Time to Failure (MTTF):</strong> E[T] = ∫₀^∞ R(t) dt.</li>
+                <li><strong>Series System:</strong> For n components in series, R_system(t) = ∏ᵢ Rᵢ(t).</li>
+                <li><strong>Parallel System:</strong> For n components in parallel, R_system(t) = 1 - ∏ᵢ (1 - Rᵢ(t)).</li>
+                <li><strong>Weibull Distribution:</strong> A flexible distribution for modeling failure times with shape parameter β and scale parameter η.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a system with two components in series, each with exponential failure times with rates λ₁ = 0.01 and λ₂ = 0.02 per hour. The system reliability at t = 50 hours is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              R_{system}(50) = e^{-0.01 \cdot 50} \cdot e^{-0.02 \cdot 50} = e^{-0.5} \cdot e^{-1} = e^{-1.5} \approx 0.223
+            \]</div>
+            <p>
+                This shows how component failures multiply in series systems.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For a parallel system with two identical components each having reliability 0.8, find the system reliability.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    R_system = 1 - (1-0.8)² = 1 - 0.04 = 0.96.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Explain the relationship between hazard rate and reliability function.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The hazard rate h(t) = -d/dt[ln(R(t))], and R(t) = exp(-∫₀^t h(s) ds). The hazard rate describes the instantaneous failure intensity.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you model systems with both series and parallel components?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Use reliability block diagrams and decompose the system into series and parallel subsystems, then combine using the appropriate formulas for each configuration.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

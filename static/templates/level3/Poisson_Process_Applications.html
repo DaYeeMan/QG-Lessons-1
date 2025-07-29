@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poisson Process Applications | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Poisson process applications</strong> span across various fields including telecommunications, finance, biology, and engineering. The Poisson process provides a robust framework for modeling random events that occur independently over time.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Telecommunications:</strong> Modeling call arrivals, packet arrivals in networks, and system failures.</li>
+                <li><strong>Finance:</strong> Modeling price jumps, default events, and trading activity.</li>
+                <li><strong>Biology:</strong> Modeling mutations, cell divisions, and neural spike trains.</li>
+                <li><strong>Engineering:</strong> Modeling component failures, maintenance events, and quality control defects.</li>
+                <li><strong>Superposition:</strong> The sum of independent Poisson processes is also a Poisson process with rate equal to the sum of individual rates.</li>
+                <li><strong>Thinning:</strong> If events in a Poisson process are independently accepted with probability p, the accepted events form a Poisson process with rate λp.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a call center where calls arrive according to a Poisson process with rate λ = 10 calls per hour. The probability of receiving exactly 15 calls in a 2-hour period is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P(N(2) = 15) = \frac{(10 \cdot 2)^{15}}{15!} e^{-10 \cdot 2} = \frac{20^{15}}{15!} e^{-20} \approx 0.0516
+            \]</div>
+            <p>
+                This demonstrates how the Poisson process models real-world arrival patterns.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>In a manufacturing process, defects occur according to a Poisson process with rate 0.1 defects per hour. Find the probability of no defects in an 8-hour shift.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    \( P(N(8) = 0) = e^{-0.1 \cdot 8} = e^{-0.8} \approx 0.449 \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Explain how thinning can be used to model different types of events in a single Poisson process.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    Thinning allows us to split a Poisson process into multiple independent Poisson processes by independently accepting or rejecting events based on their properties.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you apply the superposition property in practice?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Superposition is used when multiple independent sources contribute to a single arrival process, such as multiple call centers feeding into a central system.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

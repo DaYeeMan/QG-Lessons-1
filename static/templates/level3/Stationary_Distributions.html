@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stationary Distributions | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Stationary distributions</strong> describe the long-term behavior of Markov chains. If a chain is started in its stationary distribution, it remains in that distribution at all future times.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Stationary Distribution:</strong> A probability vector \( \pi \) such that:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \pi P = \pi
+                \]</div>
+                </li>
+                <li><strong>Existence & Uniqueness:</strong> For irreducible, aperiodic, positive recurrent chains, a unique stationary distribution exists.</li>
+                <li><strong>Convergence:</strong> For such chains, the distribution of the chain converges to \( \pi \) regardless of the initial state.</li>
+                <li><strong>Detailed Balance:</strong> If \( \pi_i P_{ij} = \pi_j P_{ji} \) for all i, j, then \( \pi \) is a stationary distribution (reversible chain).</li>
+                <li><strong>Computation:</strong> Solve the system \( \pi P = \pi \), \( \sum_i \pi_i = 1 \).</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a Markov chain with transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.7 & 0.3 \\ 0.4 & 0.6 \end{pmatrix}
+            \]</div>
+            <p>
+                To find the stationary distribution \( \pi \), solve:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \pi_1 = 0.7\pi_1 + 0.4\pi_2 \\
+              \pi_2 = 0.3\pi_1 + 0.6\pi_2 \\
+              \pi_1 + \pi_2 = 1
+            \]</div>
+            <p>
+                The solution is \( \pi = (0.57, 0.43) \).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For the above chain, verify that \( \pi \) is a stationary distribution.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Compute \( \pi P \) and check that it equals \( \pi \). \( 0.57*0.7 + 0.43*0.4 = 0.57 \), \( 0.57*0.3 + 0.43*0.6 = 0.43 \).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Explain the significance of detailed balance in Markov chains.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    Detailed balance ensures reversibility, which simplifies analysis and is important in applications like Markov Chain Monte Carlo (MCMC).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you find the stationary distribution for a Markov chain with more than two states?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Set up the system \( \pi P = \pi \) and \( \sum_i \pi_i = 1 \), then solve the resulting linear equations, often using matrix methods or Gaussian elimination.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

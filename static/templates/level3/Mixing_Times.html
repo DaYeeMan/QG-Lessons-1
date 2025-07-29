@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mixing Times | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Mixing times</strong> measure how quickly a Markov chain approaches its stationary distribution. This concept is crucial for understanding the efficiency of Markov Chain Monte Carlo (MCMC) methods and other applications.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Mixing Time:</strong> The smallest time t such that for all initial distributions μ:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \| \mu P^t - \pi \|_{TV} \leq \epsilon
+                \]</div>
+                where \( \pi \) is the stationary distribution.
+                </li>
+                <li><strong>Total Variation Distance:</strong> A measure of distance between probability distributions:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \| \mu - \nu \|_{TV} = \frac{1}{2} \sum_i |\mu_i - \nu_i|
+                \]</div>
+                </li>
+                <li><strong>Spectral Gap:</strong> The difference between the largest and second-largest eigenvalues of the transition matrix.</li>
+                <li><strong>Conductance:</strong> A measure of how well the chain "mixes" between different parts of the state space.</li>
+                <li><strong>Coupling:</strong> A technique for bounding mixing times by coupling two copies of the chain.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a simple random walk on a cycle with n vertices. The mixing time is approximately:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              t_{mix}(\epsilon) \approx \frac{n^2}{2\pi^2} \log\left(\frac{1}{\epsilon}\right)
+            \]</div>
+            <p>
+                This shows that the mixing time grows quadratically with the size of the cycle.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Compute the mixing time for a simple random walk on a complete graph with n vertices.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    For a complete graph, the mixing time is \( O(\log n) \), as the chain mixes very quickly due to the high connectivity.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>How does the conductance of a graph relate to its mixing time?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The mixing time is inversely proportional to the conductance. Higher conductance means faster mixing and shorter mixing time.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the role of coupling in bounding mixing times?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Coupling provides a way to bound the total variation distance between two copies of the chain, which can be used to estimate mixing times.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recurrent & Transient States | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Recurrent and transient states</strong> are fundamental classifications in Markov chain theory that describe whether a state will be visited infinitely often or only finitely many times. This classification is crucial for understanding the long-term behavior of Markov chains.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Recurrent State:</strong> A state i is recurrent if f_{ii} = 1, meaning the chain will return to state i with probability 1.</li>
+                <li><strong>Transient State:</strong> A state i is transient if f_{ii} < 1, meaning there is a positive probability the chain will never return to state i.</li>
+                <li><strong>Recurrence Criterion:</strong> State i is recurrent if and only if:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \sum_{n=1}^{\infty} P_{ii}^{(n)} = \infty
+                \]</div>
+                </li>
+                <li><strong>Expected Number of Visits:</strong> For transient state i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[N_i] = \frac{f_{ii}}{1 - f_{ii}}
+                \]</div>
+                </li>
+                <li><strong>Class Property:</strong> Recurrence and transience are class properties - if one state in a communicating class is recurrent (transient), all states in that class are recurrent (transient).</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a Markov chain with transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.3 & 0.7 & 0 \\ 0.2 & 0.8 & 0 \\ 0.1 & 0.2 & 0.7 \end{pmatrix}
+            \]</div>
+            <p>
+                States 1 and 2 form a closed communicating class. Since the chain is finite and irreducible within this class, both states are recurrent.
+            </p>
+            <p>
+                State 3 can transition to states 1 and 2 but cannot return to itself with probability 1, making it transient.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Show that for a simple symmetric random walk on the integers, state 0 is recurrent.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    For the symmetric random walk, P_{00}^{(2n)} = (2n choose n)(1/2)^(2n). Using Stirling's approximation, this sum diverges, so state 0 is recurrent.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the expected number of visits to a transient state before leaving its communicating class?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The expected number of visits to transient state i is E[N_i] = f_{ii}/(1-f_{ii}), where f_{ii} is the return probability. This is finite for transient states.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How does the presence of transient states affect the limiting behavior of a Markov chain?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    In chains with transient states, the chain will eventually leave transient classes and enter recurrent classes. The limiting distribution concentrates on recurrent states, with zero probability on transient states.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

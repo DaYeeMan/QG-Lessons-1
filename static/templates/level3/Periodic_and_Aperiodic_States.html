@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Periodic & Aperiodic States | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Periodic and aperiodic states</strong> are classifications in Markov chains that describe the regularity with which a state can be revisited. This property is crucial for understanding convergence to equilibrium and the existence of limiting distributions.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Period of a State:</strong> The period of state i is defined as:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  d(i) = \gcd\{ n \geq 1 : P_{ii}^{(n)} > 0 \}
+                \]</div>
+                </li>
+                <li><strong>Aperiodic State:</strong> State i is aperiodic if d(i) = 1. Otherwise, it is periodic with period d(i) > 1.</li>
+                <li><strong>Class Property:</strong> All states in a communicating class share the same period.</li>
+                <li><strong>Implication for Convergence:</strong> Aperiodicity is required for the Markov chain to converge to a stationary distribution in the usual sense.</li>
+                <li><strong>Cesàro Mean:</strong> For periodic chains, the Cesàro mean of transition probabilities may converge even if the usual limit does not.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a Markov chain with transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+            \]</div>
+            <p>
+                Both states have period 2 (can only return in even steps). The chain is periodic and does not converge to a stationary distribution in the usual sense.
+            </p>
+            <p>
+                Now consider a chain with self-loops:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix}
+            \]</div>
+            <p>
+                Both states are aperiodic (period 1), and the chain converges to the stationary distribution.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Show that in an irreducible Markov chain, all states in a communicating class have the same period.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    If i communicates with j, then for any n such that P_{ij}^{(n)} > 0 and m such that P_{ji}^{(m)} > 0, the set of return times to i is closed under addition with n + m. Thus, periods must match across the class.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>For the chain with P = [[0,1],[1,0]], compute the Cesàro mean of the transition probabilities.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The Cesàro mean is the average of the transition matrices over n steps. For this chain, the Cesàro mean converges to [[0.5,0.5],[0.5,0.5]].
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why is aperiodicity necessary for convergence to equilibrium?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    In periodic chains, the probability of being in a state oscillates and does not settle to a fixed value. Aperiodicity ensures the chain "mixes" and converges to the stationary distribution.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

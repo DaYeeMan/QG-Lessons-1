@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Absorbing States | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Absorbing states</strong> are states that, once entered, cannot be left. Markov chains with absorbing states are used to model processes that eventually terminate or are "trapped" in certain states.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Absorbing State:</strong> State i is absorbing if P_{ii} = 1 and P_{ij} = 0 for j ≠ i.</li>
+                <li><strong>Absorbing Markov Chain:</strong> A chain with at least one absorbing state and from every state there is a nonzero probability of reaching an absorbing state.</li>
+                <li><strong>Fundamental Matrix:</strong> For the submatrix Q of transient states:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  N = (I - Q)^{-1}
+                \]</div>
+                N_{ij} gives the expected number of visits to state j starting from i before absorption.
+                </li>
+                <li><strong>Absorption Probabilities:</strong> The probability of being absorbed in a particular absorbing state can be computed using the fundamental matrix and the R matrix of transitions from transient to absorbing states.</li>
+                <li><strong>Expected Time to Absorption:</strong> The expected number of steps before absorption starting from state i is the sum of the ith row of N.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a Markov chain with transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 1 & 0 & 0 \\ 0.5 & 0.5 & 0 \\ 0.2 & 0.3 & 0.5 \end{pmatrix}
+            \]</div>
+            <p>
+                State 1 is absorbing. The submatrix Q for transient states is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} 0.5 & 0 \\ 0.3 & 0.5 \end{pmatrix}
+            \]</div>
+            <p>
+                The fundamental matrix is N = (I-Q)^{-1}.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For the above chain, compute the expected number of steps to absorption starting from state 2.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The expected number of steps is the sum of the second row of N. Compute N = (I-Q)^{-1} and sum the entries in the second row.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>How do you compute the probability of being absorbed in a particular absorbing state?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The absorption probabilities are given by the matrix B = NR, where R is the matrix of transition probabilities from transient to absorbing states.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Give an example of a real-world process modeled by an absorbing Markov chain.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Board games like Monopoly, where the game ends when a player goes bankrupt, can be modeled as absorbing Markov chains. The bankrupt state is absorbing.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

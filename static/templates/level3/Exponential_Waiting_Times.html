@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exponential Waiting Times | Level 3 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Exponential waiting times</strong> are a fundamental concept in stochastic processes, particularly in the context of Poisson processes and queueing theory. The exponential distribution is unique in its memoryless property, making it ideal for modeling waiting times.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Exponential Distribution:</strong> A random variable X follows an exponential distribution with rate λ if:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  f_X(x) = \lambda e^{-\lambda x}, \quad x \geq 0
+                \]</div>
+                </li>
+                <li><strong>Cumulative Distribution Function:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  F_X(x) = 1 - e^{-\lambda x}, \quad x \geq 0
+                \]</div>
+                </li>
+                <li><strong>Memoryless Property:</strong> For any s, t > 0:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(X > s + t | X > s) = P(X > t)
+                \]</div>
+                </li>
+                <li><strong>Mean and Variance:</strong> E[X] = 1/λ and Var(X) = 1/λ².</li>
+                <li><strong>Minimum of Independent Exponentials:</strong> If X₁, X₂, ..., Xₙ are independent exponential random variables with rates λ₁, λ₂, ..., λₙ, then min(X₁, X₂, ..., Xₙ) is exponential with rate Σλᵢ.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider two independent exponential random variables X and Y with rates λ₁ = 2 and λ₂ = 3. The probability that X occurs before Y is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P(X < Y) = \frac{\lambda_1}{\lambda_1 + \lambda_2} = \frac{2}{2 + 3} = 0.4
+            \]</div>
+            <p>
+                This result is a consequence of the memoryless property and the fact that the minimum of independent exponentials is also exponential.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For an exponential random variable with rate λ = 0.5, find the probability that it exceeds its mean by more than one standard deviation.</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The mean is 1/λ = 2 and the standard deviation is 1/λ = 2. We need P(X > 2 + 2) = P(X > 4) = e^{-0.5*4} = e^{-2} ≈ 0.135.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Explain why the exponential distribution is the only continuous distribution with the memoryless property.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The memoryless property leads to the functional equation P(X > s + t) = P(X > s)P(X > t), which is satisfied only by the exponential distribution.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How do you use exponential waiting times in queueing models?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Exponential waiting times are used to model service times and interarrival times in M/M/1 and other queueing systems, where the memoryless property simplifies analysis.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
