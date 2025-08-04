@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Financial CTMC Applications | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Continuous-Time Markov Chains</strong> have numerous applications in quantitative finance, including credit risk modeling, interest rate modeling, regime-switching models, and option pricing. They provide a flexible framework for modeling stochastic processes that can change states continuously over time.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Credit Rating Transitions:</strong> Modeling how credit ratings change over time:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  Q = \begin{pmatrix} 
+                  q_{AA} & q_{AB} & q_{AC} & \cdots \\
+                  q_{BA} & q_{BB} & q_{BC} & \cdots \\
+                  \vdots & \vdots & \vdots & \ddots
+                  \end{pmatrix}
+                \]</div>
+                </li>
+                <li><strong>Regime-Switching Models:</strong> Asset returns follow different distributions in different market regimes:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  dS_t = \mu(X_t)S_t dt + \sigma(X_t)S_t dW_t
+                \]</div>
+                where \(X_t\) is a CTMC representing the market regime.
+                </li>
+                <li><strong>Interest Rate Models:</strong> Short rate follows a CTMC:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  r_t = r(X_t)
+                \]</div>
+                where \(r(i)\) is the interest rate in state i.
+                </li>
+                <li><strong>Default Intensity:</strong> The default intensity in state i is \(-q_{ii}\).</li>
+                <li><strong>Survival Probability:</strong> Probability of no default by time t:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(\tau > t) = \sum_i \pi_i(0) \sum_j P_{ij}(t)
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a credit rating model with three states: Investment Grade (IG), Speculative Grade (SG), and Default (D). The transition rate matrix is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} 
+              -0.1 & 0.08 & 0.02 \\
+              0.05 & -0.15 & 0.10 \\
+              0 & 0 & 0
+              \end{pmatrix}
+            \]</div>
+            <p>
+                This means:
+                <ul>
+                    <li>IG companies transition to SG at rate 0.08, default at rate 0.02</li>
+                    <li>SG companies improve to IG at rate 0.05, default at rate 0.10</li>
+                    <li>Default is an absorbing state (no transitions out)</li>
+                </ul>
+            </p>
+            <p>
+                The survival probability for an IG company over time t is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P(\text{survive}) = P_{IG,IG}(t) + P_{IG,SG}(t)
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the advantage of using CTMCs for credit risk modeling?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    CTMCs allow for continuous monitoring of credit quality changes, capture the time-varying nature of default risk, and provide a natural framework for modeling rating transitions and default events.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>In a regime-switching model, how does the volatility change when the market regime changes?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The volatility \(\sigma(X_t)\) is a function of the current regime state. When the regime changes, the volatility immediately jumps to the new level associated with that regime.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the relationship between the transition rate matrix and default intensity?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The default intensity in state i is \(-q_{ii}\), which represents the rate at which the process leaves state i (including transitions to default). The total exit rate from state i is \(-q_{ii}\).
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

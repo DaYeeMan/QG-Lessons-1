@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kolmogorov Forward Equations | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Kolmogorov Forward Equations</strong> are a system of differential equations that describe how the transition probabilities of a continuous-time Markov chain evolve over time. They provide a fundamental way to compute \(P_{ij}(t)\) - the probability of being in state j at time t given that the process started in state i at time 0.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Forward Equations:</strong> For all states i, j and times t ≥ 0:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \frac{d}{dt}P_{ij}(t) = \sum_k P_{ik}(t)q_{kj}
+                \]</div>
+                </li>
+                <li><strong>Matrix Form:</strong> In matrix notation:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \frac{d}{dt}P(t) = P(t)Q
+                \]</div>
+                </li>
+                <li><strong>Initial Condition:</strong> \(P(0) = I\) (identity matrix)</li>
+                <li><strong>Solution:</strong> The solution is given by the matrix exponential:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(t) = e^{Qt}
+                \]</div>
+                </li>
+                <li><strong>Interpretation:</strong> The forward equations describe the rate of change of transition probabilities by considering all possible paths from state i to state j.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a two-state CTMC with transition rate matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} -2 & 2 \\ 1 & -1 \end{pmatrix}
+            \]</div>
+            <p>
+                The Kolmogorov forward equations are:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \frac{d}{dt}P_{00}(t) &= P_{00}(t)(-2) + P_{01}(t)(1) \\
+              \frac{d}{dt}P_{01}(t) &= P_{00}(t)(2) + P_{01}(t)(-1) \\
+              \frac{d}{dt}P_{10}(t) &= P_{10}(t)(-2) + P_{11}(t)(1) \\
+              \frac{d}{dt}P_{11}(t) &= P_{10}(t)(2) + P_{11}(t)(-1)
+              \end{align}
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the physical interpretation of the Kolmogorov forward equations?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The forward equations describe how the probability of being in state j at time t changes over time, considering all possible paths that could lead to state j from any other state k.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Write the forward equation for \(P_{12}(t)\) in a three-state CTMC with transition rate matrix Q.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( \frac{d}{dt}P_{12}(t) = P_{10}(t)q_{02} + P_{11}(t)q_{12} + P_{12}(t)q_{22} \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the relationship between the forward equations and the matrix exponential solution?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The matrix exponential \(P(t) = e^{Qt}\) is the formal solution to the forward equations \(\frac{d}{dt}P(t) = P(t)Q\) with initial condition \(P(0) = I\).
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forward-Backward Algorithm | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Forward-Backward Algorithm</strong> is a dynamic programming algorithm that efficiently computes the probability of being in a particular hidden state at a given time, given the entire observation sequence. It is fundamental to HMM inference and parameter estimation.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Forward Algorithm:</strong> Computes \(\alpha_t(i) = P(o_1, o_2, ..., o_t, q_t = s_i|\lambda)\):
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \alpha_t(i) = \sum_{j=1}^N \alpha_{t-1}(j) a_{ji} b_i(o_t)
+                \]</div>
+                with initialization: \(\alpha_1(i) = \pi_i b_i(o_1)\)
+                </li>
+                <li><strong>Backward Algorithm:</strong> Computes \(\beta_t(i) = P(o_{t+1}, o_{t+2}, ..., o_T|q_t = s_i, \lambda)\):
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \beta_t(i) = \sum_{j=1}^N a_{ij} b_j(o_{t+1}) \beta_{t+1}(j)
+                \]</div>
+                with initialization: \(\beta_T(i) = 1\)
+                </li>
+                <li><strong>State Probability:</strong> Probability of being in state i at time t:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \gamma_t(i) = \frac{\alpha_t(i) \beta_t(i)}{P(O|\lambda)}
+                \]</div>
+                </li>
+                <li><strong>Transition Probability:</strong> Probability of transition from i to j at time t:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \xi_t(i,j) = \frac{\alpha_t(i) a_{ij} b_j(o_{t+1}) \beta_{t+1}(j)}{P(O|\lambda)}
+                \]</div>
+                </li>
+                <li><strong>Likelihood:</strong> \(P(O|\lambda) = \sum_{i=1}^N \alpha_T(i)\)
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider an HMM with two states and observation sequence [A, B, A]. Let:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A = \begin{pmatrix} 0.7 & 0.3 \\ 0.4 & 0.6 \end{pmatrix}, \quad
+              B = \begin{pmatrix} 0.8 & 0.2 \\ 0.3 & 0.7 \end{pmatrix}, \quad
+              \pi = [0.6, 0.4]
+            \]</div>
+            <p>
+                Forward computation for t=1:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \alpha_1(1) &= \pi_1 b_1(A) = 0.6 \cdot 0.8 = 0.48 \\
+              \alpha_1(2) &= \pi_2 b_2(A) = 0.4 \cdot 0.3 = 0.12
+              \end{align}
+            \]</div>
+            <p>
+                Forward computation for t=2:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \alpha_2(1) &= \alpha_1(1) a_{11} b_1(B) + \alpha_1(2) a_{21} b_1(B) \\
+              &= 0.48 \cdot 0.7 \cdot 0.2 + 0.12 \cdot 0.4 \cdot 0.2 = 0.0672 + 0.0096 = 0.0768
+              \end{align}
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the computational complexity of the forward-backward algorithm?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    \(O(N^2T)\) where N is the number of states and T is the length of the observation sequence. This is much more efficient than the naive approach of \(O(N^T)\).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the relationship between \(\gamma_t(i)\) and \(\xi_t(i,j)\)?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \(\gamma_t(i) = \sum_{j=1}^N \xi_t(i,j)\), which means the probability of being in state i at time t is the sum of probabilities of all possible transitions from state i at time t.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why is the forward-backward algorithm important for HMM parameter estimation?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The algorithm provides the necessary quantities (\(\gamma_t(i)\) and \(\xi_t(i,j)\)) for the E-step of the EM algorithm, which is used to estimate HMM parameters from observation sequences.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HMM Risk Management | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Hidden Markov Models</strong> provide powerful tools for risk management by identifying latent risk regimes and enabling regime-dependent risk measures. They can improve Value at Risk (VaR) estimates, stress testing, and portfolio risk assessment by accounting for the dynamic nature of market risk.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Regime-Dependent VaR:</strong> Value at Risk conditional on regime:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \text{VaR}_\alpha^{(i)} = \mu_i + \sigma_i \Phi^{-1}(\alpha)
+                \]</div>
+                where \(\Phi^{-1}(\alpha)\) is the inverse normal CDF.
+                </li>
+                <li><strong>Unconditional VaR:</strong> Weighted average across regimes:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \text{VaR}_\alpha = \sum_{i=1}^N \gamma_t(i) \text{VaR}_\alpha^{(i)}
+                \]</div>
+                </li>
+                <li><strong>Regime Transition Risk:</strong> Probability of transitioning to high-risk regime:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(s_{t+1} = \text{high-risk}|s_t = i) = \sum_{j \in \text{high-risk}} a_{ij}
+                \]</div>
+                </li>
+                <li><strong>Expected Shortfall:</strong> Conditional expected loss in regime i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \text{ES}_\alpha^{(i)} = \mu_i + \sigma_i \frac{\phi(\Phi^{-1}(\alpha))}{\alpha}
+                \]</div>
+                </li>
+                <li><strong>Regime Persistence:</strong> Expected duration in current regime:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  E[d_i] = \frac{1}{1-a_{ii}}
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a 2-regime HMM for portfolio returns with parameters:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \mu_1 &= 0.001, \quad \sigma_1 = 0.015 \quad \text{(Low Risk)} \\
+              \mu_2 &= -0.002, \quad \sigma_2 = 0.035 \quad \text{(High Risk)}
+              \end{align}
+            \]</div>
+            <p>
+                Transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A = \begin{pmatrix} 0.95 & 0.05 \\ 0.10 & 0.90 \end{pmatrix}
+            \]</div>
+            <p>
+                For 95% VaR and current regime probabilities \(\gamma_t = [0.8, 0.2]\):
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \text{VaR}_{0.05}^{(1)} &= 0.001 + 0.015 \cdot (-1.645) = -0.0237 \\
+              \text{VaR}_{0.05}^{(2)} &= -0.002 + 0.035 \cdot (-1.645) = -0.0596 \\
+              \text{VaR}_{0.05} &= 0.8 \cdot (-0.0237) + 0.2 \cdot (-0.0596) = -0.0309
+              \end{align}
+            \]</div>
+            <p>
+                Expected duration in low-risk regime: \(1/(1-0.95) = 20\) periods
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>How do regime-switching models improve VaR estimates?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Regime-switching models account for the fact that risk varies across different market conditions. They provide more accurate VaR estimates by weighting regime-specific VaRs according to current regime probabilities, rather than assuming constant risk.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the advantage of using regime persistence in risk management?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    Regime persistence helps predict how long current risk conditions are likely to persist, allowing for better risk planning and capital allocation. High persistence in risk regimes means current conditions are likely to continue.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How can HMMs be used for stress testing?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    HMMs can simulate regime transitions to high-risk states and calculate portfolio losses under these scenarios. They can also identify the probability of transitioning to extreme risk regimes and assess portfolio resilience to such transitions.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

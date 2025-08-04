@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kolmogorov Backward Equations | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Kolmogorov Backward Equations</strong> are an alternative system of differential equations that also describe the evolution of transition probabilities in continuous-time Markov chains. While the forward equations focus on the final state, the backward equations focus on the initial state and are often more useful for certain types of problems.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Backward Equations:</strong> For all states i, j and times t ≥ 0:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \frac{d}{dt}P_{ij}(t) = \sum_k q_{ik}P_{kj}(t)
+                \]</div>
+                </li>
+                <li><strong>Matrix Form:</strong> In matrix notation:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \frac{d}{dt}P(t) = QP(t)
+                \]</div>
+                </li>
+                <li><strong>Initial Condition:</strong> \(P(0) = I\) (identity matrix)</li>
+                <li><strong>Solution:</strong> The solution is the same matrix exponential:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(t) = e^{Qt}
+                \]</div>
+                </li>
+                <li><strong>Interpretation:</strong> The backward equations consider the first transition from the initial state and then use the Markov property.</li>
+                <li><strong>Equivalence:</strong> Both forward and backward equations give the same solution \(P(t) = e^{Qt}\).</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                For the same two-state CTMC with transition rate matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} -2 & 2 \\ 1 & -1 \end{pmatrix}
+            \]</div>
+            <p>
+                The Kolmogorov backward equations are:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \frac{d}{dt}P_{00}(t) &= (-2)P_{00}(t) + 2P_{10}(t) \\
+              \frac{d}{dt}P_{01}(t) &= (-2)P_{01}(t) + 2P_{11}(t) \\
+              \frac{d}{dt}P_{10}(t) &= 1 \cdot P_{00}(t) + (-1)P_{10}(t) \\
+              \frac{d}{dt}P_{11}(t) &= 1 \cdot P_{01}(t) + (-1)P_{11}(t)
+              \end{align}
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the key difference between forward and backward equations?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Forward equations: \(\frac{d}{dt}P_{ij}(t) = \sum_k P_{ik}(t)q_{kj}\) (focus on final state j)<br>
+                    Backward equations: \(\frac{d}{dt}P_{ij}(t) = \sum_k q_{ik}P_{kj}(t)\) (focus on initial state i)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Write the backward equation for \(P_{12}(t)\) in a three-state CTMC.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( \frac{d}{dt}P_{12}(t) = q_{10}P_{02}(t) + q_{11}P_{12}(t) + q_{12}P_{22}(t) \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>When might you prefer to use backward equations over forward equations?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Backward equations are often preferred when you know the final state and want to work backwards, or when analyzing hitting times and absorption probabilities.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

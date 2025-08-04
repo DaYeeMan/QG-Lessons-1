@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EM Algorithm for HMMs | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Expectation-Maximization (EM) Algorithm</strong> for Hidden Markov Models is an iterative method for estimating the model parameters (A, B, π) from observation sequences. It alternates between computing expected values of hidden variables (E-step) and maximizing the likelihood with respect to parameters (M-step).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>E-Step:</strong> Compute expected counts using forward-backward algorithm:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \gamma_t(i) = P(q_t = s_i|O, \lambda)
+                \]</div>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \xi_t(i,j) = P(q_t = s_i, q_{t+1} = s_j|O, \lambda)
+                \]</div>
+                </li>
+                <li><strong>M-Step:</strong> Update parameters using expected counts:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \pi_i = \gamma_1(i)
+                \]</div>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  a_{ij} = \frac{\sum_{t=1}^{T-1} \xi_t(i,j)}{\sum_{t=1}^{T-1} \gamma_t(i)}
+                \]</div>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  b_j(k) = \frac{\sum_{t:o_t=v_k} \gamma_t(j)}{\sum_{t=1}^T \gamma_t(j)}
+                \]</div>
+                </li>
+                <li><strong>Convergence:</strong> Algorithm converges to a local maximum of the likelihood function.</li>
+                <li><strong>Initialization:</strong> Parameters can be initialized randomly or using domain knowledge.</li>
+                <li><strong>Multiple Sequences:</strong> For K observation sequences:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  a_{ij} = \frac{\sum_{k=1}^K \sum_{t=1}^{T_k-1} \xi_t^k(i,j)}{\sum_{k=1}^K \sum_{t=1}^{T_k-1} \gamma_t^k(i)}
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider estimating parameters for a 2-state HMM from observation sequence [A, B, A]. Starting with initial parameters:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A^{(0)} = \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix}, \quad
+              B^{(0)} = \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix}, \quad
+              \pi^{(0)} = [0.5, 0.5]
+            \]</div>
+            <p>
+                E-Step: Compute \(\gamma_t(i)\) and \(\xi_t(i,j)\) using forward-backward algorithm.
+            </p>
+            <p>
+                M-Step: Update parameters. For example:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              a_{11} = \frac{\xi_1(1,1) + \xi_2(1,1)}{\gamma_1(1) + \gamma_2(1)}
+            \]</div>
+            <p>
+                Iterate until convergence (likelihood stops improving significantly).
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Why is the EM algorithm necessary for HMM parameter estimation?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The likelihood function involves summing over all possible hidden state sequences, which is computationally intractable. The EM algorithm provides an efficient iterative approach to find local maxima of the likelihood.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the role of the forward-backward algorithm in the EM algorithm?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The forward-backward algorithm computes the expected counts (\(\gamma_t(i)\) and \(\xi_t(i,j)\)) needed for the E-step of the EM algorithm. These quantities are used to update the model parameters in the M-step.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What are the limitations of the EM algorithm for HMMs?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The algorithm converges to local maxima, not necessarily global maxima. The solution depends on initialization, and the algorithm may get stuck in poor local optima. Multiple random initializations are often used.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

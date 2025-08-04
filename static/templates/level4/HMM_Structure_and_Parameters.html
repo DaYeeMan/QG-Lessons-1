@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HMM Structure & Parameters | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>structure and parameters</strong> of a Hidden Markov Model define its behavior and determine how well it can model the underlying process. Understanding these components is crucial for model design, parameter estimation, and interpretation of results.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Model Components:</strong>
+                <ul>
+                    <li>\(\lambda = (A, B, \pi)\): Complete HMM parameter set</li>
+                    <li>\(N\): Number of hidden states</li>
+                    <li>\(M\): Number of observable symbols</li>
+                    <li>\(T\): Length of observation sequence</li>
+                </ul>
+                </li>
+                <li><strong>Parameter Constraints:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \sum_{j=1}^N a_{ij} = 1, \quad \sum_{k=1}^M b_j(k) = 1, \quad \sum_{i=1}^N \pi_i = 1
+                \]</div>
+                </li>
+                <li><strong>State Duration Distribution:</strong> For state i:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(d_i = d) = a_{ii}^{d-1}(1-a_{ii})
+                \]</div>
+                </li>
+                <li><strong>Model Complexity:</strong> Total number of parameters:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  N^2 + NM + N - 2N = N^2 + NM - N
+                \]</div>
+                </li>
+                <li><strong>Likelihood Function:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(O|\lambda) = \sum_Q P(O, Q|\lambda)
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider an HMM for market regime detection with three states (Bull, Bear, Sideways) and observations (High Return, Low Return, Negative Return).
+            </p>
+            <p>
+                Model parameters:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A = \begin{pmatrix} 0.8 & 0.1 & 0.1 \\ 0.1 & 0.7 & 0.2 \\ 0.2 & 0.1 & 0.7 \end{pmatrix}
+            \]</div>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              B = \begin{pmatrix} 0.6 & 0.3 & 0.1 \\ 0.1 & 0.3 & 0.6 \\ 0.3 & 0.5 & 0.2 \end{pmatrix}
+            \]</div>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \pi = [0.4, 0.3, 0.3]
+            \]</div>
+            <p>
+                Parameter count: \(3^2 + 3 \cdot 3 - 3 = 9 + 9 - 3 = 15\) parameters
+            </p>
+            <p>
+                Expected duration in Bull market: \(1/(1-0.8) = 5\) periods
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>How many parameters does an HMM with 4 states and 5 observations have?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    \(N^2 + NM - N = 4^2 + 4 \cdot 5 - 4 = 16 + 20 - 4 = 32\) parameters
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the expected duration of state i in an HMM?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \(E[d_i] = \frac{1}{1-a_{ii}}\), which is the expected value of a geometric distribution with parameter \(1-a_{ii}\).
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why are parameter constraints important in HMMs?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The constraints ensure that the matrices A and B represent valid probability distributions, and that the model is well-defined. Without these constraints, the model would not be a proper probability model.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>M/M/1 Queueing Systems | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>M/M/1 queue</strong> is one of the most fundamental queueing models, representing a single-server queue with Poisson arrivals and exponential service times. The notation M/M/1 means: Markovian arrivals (Poisson), Markovian service times (exponential), and 1 server.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Model Assumptions:</strong>
+                <ul>
+                    <li>Arrivals follow a Poisson process with rate λ</li>
+                    <li>Service times are exponentially distributed with rate μ</li>
+                    <li>Single server with infinite waiting room</li>
+                    <li>First-come-first-served (FCFS) discipline</li>
+                </ul>
+                </li>
+                <li><strong>Traffic Intensity:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \rho = \frac{\lambda}{\mu}
+                \]</div>
+                </li>
+                <li><strong>Stability Condition:</strong> \(\rho < 1\) (arrival rate must be less than service rate)</li>
+                <li><strong>Stationary Distribution:</strong> For \(n \geq 0\):
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \pi_n = (1-\rho)\rho^n
+                \]</div>
+                </li>
+                <li><strong>Performance Measures:</strong>
+                <ul>
+                    <li>Expected number in system: \(L = \frac{\rho}{1-\rho}\)</li>
+                    <li>Expected number in queue: \(L_q = \frac{\rho^2}{1-\rho}\)</li>
+                    <li>Expected waiting time: \(W = \frac{1}{\mu-\lambda}\)</li>
+                    <li>Expected queue time: \(W_q = \frac{\rho}{\mu-\lambda}\)</li>
+                </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider an M/M/1 queue with arrival rate λ = 4 customers per hour and service rate μ = 5 customers per hour.
+            </p>
+            <p>
+                Traffic intensity: \(\rho = \frac{4}{5} = 0.8\)
+            </p>
+            <p>
+                Performance measures:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              L &= \frac{0.8}{1-0.8} = 4 \text{ customers} \\
+              L_q &= \frac{0.8^2}{1-0.8} = 3.2 \text{ customers} \\
+              W &= \frac{1}{5-4} = 1 \text{ hour} \\
+              W_q &= \frac{0.8}{5-4} = 0.8 \text{ hours}
+              \end{align}
+            \]</div>
+            <p>
+                Probability of n customers in system: \(P(n) = 0.2 \cdot 0.8^n\)
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What happens to the queue length as the traffic intensity approaches 1?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    As \(\rho \to 1\), the expected queue length \(L = \frac{\rho}{1-\rho} \to \infty\). The system becomes unstable and queues grow without bound.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>For an M/M/1 queue with λ = 6 and μ = 8, find the probability of having exactly 2 customers in the system.</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \(\rho = \frac{6}{8} = 0.75\), so \(P(2) = (1-0.75)(0.75)^2 = 0.25 \cdot 0.5625 = 0.1406\)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the relationship between L, L_q, and the probability that the server is busy?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    \(L = L_q + \rho\), where \(\rho\) is the probability the server is busy. This follows from \(L_q\) being the number waiting and \(\rho\) being the probability of 1 customer being served.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

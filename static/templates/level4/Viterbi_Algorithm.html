@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Viterbi Algorithm | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Viterbi Algorithm</strong> is a dynamic programming algorithm that finds the most likely sequence of hidden states given an observation sequence. It solves the decoding problem in HMMs and is widely used in applications such as speech recognition, bioinformatics, and financial time series analysis.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Objective:</strong> Find \(Q^* = \arg\max_Q P(Q|O, \lambda)\)
+                </li>
+                <li><strong>Viterbi Variables:</strong> \(\delta_t(i) = \max_{q_1,...,q_{t-1}} P(q_1,...,q_{t-1}, q_t = i, o_1,...,o_t|\lambda)\)
+                </li>
+                <li><strong>Recursion:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \delta_t(i) = \max_j [\delta_{t-1}(j) a_{ji}] b_i(o_t)
+                \]</div>
+                </li>
+                <li><strong>Backpointer:</strong> \(\psi_t(i) = \arg\max_j [\delta_{t-1}(j) a_{ji}]\)
+                </li>
+                <li><strong>Initialization:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \delta_1(i) = \pi_i b_i(o_1), \quad \psi_1(i) = 0
+                \]</div>
+                </li>
+                <li><strong>Termination:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P^* = \max_i \delta_T(i), \quad q_T^* = \arg\max_i \delta_T(i)
+                \]</div>
+                </li>
+                <li><strong>Backtracking:</strong> \(q_t^* = \psi_{t+1}(q_{t+1}^*)\)
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider an HMM with two states and observation sequence [A, B, A]. Let:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A = \begin{pmatrix} 0.7 & 0.3 \\ 0.4 & 0.6 \end{pmatrix}, \quad
+              B = \begin{pmatrix} 0.8 & 0.2 \\ 0.3 & 0.7 \end{pmatrix}, \quad
+              \pi = [0.6, 0.4]
+            \]</div>
+            <p>
+                Initialization (t=1):
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \delta_1(1) &= \pi_1 b_1(A) = 0.6 \cdot 0.8 = 0.48 \\
+              \delta_1(2) &= \pi_2 b_2(A) = 0.4 \cdot 0.3 = 0.12
+              \end{align}
+            \]</div>
+            <p>
+                Recursion (t=2):
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \delta_2(1) &= \max[\delta_1(1) a_{11}, \delta_1(2) a_{21}] b_1(B) \\
+              &= \max[0.48 \cdot 0.7, 0.12 \cdot 0.4] \cdot 0.2 = 0.336 \cdot 0.2 = 0.0672
+              \end{align}
+            \]</div>
+            <p>
+                The most likely state sequence is found by backtracking from the maximum probability at the final time step.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the computational complexity of the Viterbi algorithm?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    \(O(N^2T)\) where N is the number of states and T is the length of the observation sequence. This is the same complexity as the forward algorithm.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the difference between the Viterbi algorithm and the forward algorithm?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The forward algorithm computes the sum of probabilities over all possible state sequences, while the Viterbi algorithm finds the single most likely state sequence by taking the maximum instead of the sum.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why is backtracking necessary in the Viterbi algorithm?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The Viterbi variables only give the maximum probability up to each time step, but don't tell us which previous state led to that maximum. Backtracking using the backpointer array reconstructs the optimal state sequence.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

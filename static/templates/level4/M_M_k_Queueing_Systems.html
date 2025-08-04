@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>M/M/k Queueing Systems | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>M/M/k queue</strong> extends the M/M/1 model to k identical servers. Customers arrive according to a Poisson process and are served by any available server with exponentially distributed service times. This model is widely used to analyze call centers, bank tellers, and other multi-server systems.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Model Assumptions:</strong>
+                <ul>
+                    <li>Poisson arrivals with rate λ</li>
+                    <li>Exponential service times with rate μ per server</li>
+                    <li>k identical servers</li>
+                    <li>Infinite waiting room</li>
+                    <li>FCFS discipline</li>
+                </ul>
+                </li>
+                <li><strong>Traffic Intensity:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \rho = \frac{\lambda}{k\mu}
+                \]</div>
+                </li>
+                <li><strong>Stability Condition:</strong> \(\rho < 1\)</li>
+                <li><strong>Stationary Distribution:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \pi_n = \begin{cases}
+                  \frac{(\lambda/\mu)^n}{n!}\pi_0 & \text{for } 0 \leq n \leq k \\
+                  \frac{(\lambda/\mu)^n}{k!k^{n-k}}\pi_0 & \text{for } n > k
+                  \end{cases}
+                \]</div>
+                </li>
+                <li><strong>Probability of Waiting:</strong> (Erlang C formula)
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  C(k,\lambda/\mu) = \frac{(\lambda/\mu)^k}{k!(1-\rho)} \cdot \frac{1}{\sum_{i=0}^{k-1} \frac{(\lambda/\mu)^i}{i!} + \frac{(\lambda/\mu)^k}{k!(1-\rho)}}
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider an M/M/2 queue with λ = 6 customers/hour and μ = 4 customers/hour per server.
+            </p>
+            <p>
+                Traffic intensity: \(\rho = \frac{6}{2 \cdot 4} = 0.75\)
+            </p>
+            <p>
+                For n = 0: \(\pi_0 = \frac{1}{1 + \frac{6}{4} + \frac{(6/4)^2}{2!(1-0.75)}} = \frac{1}{1 + 1.5 + 4.5} = 0.143\)
+            </p>
+            <p>
+                For n = 1: \(\pi_1 = \frac{6/4}{1} \cdot 0.143 = 0.214\)
+            </p>
+            <p>
+                For n = 2: \(\pi_2 = \frac{(6/4)^2}{2} \cdot 0.143 = 0.161\)
+            </p>
+            <p>
+                For n > 2: \(\pi_n = \frac{(6/4)^n}{2 \cdot 2^{n-2}} \cdot 0.143 = 0.143 \cdot 0.75^n\)
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the key difference between M/M/1 and M/M/k queues?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    M/M/1 has a single server, while M/M/k has k identical servers. This affects the service rate (kμ vs μ) and the probability distribution of the number of customers in the system.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>For an M/M/3 queue with λ = 9 and μ = 4, what is the traffic intensity?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \(\rho = \frac{\lambda}{k\mu} = \frac{9}{3 \cdot 4} = \frac{9}{12} = 0.75\)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the Erlang C formula used for?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The Erlang C formula gives the probability that an arriving customer must wait (all servers are busy), which is crucial for capacity planning and service level analysis.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

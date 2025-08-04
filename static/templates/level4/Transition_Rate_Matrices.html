@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transition Rate Matrices | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                The <strong>Transition Rate Matrix</strong> (also called the infinitesimal generator matrix) is the fundamental mathematical object that characterizes a continuous-time Markov chain. It contains the rates at which the process transitions between states and determines all the probabilistic behavior of the CTMC.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Definition:</strong> For a CTMC with state space S, the transition rate matrix Q is defined by:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  q_{ij} = \lim_{h \to 0} \frac{P(X(h) = j | X(0) = i)}{h}, \quad i \neq j
+                \]</div>
+                </li>
+                <li><strong>Diagonal Elements:</strong> The diagonal elements satisfy:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  q_{ii} = -\sum_{j \neq i} q_{ij}
+                \]</div>
+                </li>
+                <li><strong>Properties:</strong>
+                <ul>
+                    <li>\(q_{ij} \geq 0\) for \(i \neq j\)</li>
+                    <li>\(q_{ii} \leq 0\)</li>
+                    <li>\(\sum_{j} q_{ij} = 0\) for all i</li>
+                </ul>
+                </li>
+                <li><strong>Sojourn Time:</strong> Time spent in state i is exponential with rate \(-q_{ii}\).</li>
+                <li><strong>Transition Probabilities:</strong> The probability of transitioning from i to j (given a transition occurs) is:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \frac{q_{ij}}{-q_{ii}}
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a CTMC with three states representing a machine that can be working (0), under repair (1), or failed (2). The transition rate matrix is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} -0.1 & 0.08 & 0.02 \\ 0.5 & -0.5 & 0 \\ 0.2 & 0 & -0.2 \end{pmatrix}
+            \]</div>
+            <p>
+                Interpretation:
+                <ul>
+                    <li>From working state: breakdown at rate 0.1 (0.08 to repair, 0.02 to failed)</li>
+                    <li>From repair state: fixed at rate 0.5</li>
+                    <li>From failed state: recovery at rate 0.2</li>
+                </ul>
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>For the matrix Q above, what is the expected time the machine spends in the working state before transitioning?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The sojourn time in state 0 is exponential with rate \(-q_{00} = 0.1\), so the expected time is \(1/0.1 = 10\) time units.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>Given a transition occurs from state 0, what is the probability it goes to state 1?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( \frac{q_{01}}{-q_{00}} = \frac{0.08}{0.1} = 0.8 \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Verify that the sum of each row in Q equals zero.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Row 0: \(-0.1 + 0.08 + 0.02 = 0\)<br>
+                    Row 1: \(0.5 - 0.5 + 0 = 0\)<br>
+                    Row 2: \(0.2 + 0 - 0.2 = 0\)
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

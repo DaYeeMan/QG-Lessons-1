@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trading Execution Models | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Trading Execution Models</strong> using continuous-time Markov chains provide a framework for modeling market microstructure, order book dynamics, and optimal trading strategies. These models help traders understand market impact, liquidity, and the optimal timing and size of trades.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Market State Model:</strong> The market can be in different states (normal, stressed, liquid, illiquid):
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  X_t \in \{1, 2, ..., N\}
+                \]</div>
+                where each state represents different market conditions.
+                </li>
+                <li><strong>Order Arrival Process:</strong> Order arrivals follow a Poisson process with state-dependent rates:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \lambda_i = \text{order arrival rate in state } i
+                \]</div>
+                </li>
+                <li><strong>Market Impact:</strong> Price impact depends on order size and market state:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \Delta P = f(S, X_t)
+                \]</div>
+                where S is the order size.
+                </li>
+                <li><strong>Execution Cost:</strong> Total cost of executing a trade:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  C = \sum_{i=1}^n S_i P_i + \sum_{i=1}^n \text{Impact}_i(S_i, X_{t_i})
+                \]</div>
+                </li>
+                <li><strong>Optimal Execution:</strong> Minimize expected execution cost subject to constraints:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \min_{S_1,...,S_n} E[C] \text{ subject to } \sum_{i=1}^n S_i = Q
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a market with three states: Normal (N), Stressed (S), and Liquid (L). The transition rate matrix is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} 
+              -0.2 & 0.15 & 0.05 \\
+              0.1 & -0.3 & 0.2 \\
+              0.05 & 0.1 & -0.15
+              \end{pmatrix}
+            \]</div>
+            <p>
+                Market impact functions:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \text{Impact}_N(S) &= 0.1S \\
+              \text{Impact}_S(S) &= 0.3S \\
+              \text{Impact}_L(S) &= 0.05S
+              \end{align}
+            \]</div>
+            <p>
+                To execute 1000 shares optimally, we need to consider the current market state and expected transitions to minimize total impact.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>Why is market state modeling important for trading execution?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Different market states have different liquidity, volatility, and market impact characteristics. Optimal execution strategies depend on the current and expected future market conditions.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>How does the transition rate matrix affect optimal trading decisions?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The transition rates determine the probability of market state changes, which affects expected future market impact. Higher transition rates may encourage faster execution to avoid unfavorable state changes.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>What is the trade-off between execution speed and market impact?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Faster execution (larger orders) typically has higher market impact but reduces exposure to market state changes. Slower execution (smaller orders) has lower impact but longer exposure to market risk.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

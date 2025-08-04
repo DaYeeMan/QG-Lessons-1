@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Embedded Markov Chains | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                An <strong>Embedded Markov Chain</strong> is a discrete-time Markov chain obtained from a continuous-time Markov chain by observing the process only at the times when state transitions occur. It captures the sequence of states visited by the CTMC, ignoring the time spent in each state.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Definition:</strong> Let \(\{X(t), t \geq 0\}\) be a CTMC with transition rate matrix Q. The embedded chain \(\{Y_n, n \geq 0\}\) is defined by:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  Y_n = X(T_n)
+                \]</div>
+                where \(T_n\) is the time of the nth transition.
+                </li>
+                <li><strong>Transition Probabilities:</strong> For the embedded chain:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P_{ij} = \frac{q_{ij}}{-q_{ii}}, \quad i \neq j
+                \]</div>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P_{ii} = 0
+                \]</div>
+                </li>
+                <li><strong>Properties:</strong>
+                <ul>
+                    <li>The embedded chain is irreducible if and only if the CTMC is irreducible</li>
+                    <li>Recurrence/transience properties are preserved</li>
+                    <li>Stationary distributions are related but not identical</li>
+                </ul>
+                </li>
+                <li><strong>Sojourn Times:</strong> The time spent in state i before transitioning is exponential with rate \(-q_{ii}\), independent of the next state.</li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a CTMC with transition rate matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} -3 & 2 & 1 \\ 1 & -2 & 1 \\ 2 & 1 & -3 \end{pmatrix}
+            \]</div>
+            <p>
+                The transition probability matrix for the embedded chain is:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              P = \begin{pmatrix} 0 & \frac{2}{3} & \frac{1}{3} \\ \frac{1}{2} & 0 & \frac{1}{2} \\ \frac{2}{3} & \frac{1}{3} & 0 \end{pmatrix}
+            \]</div>
+            <p>
+                Note that all diagonal elements are zero since the embedded chain only records state changes.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What information is lost when we consider the embedded chain instead of the full CTMC?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    The embedded chain loses all timing information - we no longer know how long the process spends in each state, only the sequence of states visited.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>For a CTMC with \(q_{12} = 2\) and \(q_{11} = -5\), what is the transition probability from state 1 to state 2 in the embedded chain?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( P_{12} = \frac{q_{12}}{-q_{11}} = \frac{2}{5} = 0.4 \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why are all diagonal elements of the embedded chain transition matrix zero?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    The embedded chain only records state changes, so it never "stays" in the same state. Each transition must be to a different state.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Continuous-Time Markov Chains | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Continuous-Time Markov Chains (CTMCs)</strong> are stochastic processes that evolve continuously in time, where the future state depends only on the current state (Markov property). Unlike discrete-time Markov chains, CTMCs can change states at any time instant, not just at discrete time steps.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Markov Property:</strong> For any s, t ≥ 0 and states i, j, k:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(X(t+s) = j | X(s) = i, X(u) = k \text{ for } u < s) = P(X(t+s) = j | X(s) = i)
+                \]</div>
+                </li>
+                <li><strong>Transition Rate Matrix Q:</strong> The infinitesimal generator matrix where:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  q_{ij} = \lim_{h \to 0} \frac{P(X(h) = j | X(0) = i)}{h}, \quad i \neq j
+                \]</div>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  q_{ii} = -\sum_{j \neq i} q_{ij}
+                \]</div>
+                </li>
+                <li><strong>Sojourn Time:</strong> Time spent in state i before transitioning is exponentially distributed with rate \(-q_{ii}\).</li>
+                <li><strong>Transition Probabilities:</strong> Given by the matrix exponential:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(t) = e^{Qt}
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a CTMC with two states (0 and 1) and transition rate matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              Q = \begin{pmatrix} -2 & 2 \\ 1 & -1 \end{pmatrix}
+            \]</div>
+            <p>
+                This means:
+                <ul>
+                    <li>From state 0: transition to state 1 at rate 2</li>
+                    <li>From state 1: transition to state 0 at rate 1</li>
+                    <li>Sojourn time in state 0: exponential with mean 1/2</li>
+                    <li>Sojourn time in state 1: exponential with mean 1</li>
+                </ul>
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the difference between discrete-time and continuous-time Markov chains?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    Discrete-time Markov chains change states only at discrete time steps, while continuous-time Markov chains can change states at any time instant. CTMCs use transition rates instead of transition probabilities and have exponentially distributed sojourn times.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>For a CTMC with transition rate matrix Q, what is the probability of staying in state i for time t?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    \( P(\text{stay in state } i \text{ for time } t) = e^{q_{ii}t} = e^{-|q_{ii}|t} \)
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Write the transition rate matrix for a three-state CTMC where transitions occur at rates: 0→1: 2, 1→2: 3, 2→0: 1, 1→0: 1, 2→1: 2.</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    \( Q = \begin{pmatrix} -2 & 2 & 0 \\ 1 & -4 & 3 \\ 1 & 2 & -3 \end{pmatrix} \)
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

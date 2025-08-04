@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HMM Trading Applications | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Hidden Markov Models</strong> have become increasingly popular in quantitative trading for modeling market regimes, volatility clustering, and regime-dependent asset pricing. They provide a framework for capturing the latent states that drive market behavior and can improve trading strategies and risk management.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Market Regime Detection:</strong> Hidden states represent different market conditions:
+                <ul>
+                    <li>Bull market: High returns, low volatility</li>
+                    <li>Bear market: Negative returns, high volatility</li>
+                    <li>Sideways market: Low returns, moderate volatility</li>
+                </ul>
+                </li>
+                <li><strong>Regime-Dependent Returns:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  r_t|s_t \sim N(\mu_{s_t}, \sigma_{s_t}^2)
+                \]</div>
+                where \(s_t\) is the hidden regime state.
+                </li>
+                <li><strong>Regime Probability:</strong> Probability of being in regime i at time t:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(s_t = i|r_1, ..., r_t) = \gamma_t(i)
+                \]</div>
+                </li>
+                <li><strong>Regime-Switching Strategy:</strong> Adjust portfolio weights based on regime probabilities:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  w_t = \sum_{i=1}^N \gamma_t(i) w_i^*
+                \]</div>
+                where \(w_i^*\) is the optimal weight in regime i.
+                </li>
+                <li><strong>Volatility Forecasting:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \sigma_{t+1}^2 = \sum_{i=1}^N \gamma_t(i) \sigma_i^2
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a 3-regime HMM for S&P 500 returns with parameters:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A = \begin{pmatrix} 0.9 & 0.08 & 0.02 \\ 0.05 & 0.85 & 0.10 \\ 0.03 & 0.07 & 0.90 \end{pmatrix}
+            \]</div>
+            <p>
+                Regime-dependent parameters:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \mu_1 &= 0.001, \quad \sigma_1 = 0.01 \quad \text{(Bull)} \\
+              \mu_2 &= -0.002, \quad \sigma_2 = 0.025 \quad \text{(Bear)} \\
+              \mu_3 &= 0.0001, \quad \sigma_3 = 0.015 \quad \text{(Sideways)}
+              \end{align}
+            \]</div>
+            <p>
+                Given current regime probabilities \(\gamma_t = [0.7, 0.2, 0.1]\), the expected return and volatility are:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              E[r_{t+1}] &= 0.7 \cdot 0.001 + 0.2 \cdot (-0.002) + 0.1 \cdot 0.0001 = 0.00031 \\
+              \sigma_{t+1} &= \sqrt{0.7 \cdot 0.01^2 + 0.2 \cdot 0.025^2 + 0.1 \cdot 0.015^2} = 0.0137
+              \end{align}
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>How do HMMs improve upon traditional volatility models?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    HMMs capture regime-dependent volatility patterns and can model sudden changes in market conditions, unlike GARCH models that assume smooth volatility evolution. They also provide regime probabilities for better risk management.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the advantage of regime-switching strategies over static strategies?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    Regime-switching strategies adapt to changing market conditions, potentially reducing drawdowns during bear markets and capturing upside during bull markets, leading to better risk-adjusted returns.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How can HMMs be used for portfolio optimization?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    HMMs can be used to estimate regime-dependent expected returns and covariances, which can then be used in mean-variance optimization to construct regime-aware portfolios that adjust weights based on current market conditions.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

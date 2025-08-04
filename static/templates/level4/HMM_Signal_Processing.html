@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HMM Signal Processing | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Hidden Markov Models</strong> are widely used in signal processing for modeling time-varying signals, noise reduction, and pattern recognition. In financial applications, they can be used for filtering market noise, detecting structural breaks, and extracting meaningful patterns from high-frequency data.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Signal Model:</strong> Observable signal with hidden state-dependent parameters:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  y_t = \mu_{s_t} + \sigma_{s_t} \epsilon_t
+                \]</div>
+                where \(\epsilon_t \sim N(0,1)\) and \(s_t\) is the hidden state.
+                </li>
+                <li><strong>Kalman Filter Integration:</strong> Combining HMM with linear state-space model:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  x_t = F_{s_t} x_{t-1} + w_t, \quad y_t = H_{s_t} x_t + v_t
+                \]</div>
+                </li>
+                <li><strong>Signal Filtering:</strong> Optimal estimate of hidden signal:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \hat{x}_t = \sum_{i=1}^N \gamma_t(i) \hat{x}_t^{(i)}
+                \]</div>
+                where \(\hat{x}_t^{(i)}\) is the estimate conditional on regime i.
+                </li>
+                <li><strong>Change Point Detection:</strong> Probability of regime change:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(s_t \neq s_{t-1}|y_1,...,y_t) = \sum_{i \neq j} \xi_{t-1}(i,j)
+                \]</div>
+                </li>
+                <li><strong>Signal-to-Noise Ratio:</strong> Regime-dependent SNR:
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \text{SNR}_i = \frac{\mu_i^2}{\sigma_i^2}
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider filtering a noisy price signal with two regimes (trending and mean-reverting):
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \mu_1 &= 0.001, \quad \sigma_1 = 0.01 \quad \text{(Trending)} \\
+              \mu_2 &= 0, \quad \sigma_2 = 0.02 \quad \text{(Mean-reverting)}
+              \end{align}
+            \]</div>
+            <p>
+                Transition matrix:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A = \begin{pmatrix} 0.9 & 0.1 \\ 0.2 & 0.8 \end{pmatrix}
+            \]</div>
+            <p>
+                For observed signal \(y_t = 0.005\) and regime probabilities \(\gamma_t = [0.7, 0.3]\):
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              \begin{align}
+              \hat{x}_t^{(1)} &= 0.001 + \frac{0.01^2}{0.01^2 + 0.01^2}(0.005 - 0.001) = 0.003 \\
+              \hat{x}_t^{(2)} &= 0 + \frac{0.02^2}{0.02^2 + 0.01^2}(0.005 - 0) = 0.004 \\
+              \hat{x}_t &= 0.7 \cdot 0.003 + 0.3 \cdot 0.004 = 0.0033
+              \end{align}
+            \]</div>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>How do HMMs improve signal filtering compared to traditional methods?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    HMMs can adapt to changing signal characteristics by switching between different filtering regimes. They provide regime-dependent optimal estimates and can handle non-stationary signals better than fixed-parameter filters.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What is the advantage of combining HMMs with Kalman filters?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    The combination allows for regime-dependent state dynamics while maintaining the optimal filtering properties of Kalman filters. It can handle both discrete regime changes and continuous state evolution simultaneously.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>How can HMMs be used for detecting structural breaks in financial time series?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    HMMs can identify regime changes by monitoring the transition probabilities and regime probabilities. Sudden changes in these probabilities indicate potential structural breaks in the underlying data generating process.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

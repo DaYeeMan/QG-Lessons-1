@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hidden Markov Models | Level 4 Quant Lessons</title>
+    <link rel="stylesheet" href="/static/css/lesson_page.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      function toggleSolution(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".solution").forEach(el => el.style.display = "none");
+      });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <div class="blockcontent">
+        <div class="panel">
+            <h2>Introduction</h2>
+            <p>
+                A <strong>Hidden Markov Model (HMM)</strong> is a statistical model in which the system being modeled is assumed to be a Markov process with unobservable (hidden) states. The observable outputs are probabilistic functions of the hidden states. HMMs are widely used in speech recognition, bioinformatics, financial modeling, and many other applications.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Key Concepts & Formulas</h2>
+            <ul>
+                <li><strong>Model Structure:</strong> An HMM consists of:
+                <ul>
+                    <li>Hidden states: \(S = \{s_1, s_2, ..., s_N\}\)</li>
+                    <li>Observable symbols: \(V = \{v_1, v_2, ..., v_M\}\)</li>
+                    <li>State transition probabilities: \(A = \{a_{ij}\}\)</li>
+                    <li>Emission probabilities: \(B = \{b_j(k)\}\)</li>
+                    <li>Initial state probabilities: \(\pi = \{\pi_i\}\)</li>
+                </ul>
+                </li>
+                <li><strong>Transition Probabilities:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  a_{ij} = P(q_{t+1} = s_j | q_t = s_i)
+                \]</div>
+                </li>
+                <li><strong>Emission Probabilities:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  b_j(k) = P(o_t = v_k | q_t = s_j)
+                \]</div>
+                </li>
+                <li><strong>Initial Probabilities:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  \pi_i = P(q_1 = s_i)
+                \]</div>
+                </li>
+                <li><strong>Joint Probability:</strong>
+                <div style="text-align: center; font-size: 1.1em;">\[
+                  P(O, Q) = \pi_{q_1} \prod_{t=1}^{T-1} a_{q_t,q_{t+1}} \prod_{t=1}^T b_{q_t}(o_t)
+                \]</div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel">
+            <h2>Worked Example</h2>
+            <p>
+                Consider a simple HMM with two hidden states (Rainy, Sunny) and three observations (Walk, Shop, Clean). The model parameters are:
+            </p>
+            <p>
+                Transition matrix A:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              A = \begin{pmatrix} 0.7 & 0.3 \\ 0.4 & 0.6 \end{pmatrix}
+            \]</div>
+            <p>
+                Emission matrix B:
+            </p>
+            <div style="text-align: center; font-size: 1.1em;">\[
+              B = \begin{pmatrix} 0.1 & 0.4 & 0.5 \\ 0.6 & 0.3 & 0.1 \end{pmatrix}
+            \]</div>
+            <p>
+                Initial probabilities: \(\pi = [0.6, 0.4]\)
+            </p>
+            <p>
+                For observation sequence [Walk, Shop, Clean], we can compute the probability of different hidden state sequences using the forward algorithm.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Practice Problems</h2>
+            <h3>Problem 1</h3>
+            <p>What is the key difference between a regular Markov chain and a hidden Markov model?</p>
+            <button class="show-btn" onclick="toggleSolution('ex1')">Show Solution</button>
+            <div class="solution" id="ex1">
+                <p>
+                    In a regular Markov chain, the states are directly observable. In an HMM, the states are hidden and we only observe emissions that are probabilistic functions of the hidden states.
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 2</h3>
+            <p>What are the three main problems that HMMs solve?</p>
+            <button class="show-btn" onclick="toggleSolution('ex2')">Show Solution</button>
+            <div class="solution" id="ex2">
+                <p>
+                    1. Evaluation: Compute probability of observation sequence given model parameters<br>
+                    2. Decoding: Find most likely hidden state sequence given observations<br>
+                    3. Learning: Estimate model parameters from observation sequences
+                </p>
+            </div>
+            <br><br>
+            <h3>Problem 3</h3>
+            <p>Why are HMMs particularly useful for financial time series modeling?</p>
+            <button class="show-btn" onclick="toggleSolution('ex3')">Show Solution</button>
+            <div class="solution" id="ex3">
+                <p>
+                    Financial markets have underlying regimes (bull/bear markets, high/low volatility) that are not directly observable but can be inferred from observable price movements and trading patterns.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
